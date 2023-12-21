@@ -42,6 +42,13 @@ class AdminController extends Controller
         return view('admin.peminjaman', compact('pinjam'));
     }
 
+    public function showProfileAdmin()
+    {
+        $pinjam = Peminjaman::latest()->with('ruangan')->get();
+
+        return view('admin.profile', compact('pinjam'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

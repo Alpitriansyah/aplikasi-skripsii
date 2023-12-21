@@ -45,7 +45,7 @@
 
         <!-- Nav Item --Profile -->
         <li class="nav-item">
-            <a class="nav-link" href="{{route('ProfileAdmin')}}">
+            <a class="nav-link" href="{{route('AdminProfile')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Profile</span></a>
         </li>
