@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h1 class="">Ini Isi</h1>
+                    <h1 class="">Ini Isi profile</h1>
                 </div>
             </div>
         </div>
