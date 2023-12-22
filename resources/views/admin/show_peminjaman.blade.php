@@ -1,7 +1,5 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah Peminjaman')
-
 @section('main')
     <div class="row">
         <div class="col-12">
@@ -11,7 +9,7 @@
                 </div>
                 <div class="card-body">
                     @dump($errors->all())
-                    <form action="{{route('AdminCreatePeminjamanPost')}}" method="POST">
+                    <form action="">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -31,7 +29,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputState">Jurusan</label>
-                                <select id="inputState" class="form-control" name="jurusan">
+                                <select id="inputState" class="form-control" name="jurusan" disabled>
                                     <option value="Si" selected>Sistem Informasi</option>
                                     <option>Samarinda</option>
                                     <option>Samarinda</option>
@@ -40,7 +38,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Keperluan</label>
-                                <select id="inputState" class="form-control" name="keperluan">
+                                <select id="inputState" class="form-control" name="keperluan" disabled>
                                     <option value="seminar" selected>Seminar</option>
                                     <option value="">Samarinda</option>
                                     <option>Samarinda</option>
@@ -64,7 +62,19 @@
                                 <input type="date" class="form-control" id="tanggalSelesai" name="tanggal_selesai">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        @if (Auth::guard('mahasiswa')->user()->check()->level = 'mhs')    
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputState">Status</label>
+                                    <select id="inputState" class="form-control" name="status">
+                                        <option value="seminar" selected>Diproses</option>
+                                        <option value="">Dipinjam</option>
+                                        <option value="">Ditolak</option>
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+                        <button type="submit" class="btn btn-primary">Ubah</button>
                     </form>
                 </div>
             </div>

@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth:user','checklevel:admin']], function(){
     Route::get('/admin/ruangan',[AdminController::class, 'showRuangan'])->name('DashboardRuangan');
     Route::get('/admin/user',[AdminController::class, 'showUser'])->name('DashboardUser');
     Route::get('/admin/peminjaman/create',[AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
+    Route::post('/admin/peminjaman/create',[AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
+    Route::get('/admin/peminjaman/{id}',[AdminController::class, 'edit'])->name('AdminShowPeminjamanPost');
 });
 
 Route::group(['middleware' => ['auth:mahasiswa,dosen', 'checklevel:dosen,mhs']], function () {

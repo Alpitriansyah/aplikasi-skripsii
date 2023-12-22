@@ -18,6 +18,7 @@ class Peminjaman extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'dosen_id',
         'mahasiswa_id',
         'ruangan_id',
@@ -42,7 +43,8 @@ class Peminjaman extends Model
     protected $hidden = [
         'dosen_id',
         'mahasiswa_id',
-        'ruangan_id'
+        'ruangan_id',
+        'user_id'
     ];
 
     /**

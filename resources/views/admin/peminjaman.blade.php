@@ -1,4 +1,7 @@
 @extends('layouts.main')
+
+@section('title', 'Peminjaman')
+
 @section('main')
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -31,6 +34,8 @@
                                 <th>Jurusan</th>
                                 <th>Ruangan</th>
                                 <th>Keperluan</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Selesai</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -42,6 +47,8 @@
                                 <td>{{$item->jurusan}}</td>
                                 <td>{{$item->ruangan->name}}</td>
                                 <td>{{$item->keperluan}}</td>
+                                <td>{{$item->tanggal_mulai}}</td>
+                                <td>{{$item->tanggal_selesai}}</td>
                                 <td>
                                     @if ($item->status == 'Diproses')
                                         <span class="badge badge-pill badge-primary">{{$item->status}}</span>
@@ -55,7 +62,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="" type="button" class="btn btn-primary">Detail</a>
+                                        <a href="{{route('AdminShowPeminjamanPost', ['id'=> $item->id])}}" type="button" class="btn btn-primary">Detail</a>
                                         <a href="" type="button" class="btn btn-warning">Edit</a>
                                         <form action="" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
                                             @csrf

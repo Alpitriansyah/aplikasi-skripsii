@@ -6,6 +6,7 @@ use App\Models\Peminjaman;
 use App\Models\Ruangan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -82,12 +83,75 @@ class AdminController extends Controller
         return view('admin.create_peminjaman');
     }
 
+    public function storeCreatePeminjamanPost(Request $request)
+    {
+        // dd($request->all());
+        $validateData = $this->validate($request,[
+            'nama_peminjam' => 'required',
+            'jurusan' => 'required',
+            'ruangan' => 'required',
+            'keperluan' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+
+        if(Auth::guard('user')->check()){
+            $validateData['user_id'] = Auth::guard('user')->id();
+
+            Peminjaman::create([
+                'user_id' => $validateData['user_id'],
+                'nama_peminjam' => $validateData['nama_peminjam'],
+                'jurusan' => $validateData['jurusan'],
+                'ruangan_id' => 1,
+                'keperluan' => $validateData['keperluan'],
+                'tanggal_mulai' => $validateData['tanggal_mulai'],
+                'tanggal_selesai' => $validateData['tanggal_selesai'],
+                'deskripsi' => $validateData['deskripsi'],
+                'status' => 'Diproses'
+             ]);
+        }
+        if(Auth::guard('mahasiswa')->check()){
+            $validateData['mahasiswa_id'] = Auth::guard('mahasiswa')->id();
+
+            Peminjaman::create([
+                'mahasiswa_id' => $validateData['mahasiswa_id'],
+                'nama_peminjam' => $validateData['nama_peminjam'],
+                'jurusan' => $validateData['jurusan'],
+                'ruangan_id' => 1,
+                'keperluan' => $validateData['keperluan'],
+                'tanggal_mulai' => $validateData['tanggal_mulai'],
+                'tanggal_selesai' => $validateData['tanggal_selesai'],
+                'deskripsi' => $validateData['deskripsi'],
+                'status' => 'Diproses'
+             ]);
+        }
+        if(Auth::guard('dosen')->check()){
+            $validateData['dosen_id'] = Auth::guard('dosen')->id();
+
+            Peminjaman::create([
+                'dosen_id' => $validateData['dosen_id'],
+                'nama_peminjam' => $validateData['nama_peminjam'],
+                'jurusan' => $validateData['jurusan'],
+                'ruangan_id' => 1,
+                'keperluan' => $validateData['keperluan'],
+                'tanggal_mulai' => $validateData['tanggal_mulai'],
+                'tanggal_selesai' => $validateData['tanggal_selesai'],
+                'deskripsi' => $validateData['deskripsi'],
+                'status' => 'Diproses'
+             ]);
+        }
+
+        return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Data berhasil disimpan !']);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.show_peminjaman');
     }
 
     /**
