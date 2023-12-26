@@ -14,7 +14,7 @@
             <div class="card-header py-3 d-flex justify-content-between">
                 <h6 class="font-weight-bold text-primary">Data Peminjaman</h6>
                 <div class="">
-                    <a href="" class="btn btn-primary">Tambah Data</a>
+                    <a href="{{route('AdminCreateRuangan')}}" class="btn btn-primary">Tambah Data</a>
                     @if (Str::length(Auth::guard('user')->user()) > 0)
                         @if (Auth::guard('user')->user()->level = "admin")
                         <a href="" class="btn btn-success">Export</a>
@@ -30,6 +30,7 @@
                                 <th>Nama Ruangan</th>
                                 <th>Lokasi</th>
                                 <th>Kapasitas</th>
+                                <th>Khusus</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -40,9 +41,10 @@
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->lokasi}}</td>
                                 <td>{{$item->kapasitas}} Orang</td>
+                                <td>{{$item->status_level}}</td>
                                 <td>
                                     @if($item->status == "Tersedia")
-                                        <span class="badge badge-pill badge-success">Tidak Tersedia</span></td>
+                                        <span class="badge badge-pill badge-success">Tersedia</span></td>
                                     @endif
                                     @if ($item->status == "Tidak Tersedia")
                                     <span class="badge badge-pill badge-danger">Tidak Tersedia</span></td>

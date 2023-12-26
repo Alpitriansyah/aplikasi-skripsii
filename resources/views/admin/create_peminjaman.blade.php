@@ -7,10 +7,9 @@
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    Tambah Peminjaman
+                    <h6 class="font-weight-bold text-primary">Tambah Peminjaman</h6>
                 </div>
                 <div class="card-body">
-                    @dump($errors->all())
                     <form action="{{route('AdminCreatePeminjamanPost')}}" method="POST">
                         @csrf
                         <div class="form-row">
@@ -64,7 +63,11 @@
                                 <input type="date" class="form-control" id="tanggalSelesai" name="tanggal_selesai">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <div class="mt-5 d-flex justify-content-end">
+                            <a href="{{route('DashboardPeminjamanAdmin')}}" class="btn btn-warning mr-1">Kembali</a>
+                            <button type="reset" class="btn btn-danger mr-1">Reset</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
                     </form>
                 </div>
             </div>

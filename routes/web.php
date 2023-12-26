@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth:user','checklevel:admin']], function(){
     Route::get('/admin/peminjaman',[AdminController::class, 'showPeminjaman'])->name('DashboardPeminjamanAdmin');
     Route::get('/admin/profile',[AdminController::class, 'showProfileAdmin'])->name('ProfileAdmin');
     Route::get('/admin/ruangan',[AdminController::class, 'showRuangan'])->name('DashboardRuangan');
+    Route::get('/admin/ruangan/create',[AdminController::class, 'showCreateRuangan'])->name('AdminCreateRuangan');
+    Route::post('/admin/ruangan/create',[AdminController::class, 'storeCreateRuanganPost'])->name('AdminCreateRuanganPost');
     Route::get('/admin/user',[AdminController::class, 'showUser'])->name('DashboardUser');
     Route::get('/admin/peminjaman/create',[AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
     Route::post('/admin/peminjaman/create',[AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');

@@ -14,7 +14,8 @@ class Ruangan extends Model
         'name',
         'lokasi',
         'kapasitas',
-        'status'
+        'status',
+        'status_level'
     ];
 
     protected $table = "ruangans";

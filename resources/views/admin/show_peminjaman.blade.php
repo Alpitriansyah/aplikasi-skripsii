@@ -9,20 +9,20 @@
                 </div>
                 <div class="card-body">
                     @dump($errors->all())
-                    <form action="">
+                    <form action="" method="POST" enctype="multipart/form-data">                      
                         @csrf
+                        @method('PUT')
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama Peminjam</label>
-                                <input type="text" class="form-control" id="inputEmail4" name="nama_peminjam">
+                                <input type="text" class="form-control" id="inputEmail4" name="nama_peminjam" value="{{$peminjaman->nama_peminjam}}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Ruangan</label>
                                 <select id="inputState" class="form-control" name="ruangan">
-                                    <option value="D304" selected>D304</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
+                                    @foreach ($ruangan as $ruangan)    
+                                    <option value="{{$ruangan->id}}" selected>{{$ruangan->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -38,43 +38,40 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Keperluan</label>
-                                <select id="inputState" class="form-control" name="keperluan" disabled>
+                                <select id="inputState" class="form-control" name="keperluan">
                                     <option value="seminar" selected>Seminar</option>
-                                    <option value="">Samarinda</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
+                                    <option value="seminar" selected>Musyawarah Besar</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="inputCity">Deskripsi</label>
-                                <input type="text" class="form-control" id="inputCity" name="deskripsi">
+                                <input type="text" class="form-control" id="inputCity" name="deskripsi" value="{{$peminjaman->deskripsi}}">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="tanggalMulai">Tanggal Mulai</label>
-                                <input type="date" class="form-control" id="tanggalMulai" name="tanggal_mulai">
+                                <input type="date" class="form-control" id="tanggalMulai" name="tanggal_mulai" value="{{$peminjaman->tanggal_mulai}}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tanggalSelesai">Tanggal Selesai</label>
-                                <input type="date" class="form-control" id="tanggalSelesai" name="tanggal_selesai">
+                                <input type="date" class="form-control" id="tanggalSelesai" name="tanggal_selesai" value="{{$peminjaman->tanggal_selesai}}">
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Status</label>
+                                <select id="inputState" class="form-control" name="status">
+                                    <option value="Diproses" selected>Diproses</option>
+                                    <option value="Dipinjam">Dipinjam</option>
+                                    <option value="Ditolak">Ditolak</option>
+                                </select>
                             </div>
                         </div>
-                        @if (Auth::guard('mahasiswa')->user()->check()->level = 'mhs')    
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputState">Status</label>
-                                    <select id="inputState" class="form-control" name="status">
-                                        <option value="seminar" selected>Diproses</option>
-                                        <option value="">Dipinjam</option>
-                                        <option value="">Ditolak</option>
-                                    </select>
-                                </div>
-                            </div>
-                        @endif
                         <button type="submit" class="btn btn-primary">Ubah</button>
+                        <a href="{{route('DashboardPeminjamanAdmin')}}" class="btn btn-warning">Kembali</a>
                     </form>
                 </div>
             </div>

@@ -7,6 +7,7 @@ use App\Models\Ruangan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -143,7 +144,7 @@ class AdminController extends Controller
              ]);
         }
 
-        return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Data berhasil disimpan !']);
+        return redirect()->route('DashboardPeminjamanAdmin')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
     /**
@@ -151,15 +152,56 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.show_peminjaman');
+
+        $peminjaman = Peminjaman::findOrFail($id)->with('ruangan')->first();
+        $ruangan = Ruangan::all();
+        $updateRuang = Ruangan::where('id', $id)->update('status', 'Tidak Tersedia');
+
+        return view('admin.show_peminjaman', compact('peminjaman','ruangan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $validateData = $this->validate($request,[
+            'nama_peminjam' => 'required',
+            'jurusan' => 'required',
+            'ruangan' => 'required',
+            'keperluan' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'deskripsi' => 'required',
+        ]);
+    }
+
+    public function showCreateRuangan()
+    {
+        return view('admin.create_ruangan');
+    }
+
+    public function storeCreateRuanganPost(Request $request)
+    {
+        // dd($request->all());
+        $validateData = $this->validate($request,[
+            'nama_ruangan' => 'required',
+            'lokasi' => 'required',
+            'kapasitas' => 'required',
+            'status_level' => 'required',
+            'status' => 'required',
+        ]);
+        
+        Ruangan::create([
+            'name' => $validateData['nama_ruangan'],
+            'lokasi' => $validateData['lokasi'],
+            'kapasitas' => $validateData['kapasitas'],
+            'status_level' => $validateData['status_level'],
+            'status' => $validateData['status']
+         ]);
+
+
+        return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
     /**

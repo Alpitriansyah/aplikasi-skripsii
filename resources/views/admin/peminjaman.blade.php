@@ -51,10 +51,10 @@
                                 <td>{{$item->tanggal_selesai}}</td>
                                 <td>
                                     @if ($item->status == 'Diproses')
-                                        <span class="badge badge-pill badge-primary">{{$item->status}}</span>
+                                        <span class="badge badge-pill badge-warning">{{$item->status}}</span>
                                     @endif
                                     @if ($item->status == 'Dipinjam')
-                                        <span class="badge badge-pill badge-warning">{{$item->status}}</span>
+                                        <span class="badge badge-pill badge-success">{{$item->status}}</span>
                                     @endif
                                     @if ($item->status == 'Ditolak')
                                         <span class="badge badge-pill badge-danger">{{$item->status}}</span>
