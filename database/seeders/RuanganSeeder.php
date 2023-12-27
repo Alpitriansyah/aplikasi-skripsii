@@ -13,16 +13,14 @@ class RuanganSeeder extends Seeder
      */
     public function run(): void
     {
-        $ruanganData = [
-            [
-                'name' => 'Asrofi',
-                'lokasi' => 'Gedung Lama',
+        for ($i = 0; $i < 5; $i++) {
+            Ruangan::create([
+                'name' => fake()->sentence(),
+                'lokasi' => fake()->randomElement(['Samarinda', 'Balikpapan', 'Bontang']),
                 'kapasitas' => 50,
-            ],
-        ];
-
-        foreach ($ruanganData as $key => $val){
-            Ruangan::create($val);
+                'status_level' => fake()->randomElement(['Dosen', 'Mahasiswa']),
+                'status' => fake()->randomElement(['Tersedia', 'Tidak Tersedia'])
+            ]);
         }
     }
 }
