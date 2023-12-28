@@ -9,32 +9,32 @@
                         <h6 class="font-weight-bold text-primary">Profile</h6>
                     </div>
                     <div class="content-button">
-                        <button class="btn btn-primary">Setting Profile</button>
+                        <a href="{{route('UpdateProfileMahasiswaShow', $mahasiswa->id)}}" class="btn btn-primary">Setting Profile</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <img src="" alt="Gambar Profile">
+                            <img src="{{asset('storage/image/'.$mahasiswa->foto)}}" alt="Gambar Profile">
                         </div>
                         <div class="col-6">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>: Indra</th>
+                                        <th>: {{$mahasiswa->name}}</th>
                                     </tr>
                                     <tr>
                                         <th>NIM</th>
-                                        <th>: 40</th>
+                                        <th>: {{$mahasiswa->nim}}</th>
                                     </tr>
                                     <tr>
                                         <th>Jurusan</th>
-                                        <th>: 40</th>
+                                        <th>: Sistem Informasi</th>
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin</th>
-                                        <th>: 40</th>
+                                        <th>: {{$mahasiswa->jenis_kelamin}}</th>
                                     </tr>
                                 </thead>
                             </table>

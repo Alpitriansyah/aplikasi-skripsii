@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth:mahasiswa,dosen', 'checklevel:dosen,mhs']],
     Route::get('/dosen', [DosenController::class, 'dashboard'])->name('DashboardDosen');
     Route::get('/mahasiswa/peminjaman', [MahasiswaController::class, 'viewPeminjaman'])->name('DashboardPeminjamanMahasiswa');
     Route::get('/dosen/peminjaman', [DosenController::class, 'index'])->name('DashboardPeminjamanDosen');
-    Route::get('/mahasiswa/profile', [MahasiswaController::class, 'index'])->name('ProfileMahasiswa');
+    Route::get('/mahasiswa/profile', [MahasiswaController::class, 'viewProfile'])->name('ProfileMahasiswa');
+    Route::get('/mahasiswa/profile/{id}', [MahasiswaController::class, 'viewProfileUpdate'])->name('UpdateProfileMahasiswaShow');
+    Route::put('/mahasiswa/profile/{id}', [MahasiswaController::class, 'updateProfile'])->name('UpdateProfileMahasiswa');
     Route::get('/dosen/profile', [DosenController::class, 'index'])->name('ProfileDosen');
 });

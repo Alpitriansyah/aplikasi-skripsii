@@ -20,10 +20,9 @@
                             <div class="form-group col-md-6">
                                 <label for="inputState">Ruangan</label>
                                 <select id="inputState" class="form-control" name="ruangan">
-                                    <option value="D304" selected>D304</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
+                                    @foreach ($ruangan as $ruangan)    
+                                    <option value="{{$ruangan->id}}" selected>{{$ruangan->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -31,10 +30,16 @@
                             <div class="form-group col-md-6">
                                 <label for="inputState">Jurusan</label>
                                 <select id="inputState" class="form-control" name="jurusan">
-                                    <option value="Si" selected>Sistem Informasi</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
+                                    <option value="Sistem Informasi" selected>Sistem Informasi</option>
+                                    <option value="Informatika">Informatika</option>
+                                    <option value="Teknik Pertambangan">Teknik Pertambangan</option>
+                                    <option value="Teknik Sipil">Teknik Sipil</option>
+                                    <option value="Teknik Lingkungan">Teknik Lingkungan</option>
+                                    <option value="Teknik Kimia">Teknik Kimia</option>
+                                    <option value="Teknik Arsitektur">Teknik Arsitektur</option>
+                                    <option value="Teknik Elektro">Teknik Elektro</option>
+                                    <option value="Teknik Geologi">Teknik Geologi</option>
+                                    <option value="Admin">Admin</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">

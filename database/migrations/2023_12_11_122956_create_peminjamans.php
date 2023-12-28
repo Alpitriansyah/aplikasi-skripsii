@@ -28,7 +28,7 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->text('deskripsi');
-            $table->enum('status',['Diproses', 'Dipinjam', 'Ditolak']);
+            $table->string('status');
             $table->timestamps();
 
         });

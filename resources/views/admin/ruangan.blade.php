@@ -7,7 +7,6 @@
             <div class="alert alert-success" role="alert">
                 {{ Session::get('Success') }}
             </div>
-            
         @endif
         <!-- DataTales Example -->
         <div class="card shadow mb-4">

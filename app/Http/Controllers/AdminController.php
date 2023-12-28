@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
 use App\Models\Peminjaman;
 use App\Models\Ruangan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -81,7 +83,8 @@ class AdminController extends Controller
      */
     public function showCreatePeminjaman()
     {
-        return view('admin.create_peminjaman');
+        $ruangan = Ruangan::all();
+        return view('admin.create_peminjaman', compact('ruangan'));
     }
 
     public function storeCreatePeminjamanPost(Request $request)
@@ -155,11 +158,11 @@ class AdminController extends Controller
 
         $peminjaman = Peminjaman::findOrFail($id)->with('ruangan')->first();
         $ruangan = Ruangan::all();
-        $updateRuang = Ruangan::where('id', $id)->update('status', 'Tidak Tersedia');
 
         return view('admin.show_peminjaman', compact('peminjaman','ruangan'));
     }
-
+    
+    
     /**
      * Update the specified resource in storage.
      */
