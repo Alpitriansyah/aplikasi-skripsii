@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah Peminjaman')
+@section('title', 'Tambah Ruangan')
 
 @section('main')
     <div class="row">

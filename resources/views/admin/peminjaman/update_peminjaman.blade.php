@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Edit Peminjaman')
+
 @section('main')
     <div class="row">
         <div class="col-12">

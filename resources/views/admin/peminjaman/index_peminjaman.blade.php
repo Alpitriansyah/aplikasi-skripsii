@@ -64,7 +64,7 @@
                                     <div class="btn-group">
                                         <a href="" type="button" class="btn btn-primary">Detail</a>
                                         <a href="{{route('AdminShowPeminjamanPost', ['id'=> $item->id])}}" type="button" class="btn btn-warning">Edit</a>
-                                        <form action="" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
+                                        <form action="{{route('AdminDeletePeminjaman', ['id'=> $item->id])}}" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger m-0">Hapus</button>

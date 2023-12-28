@@ -116,19 +116,31 @@ class AdminController extends Controller
         return view('admin.peminjaman.update_peminjaman', compact('peminjaman','ruangan'));
     }
 
+        /**
+     * Remove the specified resource from storage.
+     */
+    public function destroyPeminjaman(string $id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->delete();
+
+        return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Peminjaman Berhasil Dihapus!']);
+
+    }
+
     /**
      * Ruangan
      */
     public function dashboardRuangan()
     {
-        return view('admin.ruangan.show_ruangan');
+        return view('admin.ruangan.index_ruangan');
     }
 
     public function showRuangan()
     {
         $ruangan = Ruangan::latest()->get();
 
-        return view('admin.ruangan.show_ruangan', compact('ruangan'));
+        return view('admin.ruangan.index_ruangan', compact('ruangan'));
     }
 
     public function storeCreateRuanganPost(Request $request)
@@ -154,7 +166,7 @@ class AdminController extends Controller
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
-    
+
     public function dashboardUser()
     {
         return view('admin.user.show_user');
