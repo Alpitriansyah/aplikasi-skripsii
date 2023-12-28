@@ -14,27 +14,29 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-4">
-                            <img src="" alt="Gambar Profile">
+                        <div class="col-3">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img src="" width="100" height="100" alt="Gambar Profile">
+                            </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-7">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>: Indra</th>
+                                        <th>: {{$user->name}}</th>
                                     </tr>
                                     <tr>
-                                        <th>NIM</th>
-                                        <th>: 40</th>
+                                        <th>Email</th>
+                                        <th>: {{$user->email}}</th>
                                     </tr>
                                     <tr>
-                                        <th>Jurusan</th>
-                                        <th>: 40</th>
+                                        <th>Password</th>
+                                        <th>: {{$user->password}}</th>
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin</th>
-                                        <th>: 40</th>
+                                        <th>: {{$user->jenis_kelamin}}</th>
                                     </tr>
                                 </thead>
                             </table>

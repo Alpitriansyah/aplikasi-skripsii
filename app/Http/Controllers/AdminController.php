@@ -21,70 +21,27 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    /**
+     * Peminjaman.
+     */
+
     public function dashboardPeminjaman()
     {
-        return view('admin.peminjaman');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function dashboardRuangan()
-    {
-        return view('admin.ruangan');
-    }
-
-    public function dashboardUser()
-    {
-        return view('admin.user');
+        return view('admin.peminjaman.index');
     }
 
     public function showPeminjaman()
     {
         $pinjam = Peminjaman::latest()->with('ruangan')->get();
 
-        return view('admin.peminjaman', compact('pinjam'));
+        return view('admin.peminjaman.index_peminjaman', compact('pinjam'));
     }
 
-    public function showProfileAdmin()
-    {
-        $pinjam = Peminjaman::latest()->with('ruangan')->get();
-
-        return view('admin.profile', compact('pinjam'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-        /**
-     * Store a newly created resource in storage.
-     */
-    public function showUser()
-    {
-        $user = User::latest()->get();
-
-        return view('admin.user', compact('user'));
-    }
-
-    public function showRuangan()
-    {
-        $ruangan = Ruangan::latest()->get();
-
-        return view('admin.ruangan', compact('ruangan'));
-    }
-
-    /**
-     * Display the specified resource.
-     */
+    
     public function showCreatePeminjaman()
     {
         $ruangan = Ruangan::all();
-        return view('admin.create_peminjaman', compact('ruangan'));
+        return view('admin.peminjaman.create_peminjaman', compact('ruangan'));
     }
 
     public function storeCreatePeminjamanPost(Request $request)
@@ -150,38 +107,28 @@ class AdminController extends Controller
         return redirect()->route('DashboardPeminjamanAdmin')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
 
         $peminjaman = Peminjaman::findOrFail($id)->with('ruangan')->first();
         $ruangan = Ruangan::all();
 
-        return view('admin.show_peminjaman', compact('peminjaman','ruangan'));
-    }
-    
-    
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
-        $validateData = $this->validate($request,[
-            'nama_peminjam' => 'required',
-            'jurusan' => 'required',
-            'ruangan' => 'required',
-            'keperluan' => 'required',
-            'tanggal_mulai' => 'required',
-            'tanggal_selesai' => 'required',
-            'deskripsi' => 'required',
-        ]);
+        return view('admin.peminjaman.update_peminjaman', compact('peminjaman','ruangan'));
     }
 
-    public function showCreateRuangan()
+    /**
+     * Ruangan
+     */
+    public function dashboardRuangan()
     {
-        return view('admin.create_ruangan');
+        return view('admin.ruangan.show_ruangan');
+    }
+
+    public function showRuangan()
+    {
+        $ruangan = Ruangan::latest()->get();
+
+        return view('admin.ruangan.show_ruangan', compact('ruangan'));
     }
 
     public function storeCreateRuanganPost(Request $request)
@@ -207,6 +154,60 @@ class AdminController extends Controller
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
+    
+    public function dashboardUser()
+    {
+        return view('admin.user.show_user');
+    }
+
+    public function showProfileAdmin()
+    {
+        $user = User::latest()->first();
+
+        return view('admin.profile.index_profile', compact('user'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function showUser()
+    {
+        $user = User::latest()->get();
+
+        return view('admin.user.show_user', compact('user'));
+    }
+
+ 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $validateData = $this->validate($request,[
+            'nama_peminjam' => 'required',
+            'jurusan' => 'required',
+            'ruangan' => 'required',
+            'keperluan' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'deskripsi' => 'required',
+        ]);
+    }
+
+    public function showCreateRuangan()
+    {
+        return view('admin.ruangan.create_ruangan');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */
@@ -214,4 +215,6 @@ class AdminController extends Controller
     {
         //
     }
+
+
 }

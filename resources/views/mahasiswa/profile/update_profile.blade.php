@@ -18,7 +18,7 @@
                                 <label for="inputEmail4">Nama</label>
                                 <input type="text" class="form-control @error('nama_peminjam') is-invalid @enderror" id="inputEmail4" value="{{$mahasiswa->name}}" name="nama_peminjam">
                                 @error('nama_peminjam')
-                                <div class="alert alert-danger mt-2">
+                                <div class="invalid-feedback">
                                     {{ $message }}    
                                 </div>    
                                 @enderror
