@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Dosen;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DosenSeeder extends Seeder
 {
@@ -13,18 +14,14 @@ class DosenSeeder extends Seeder
      */
     public function run(): void
     {
-        $userData = [
-            [
-                'name' => 'Fadli',
-                'nip' => '1915036040',
-                'password' => bcrypt(12345678),
-                'level' => 'dosen',
-                'jenis_kelamin' => 'Laki-Laki',
-            ],
-        ];
-
-        foreach ($userData as $key => $val){
-            Dosen::create($val);
+        for ($i = 0; $i < 10; $i++) {
+            Dosen::create([
+                'name' => fake()->name(),
+                'nip' => fake()->numerify('##########'),
+                'password' => Hash::make('password'),
+                'jenis_kelamin' => fake()->randomElement('Pria', 'Perempuan'),
+                'level' => 'dosen'
+            ]);
         }
     }
 }
