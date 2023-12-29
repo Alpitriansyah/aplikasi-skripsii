@@ -37,7 +37,7 @@ class AdminController extends Controller
         return view('admin.peminjaman.index_peminjaman', compact('pinjam'));
     }
 
-    
+
     public function showCreatePeminjaman()
     {
         $ruangan = Ruangan::all();
@@ -47,10 +47,10 @@ class AdminController extends Controller
     public function storeCreatePeminjamanPost(Request $request)
     {
         // dd($request->all());
-        $validateData = $this->validate($request,[
+        $validateData = $this->validate($request, [
             'nama_peminjam' => 'required',
             'jurusan' => 'required',
-            'ruangan' => 'required',
+            'ruangan_id' => 'required',
             'keperluan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
@@ -58,50 +58,53 @@ class AdminController extends Controller
         ]);
 
 
-        if(Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             $validateData['user_id'] = Auth::guard('user')->id();
 
             Peminjaman::create([
                 'user_id' => $validateData['user_id'],
                 'nama_peminjam' => $validateData['nama_peminjam'],
                 'jurusan' => $validateData['jurusan'],
-                'ruangan_id' => 1,
+                'ruangan_id' => $validateData['ruangan_id'],
                 'keperluan' => $validateData['keperluan'],
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
                 'status' => 'Diproses'
-             ]);
+            ]);
+
+            Ruangan::where('id', $validateData['ruangan_id'])->update(['status' => 'Tidak Tersedia']);
         }
-        if(Auth::guard('mahasiswa')->check()){
+        if (Auth::guard('mahasiswa')->check()) {
             $validateData['mahasiswa_id'] = Auth::guard('mahasiswa')->id();
 
             Peminjaman::create([
                 'mahasiswa_id' => $validateData['mahasiswa_id'],
                 'nama_peminjam' => $validateData['nama_peminjam'],
                 'jurusan' => $validateData['jurusan'],
-                'ruangan_id' => 1,
+                'ruangan_id' => $validateData['ruangan_id'],
                 'keperluan' => $validateData['keperluan'],
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
                 'status' => 'Diproses'
-             ]);
+            ]);
+            Ruangan::where('id', $validateData['ruangan_id'])->update('status', 'Tidak Tersedia');
         }
-        if(Auth::guard('dosen')->check()){
+        if (Auth::guard('dosen')->check()) {
             $validateData['dosen_id'] = Auth::guard('dosen')->id();
 
             Peminjaman::create([
                 'dosen_id' => $validateData['dosen_id'],
                 'nama_peminjam' => $validateData['nama_peminjam'],
                 'jurusan' => $validateData['jurusan'],
-                'ruangan_id' => 1,
+                'ruangan_id' => $validateData['ruangan_id'],
                 'keperluan' => $validateData['keperluan'],
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
                 'status' => 'Diproses'
-             ]);
+            ]);
         }
 
         return redirect()->route('DashboardPeminjamanAdmin')->with(['Success' => 'Data berhasil disimpan !']);
@@ -110,13 +113,13 @@ class AdminController extends Controller
     public function edit(string $id)
     {
 
-        $peminjaman = Peminjaman::findOrFail($id)->with('ruangan')->first();
+        $peminjaman = Peminjaman::where('id', $id)->with('ruangan')->first();
         $ruangan = Ruangan::all();
 
-        return view('admin.peminjaman.update_peminjaman', compact('peminjaman','ruangan'));
+        return view('admin.peminjaman.update_peminjaman', compact('peminjaman', 'ruangan'));
     }
 
-        /**
+    /**
      * Remove the specified resource from storage.
      */
     public function destroyPeminjaman(string $id)
@@ -125,7 +128,6 @@ class AdminController extends Controller
         $peminjaman->delete();
 
         return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Peminjaman Berhasil Dihapus!']);
-
     }
 
     /**
@@ -146,21 +148,21 @@ class AdminController extends Controller
     public function storeCreateRuanganPost(Request $request)
     {
         // dd($request->all());
-        $validateData = $this->validate($request,[
+        $validateData = $this->validate($request, [
             'nama_ruangan' => 'required',
             'lokasi' => 'required',
             'kapasitas' => 'required',
             'status_level' => 'required',
             'status' => 'required',
         ]);
-        
+
         Ruangan::create([
             'name' => $validateData['nama_ruangan'],
             'lokasi' => $validateData['lokasi'],
             'kapasitas' => $validateData['kapasitas'],
             'status_level' => $validateData['status_level'],
             'status' => $validateData['status']
-         ]);
+        ]);
 
 
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
@@ -186,7 +188,7 @@ class AdminController extends Controller
     {
         //
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -197,21 +199,49 @@ class AdminController extends Controller
         return view('admin.user.show_user', compact('user'));
     }
 
- 
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function updatePeminjaman(Request $request, string $id)
     {
-        $validateData = $this->validate($request,[
+        // dd($request->all());
+        $validateData = $this->validate($request, [
             'nama_peminjam' => 'required',
-            'jurusan' => 'required',
-            'ruangan' => 'required',
+            'ruangan_id' => 'required',
             'keperluan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
+            'status' => 'required',
         ]);
+
+
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        $updateRuangan = Ruangan::whereHas('peminjaman', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->first()->update([
+            'status' => 'Tersedia',
+        ]);
+
+        $peminjaman->update([
+            'nama_peminjam' => $validateData['nama_peminjam'],
+            'ruangan_id' => $validateData['ruangan_id'],
+            'keperluan' => $validateData['keperluan'],
+            'tanggal_mulai' => $validateData['tanggal_mulai'],
+            'tanggal_selesai' => $validateData['tanggal_selesai'],
+            'deskripsi' => $validateData['deskripsi'],
+            'status' => $validateData['status'],
+        ]);
+
+
+
+        Ruangan::where('id', $validateData['ruangan_id'])->update([
+            'status' => 'Tidak Tersedia'
+        ]);
+
+        return redirect()->route('DashboardPeminjamanAdmin')->with(['Success' => 'Data berhasil diubah !']);
     }
 
     public function showCreateRuangan()
@@ -227,6 +257,4 @@ class AdminController extends Controller
     {
         //
     }
-
-
 }

@@ -31,18 +31,19 @@ Route::post('/login_mahasiswa', [LoginController::class, 'login_mahasiswa'])->na
 Route::post('/login_dosen', [LoginController::class, 'login_dosen'])->name('LoginSessionDosen');
 Route::get('/logout', [LoginController::class, 'logout'])->name('LogoutSession');
 
-Route::group(['middleware' => ['auth:user','checklevel:admin']], function(){
-    Route::get('/admin',[AdminController::class, 'dashboard'])->name('DashboardAdmin');
-    Route::get('/admin/peminjaman',[AdminController::class, 'showPeminjaman'])->name('DashboardPeminjamanAdmin');
-    Route::get('/admin/profile',[AdminController::class, 'showProfileAdmin'])->name('ProfileAdmin');
-    Route::get('/admin/ruangan',[AdminController::class, 'showRuangan'])->name('DashboardRuangan');
-    Route::get('/admin/ruangan/create',[AdminController::class, 'showCreateRuangan'])->name('AdminCreateRuangan');
-    Route::post('/admin/ruangan/create',[AdminController::class, 'storeCreateRuanganPost'])->name('AdminCreateRuanganPost');
-    Route::get('/admin/user',[AdminController::class, 'showUser'])->name('DashboardUser');
-    Route::get('/admin/peminjaman/create',[AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
-    Route::post('/admin/peminjaman/create',[AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
-    Route::delete('/admin/peminjaman/{id}',[AdminController::class, 'destroyPeminjaman'])->name('AdminDeletePeminjaman');
-    Route::get('/admin/peminjaman/{id}',[AdminController::class, 'edit'])->name('AdminShowPeminjamanPost');
+Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('DashboardAdmin');
+    Route::get('/admin/peminjaman', [AdminController::class, 'showPeminjaman'])->name('DashboardPeminjamanAdmin');
+    Route::get('/admin/profile', [AdminController::class, 'showProfileAdmin'])->name('ProfileAdmin');
+    Route::get('/admin/ruangan', [AdminController::class, 'showRuangan'])->name('DashboardRuangan');
+    Route::get('/admin/ruangan/create', [AdminController::class, 'showCreateRuangan'])->name('AdminCreateRuangan');
+    Route::post('/admin/ruangan/create', [AdminController::class, 'storeCreateRuanganPost'])->name('AdminCreateRuanganPost');
+    Route::get('/admin/user', [AdminController::class, 'showUser'])->name('DashboardUser');
+    Route::get('/admin/peminjaman/create', [AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
+    Route::post('/admin/peminjaman/create', [AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
+    Route::delete('/admin/peminjaman/{id}', [AdminController::class, 'destroyPeminjaman'])->name('AdminDeletePeminjaman');
+    Route::get('/admin/peminjaman/{id}', [AdminController::class, 'edit'])->name('AdminShowPeminjamanPost');
+    Route::put('/admin/peminjaman/{id}', [AdminController::class, 'updatePeminjaman'])->name('AdminUpdatePeminjamanPost');
 });
 
 Route::group(['middleware' => ['auth:mahasiswa,dosen', 'checklevel:dosen,mhs']], function () {

@@ -26,19 +26,15 @@
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>: {{$user->name}}</th>
+                                        <th>: {{ $user->name }}</th>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <th>: {{$user->email}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Password</th>
-                                        <th>: {{$user->password}}</th>
+                                        <th>: {{ $user->email }}</th>
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin</th>
-                                        <th>: {{$user->jenis_kelamin}}</th>
+                                        <th>: {{ $user->jenis_kelamin }}</th>
                                     </tr>
                                 </thead>
                             </table>

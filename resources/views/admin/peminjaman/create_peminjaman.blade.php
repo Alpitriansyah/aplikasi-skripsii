@@ -10,7 +10,7 @@
                     <h6 class="font-weight-bold text-primary">Tambah Peminjaman</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('AdminCreatePeminjamanPost')}}" method="POST">
+                    <form action="{{ route('AdminCreatePeminjamanPost') }}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -19,9 +19,9 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Ruangan</label>
-                                <select id="inputState" class="form-control" name="ruangan">
-                                    @foreach ($ruangan as $ruangan)    
-                                    <option value="{{$ruangan->id}}" selected>{{$ruangan->name}}</option>
+                                <select id="inputState" class="form-control" name="ruangan_id">
+                                    @foreach ($ruangan as $ruangan)
+                                        <option value="{{ $ruangan->id }}" selected>{{ $ruangan->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="mt-5 d-flex justify-content-end">
-                            <a href="{{route('DashboardPeminjamanAdmin')}}" class="btn btn-warning mr-1">Kembali</a>
+                            <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-warning mr-1">Kembali</a>
                             <button type="reset" class="btn btn-danger mr-1">Reset</button>
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
