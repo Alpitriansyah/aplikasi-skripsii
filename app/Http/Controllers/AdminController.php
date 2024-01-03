@@ -255,6 +255,42 @@ class AdminController extends Controller
         return view('admin.ruangan.create_ruangan');
     }
 
+    public function ShowDetailRuangan(string $id)
+    {
+        $ruang = Ruangan::where('id', $id)->first();
+        return view('admin.ruangan.show_ruangan', compact('ruang'));
+    }
+
+    public function updateRuanganDetail(string $id)
+    {
+        $ruang = Ruangan::where('id', $id)->first();
+        return view('admin.ruangan.update_ruangan', compact('ruang'));
+    }
+
+    public function updateRuangan(Request $request, string $id)
+    {
+        // dd($request->all());
+        $validateData = $this->validate($request, [
+            'nama_ruangan' => 'required',
+            'lokasi' => 'required',
+            'kapasitas' => 'required',
+            'status_level' => 'required',
+            'status' => 'required',
+        ]);
+
+        $ruang = Ruangan::findOrFail($id);
+
+        $ruang->update([
+            'name' => $validateData['nama_ruangan'],
+            'lokasi' => $validateData['lokasi'],
+            'kapasitas' => $validateData['kapasitas'],
+            'status_level' => $validateData['status_level'],
+            'status' => $validateData['status'],
+        ]);
+
+        return redirect()->route('DashboardRuangan')->with(['Success' => 'Data Ruangan berhasil diubah !']);
+    }
+
 
     /**
      * Remove the specified resource from storage.

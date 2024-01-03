@@ -49,8 +49,10 @@
                             @endif
                             <td>
                                 <div class="btn-group">
-                                    <a href="" type="button" class="btn btn-primary">Detail</a>
-                                    <a href="" type="button" class="btn btn-warning">Edit</a>
+                                    <a href="{{ route('AdminShowDetailRuagan', ['id' => $item->id]) }}" type="button"
+                                        class="btn btn-primary">Detail</a>
+                                    <a href="{{ route('AdminUpdateRuangan', ['id' => $item->id]) }}" type="button"
+                                        class="btn btn-warning">Edit</a>
                                     <form action="" method="POST">
                                         @csrf
                                         @method('DELETE')

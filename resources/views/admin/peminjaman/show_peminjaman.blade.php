@@ -38,7 +38,16 @@
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <th> : <span class="badge badge-pill badge-warning">{{ $peminjaman->status }}</span></th>
+                    @if ($peminjaman->status == 'Diproses')
+                        <th> : <span class="badge badge-pill badge-warning">{{ $peminjaman->status }}</span></th>
+                    @endif
+                    @if ($peminjaman->status == 'Ditolak')
+                        <th> : <span class="badge badge-pill badge-danger">{{ $peminjaman->status }}</span></th>
+                    @endif
+                    @if ($peminjaman->status == 'Dipinjam')
+                        <th> : <span class="badge badge-pill badge-success">{{ $peminjaman->status }}</span></th>
+                    @endif
+
                 </tr>
             </table>
             <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-danger mt-4">Kembali</a>
