@@ -43,16 +43,20 @@ Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::post('/admin/peminjaman/create', [AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
     Route::delete('/admin/peminjaman/{id}', [AdminController::class, 'destroyPeminjaman'])->name('AdminDeletePeminjaman');
     Route::get('/admin/peminjaman/{id}', [AdminController::class, 'edit'])->name('AdminShowPeminjamanPost');
+    Route::get('/admin/peminjaman/detail/{id}', [AdminController::class, 'showDetailPeminjaman'])->name('AdminShowDetailPeminjaman');
     Route::put('/admin/peminjaman/{id}', [AdminController::class, 'updatePeminjaman'])->name('AdminUpdatePeminjamanPost');
 });
 
-Route::group(['middleware' => ['auth:mahasiswa,dosen', 'checklevel:dosen,mhs']], function () {
-    Route::get('/mahasiswa', [MahasiswaController::class, 'dashboard'])->name('DashboardMahasiswa');
+Route::group(['middleware' => ['auth:dosen', 'checklevel:dosen']], function () {
     Route::get('/dosen', [DosenController::class, 'dashboard'])->name('DashboardDosen');
-    Route::get('/mahasiswa/peminjaman', [MahasiswaController::class, 'viewPeminjaman'])->name('DashboardPeminjamanMahasiswa');
     Route::get('/dosen/peminjaman', [DosenController::class, 'index'])->name('DashboardPeminjamanDosen');
+    Route::get('/dosen/profile', [DosenController::class, 'index'])->name('ProfileDosen');
+});
+
+Route::group(['middleware' => ['auth:mahasiswa', 'checklevel:mhs']], function () {
+    Route::get('/mahasiswa', [MahasiswaController::class, 'dashboard'])->name('DashboardMahasiswa');
+    Route::get('/mahasiswa/peminjaman', [MahasiswaController::class, 'viewPeminjaman'])->name('DashboardPeminjamanMahasiswa');
     Route::get('/mahasiswa/profile', [MahasiswaController::class, 'viewProfile'])->name('ProfileMahasiswa');
     Route::get('/mahasiswa/profile/{id}', [MahasiswaController::class, 'viewProfileUpdate'])->name('UpdateProfileMahasiswaShow');
     Route::put('/mahasiswa/profile/{id}', [MahasiswaController::class, 'updateProfile'])->name('UpdateProfileMahasiswa');
-    Route::get('/dosen/profile', [DosenController::class, 'index'])->name('ProfileDosen');
 });

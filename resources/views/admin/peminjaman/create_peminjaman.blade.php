@@ -15,22 +15,35 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama Peminjam</label>
-                                <input type="text" class="form-control" id="inputEmail4" name="nama_peminjam">
+                                <input type="text" class="form-control @error('nama_peminjam') is-invalid @enderror"
+                                    id="inputEmail4" name="nama_peminjam">
+                                @error('nama_peminjam')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Ruangan</label>
-                                <select id="inputState" class="form-control" name="ruangan_id">
+                                <select id="inputState" class="form-control @error('ruangan_id') is-invalid @enderror"
+                                    name="ruangan_id">
                                     @foreach ($ruangan as $ruangan)
                                         <option value="{{ $ruangan->id }}" selected>{{ $ruangan->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('ruangan_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputState">Jurusan</label>
-                                <select id="inputState" class="form-control" name="jurusan">
-                                    <option value="Sistem Informasi" selected>Sistem Informasi</option>
+                                <select id="inputState" class="form-control @error('jurusan') is-invalid @enderror"
+                                    name="jurusan">
+                                    <option value="Sistem Informasi">Sistem Informasi</option>
                                     <option value="Informatika">Informatika</option>
                                     <option value="Teknik Pertambangan">Teknik Pertambangan</option>
                                     <option value="Teknik Sipil">Teknik Sipil</option>
@@ -41,31 +54,59 @@
                                     <option value="Teknik Geologi">Teknik Geologi</option>
                                     <option value="Admin">Admin</option>
                                 </select>
+                                @error('jurusan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Keperluan</label>
-                                <select id="inputState" class="form-control" name="keperluan">
-                                    <option value="seminar" selected>Seminar</option>
-                                    <option value="">Samarinda</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
+                                <select id="inputState" class="form-control @error('keperluan') is-invalid @enderror"
+                                    name="keperluan">
+                                    <option value="Seminar">Seminar</option>
+                                    <option value="Musyawarah Besar">Musyawarah Besar</option>
+                                    <option value="Pelatihan">Pelatihan</option>
                                 </select>
+                                @error('keperluan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="inputCity">Deskripsi</label>
-                                <input type="text" class="form-control" id="inputCity" name="deskripsi">
+                                <input type="text" class="form-control @error('deskripsi') is-invalid @enderror"
+                                    id="inputCity" name="deskripsi">
+                                @error('deskripsi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="tanggalMulai">Tanggal Mulai</label>
-                                <input type="date" class="form-control" id="tanggalMulai" name="tanggal_mulai">
+                                <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror"
+                                    id="tanggalMulai" name="tanggal_mulai">
+                                @error('tanggal_mulai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tanggalSelesai">Tanggal Selesai</label>
-                                <input type="date" class="form-control" id="tanggalSelesai" name="tanggal_selesai">
+                                <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror"
+                                    id="tanggalSelesai" name="tanggal_selesai">
+                                @error('tanggal_selesai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="mt-5 d-flex justify-content-end">

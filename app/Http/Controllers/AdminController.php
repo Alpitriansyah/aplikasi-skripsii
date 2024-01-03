@@ -200,6 +200,12 @@ class AdminController extends Controller
     }
 
 
+    public function showDetailPeminjaman(string $id)
+    {
+        $peminjaman = Peminjaman::where('id', $id)->with('ruangan')->first();
+        // dd($peminjaman);
+        return view('admin.peminjaman.show_peminjaman', compact('peminjaman'));
+    }
     /**
      * Update the specified resource in storage.
      */

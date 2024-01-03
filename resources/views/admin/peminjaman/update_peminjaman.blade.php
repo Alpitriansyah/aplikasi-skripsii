@@ -36,17 +36,27 @@
                             <div class="form-group col-md-6">
                                 <label for="inputState">Jurusan</label>
                                 <select id="inputState" class="form-control" name="jurusan" disabled>
-                                    <option value="Si" selected>Sistem Informasi</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
-                                    <option>Samarinda</option>
+                                    <option value="Sistem Informasi" @selected('Sistem Informasi' == $peminjaman->jurusan)>Sistem Informasi</option>
+                                    <option value="Informatika" @selected('Informatika' == $peminjaman->jurusan)>Informatika</option>
+                                    <option value="Teknik Pertambangan" @selected('Teknik Pertambangan' == $peminjaman->jurusan)>Teknik Pertambangan
+                                    </option>
+                                    <option value="Teknik Sipil" @selected('Teknik Sipil' == $peminjaman->jurusan)>Teknik Sipil</option>
+                                    <option value="Teknik Lingkungan" @selected('Teknik Lingkungan' == $peminjaman->jurusan)>Teknik Lingkungan
+                                    </option>
+                                    <option value="Teknik Kimia" @selected('Teknik Kimia' == $peminjaman->jurusan)>Teknik Kimia</option>
+                                    <option value="Teknik Arsitektur" @selected('Teknik Arsitektur' == $peminjaman->jurusan)>Teknik Arsitektur
+                                    </option>
+                                    <option value="Teknik Elektro" @selected('Teknik Elektro' == $peminjaman->jurusan)>Teknik Elektro</option>
+                                    <option value="Teknik Geologi" @selected('Teknik Geologi' == $peminjaman->jurusan)>Teknik Geologi</option>
+                                    <option value="Admin" @selected('Admin' == $peminjaman->jurusan)>Admin</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Keperluan</label>
                                 <select id="inputState" class="form-control" name="keperluan">
-                                    <option value="seminar" selected>Seminar</option>
-                                    <option value="seminar" selected>Musyawarah Besar</option>
+                                    <option value="Seminar" @selected('Seminar' == $peminjaman->keperluan)>Seminar</option>
+                                    <option value="Musyawarah Besar" @selected('Musyawarah Besar' == $peminjaman->keperluan)>Musyawarah Besar</option>
+                                    <option value="Pelatihan" @selected('Pelatihan' == $peminjaman->keperluan)>Pelatihan</option>
                                 </select>
                             </div>
                         </div>
@@ -73,9 +83,9 @@
                             <div class="form-group col-md-6">
                                 <label for="inputState">Status</label>
                                 <select id="inputState" class="form-control" name="status">
-                                    <option value="Diproses" selected>Diproses</option>
-                                    <option value="Dipinjam">Dipinjam</option>
-                                    <option value="Ditolak">Ditolak</option>
+                                    <option value="Diproses" @selected('Diproses' == $peminjaman->status)>Diproses</option>
+                                    <option value="Dipinjam" @selected('Dipinjam' == $peminjaman->status)>Dipinjam</option>
+                                    <option value="Ditolak" @selected('Ditolak' == $peminjaman->status)>Ditolak</option>
                                 </select>
                             </div>
                         </div>
