@@ -1,20 +1,21 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah User')
+@section('title', 'Ubah Dosen')
 
 @section('main')
     <div class="row">
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    Tambah User
+                    Ubah Dosen
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreateRuanganPost') }}" method="POST">
+                    <form action="{{ route('AdminUpdateDosenPUT', ['id' => $dosen->id]) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nama User</label>
+                                <label for="inputEmail4">Nama Dosen</label>
                                 <input type="text" class="form-control @error('nama_user') is-invalid @enderror"
                                     id="inputEmail4" name="nama_user">
                                 @error('nama_user')
@@ -24,7 +25,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="UserEmail">Email</label>
+                                <label for="UserEmail">NIP</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     id="Useremail" name="lokasi">
                                 @error('lokasi')
@@ -56,8 +57,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-5">Tambah</button>
-                        <a href="{{ route('DashboardUser') }}" class="btn btn-danger mt-5">Kembali</a>
+                        <button type="submit" class="btn btn-warning mt-5">Ubah</button>
+                        <a href="{{ route('AdminDashboardDosen') }}" class="btn btn-danger mt-5">Kembali</a>
                     </form>
                 </div>
             </div>

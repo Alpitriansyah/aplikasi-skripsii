@@ -7,27 +7,27 @@
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    Tambah User
+                    Tambah Mahasiswa
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreateRuanganPost') }}" method="POST">
+                    <form action="{{ route('AdminCreateMahasiswaPOST') }}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nama User</label>
-                                <input type="text" class="form-control @error('nama_user') is-invalid @enderror"
-                                    id="inputEmail4" name="nama_user">
-                                @error('nama_user')
+                                <label for="inputEmail4">Nama Mahasiswa</label>
+                                <input type="text" class="form-control @error('nama_mahasiswa') is-invalid @enderror"
+                                    id="inputEmail4" name="nama_mahasiswa">
+                                @error('nama_mahasiswa')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="UserEmail">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="Useremail" name="lokasi">
-                                @error('lokasi')
+                                <label for="nim">NIM</label>
+                                <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim"
+                                    name="lokasi">
+                                @error('nim')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">Tambah</button>
-                        <a href="{{ route('DashboardUser') }}" class="btn btn-danger mt-5">Kembali</a>
+                        <a href="{{ route('AdminDashboardMahasiswa') }}" class="btn btn-danger mt-5">Kembali</a>
                     </form>
                 </div>
             </div>

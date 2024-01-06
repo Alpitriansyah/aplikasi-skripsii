@@ -14,9 +14,9 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between">
-                <h6 class="font-weight-bold text-primary">Data Peminjaman</h6>
+                <h6 class="font-weight-bold text-primary">Data Ruangan</h6>
                 <div class="">
-                    <a href="{{ route('AdminCreateRuangan') }}" class="btn btn-primary">Tambah Data</a>
+                    <a href="{{ route('AdminCreateRuangan') }}" class="btn btn-primary">Tambah Ruangan</a>
                 </div>
             </div>
             <div class="card-body">
@@ -53,7 +53,8 @@
                                         class="btn btn-primary">Detail</a>
                                     <a href="{{ route('AdminUpdateRuangan', ['id' => $item->id]) }}" type="button"
                                         class="btn btn-warning">Edit</a>
-                                    <form action="" method="POST">
+                                    <form action="{{ route('AdminDeleteRuangan', ['id' => $item->id]) }}" method="POST"
+                                        class="btn btn-danger p-0">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger m-0">Hapus</button>

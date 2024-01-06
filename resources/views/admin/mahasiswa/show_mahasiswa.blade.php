@@ -34,7 +34,7 @@
                     @endif
                 </tr>
             </table>
-            <a href="{{ route('DashboardRuangan') }}" class="btn btn-danger mt-4">Kembali</a>
+            <a href="{{ route('AdminDashboardMahasiswa') }}" class="btn btn-danger mt-4">Kembali</a>
         </div>
     </div>
 @endsection

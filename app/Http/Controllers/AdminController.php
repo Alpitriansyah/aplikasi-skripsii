@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Peminjaman;
 use App\Models\Ruangan;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -40,7 +42,7 @@ class AdminController extends Controller
 
     public function showCreatePeminjaman()
     {
-        $ruangan = Ruangan::all();
+        $ruangan = Ruangan::where('status', 'Tersedia')->get();
         return view('admin.peminjaman.create_peminjaman', compact('ruangan'));
     }
 
@@ -168,12 +170,6 @@ class AdminController extends Controller
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
-
-    public function dashboardUser()
-    {
-        return view('admin.user.show_user');
-    }
-
     public function showProfileAdmin()
     {
         $user = User::latest()->first();
@@ -192,11 +188,15 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function showUser()
+    public function DashboardUser()
     {
         $user = User::latest()->get();
+        return view('admin.user.index_user', compact('user'));
+    }
 
-        return view('admin.user.show_user', compact('user'));
+    public function CreateUser()
+    {
+        return view('admin.user.create_user');
     }
 
 
@@ -291,7 +291,122 @@ class AdminController extends Controller
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data Ruangan berhasil diubah !']);
     }
 
+    public function destroyRuangan(string $id)
+    {
+        $ruang = Ruangan::findOrFail($id);
+        $ruang->delete();
 
+        return redirect()->route('DashboardRuangan')->with(['Success' => 'Data Ruangan Berhasil Dihapus!']);
+    }
+
+    public function UpdateProfile(string $id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('admin.profile.update_profile', compact('user'));
+    }
+
+    public function UpdateProfilePUT(Request $request, string $id)
+    {
+        $validateData = $this->validate($request, [
+            'nama' => 'required',
+            'email' => 'required',
+            'jenis_kelamin' => 'required',
+        ]);
+
+        $profile = User::findOrFail($id);
+
+        $profile->update([
+            'name' => $validateData['nama'],
+            'email' => $validateData['email'],
+            'jenis_kelamin' => $validateData['jenis_kelamin'],
+        ]);
+
+        return redirect()->route('ProfileAdmin')->with(['Success' => 'Profile Berhasil Diubah']);
+    }
+
+    public function ChangePassword(string $id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('admin.profile.change_password', compact('user'));
+    }
+
+    public function ChangePasswordPUT(Request $request, string $id)
+    {
+        if (!Hash::check($request->old_password, Auth::guard('user')->user()->password)) {
+            return back()->with('error', 'Password lama tidak sesuai');
+        }
+        if ($request->new_password != $request->repeat_password) {
+            return back()->with('error', 'Password baru dan password verifikasi tidak sama');
+        }
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('ProfileAdmin')->with('Success', 'Password Berhasil Diubah');
+    }
+
+    public function DashboardMahasiswa()
+    {
+        $siswa = Mahasiswa::latest()->get();
+        return view('admin.mahasiswa.index_mahasiswa', compact('siswa'));
+    }
+
+    public function CreateMahasiswa()
+    {
+        return view('admin.mahasiswa.create_mahasiswa');
+    }
+
+    public function CreateMahasiswaPost()
+    {
+    }
+
+    public function ShowMahasiswa()
+    {
+        return view('admin.mahasiswa.show_mahasiswa');
+    }
+
+    public function ShowUpdateMahasiswa()
+    {
+        return view('admin.mahasiswa.update_mahasiswa');
+    }
+
+    public function ShowUpdateMahasiswaPut()
+    {
+    }
+
+    public function DashboardDosen()
+    {
+        $dosen = Dosen::latest()->get();
+        return view('admin.dosen.index_dosen', compact('dosen'));
+    }
+
+    public function CreateDosen()
+    {
+        return view('admin.dosen.create_dosen');
+    }
+
+    public function CreateDosenPost()
+    {
+    }
+
+    public function ShowDosen(string $id)
+    {
+        $dosen = Dosen::where('id', $id)->first();
+        return view('admin.dosen.show_dosen', compact('dosen'));
+    }
+
+    public function ShowUpdateDosen(string $id)
+    {
+        $dosen = Dosen::where('id', $id)->first();
+        return view('admin.dosen.update_dosen', compact('dosen'));
+    }
+
+    public function ShowUpdateMDosenPut()
+    {
+    }
     /**
      * Remove the specified resource from storage.
      */

@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">Tambah</button>
-                        <a href="{{ route('DashboardUser') }}" class="btn btn-danger mt-5">Kembali</a>
+                        <a href="{{ route('AdminDashboardMahasiswa') }}" class="btn btn-danger mt-5">Kembali</a>
                     </form>
                 </div>
             </div>

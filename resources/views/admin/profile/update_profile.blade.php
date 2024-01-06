@@ -1,49 +1,47 @@
 @extends('layouts.main')
 
-@section('title', 'Edit Profile')
+@section('title', 'Edit Peminjaman')
 
 @section('main')
     <div class="row">
-        <div class="col-lg-12 col-md-6">
+        <div class="col-12">
             <div class="card shadow">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div class="content-text m-0">
-                        <h6 class="font-weight-bold text-primary">Profile</h6>
-                    </div>
-                    <div class="content-button">
-                        <button class="btn btn-primary">Setting Profile</button>
-                    </div>
+                <div class="card-header">
+                    Ubah Profile
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <img src="" width="100" height="100" alt="Gambar Profile">
+                    @dump($errors->all())
+                    <form action="{{ route('UpdateProfileAdminPUT', $user->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input_nama">Nama</label>
+                                <input type="text" class="form-control" id="input_nama" name="nama"
+                                    value="{{ $user->name }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" name="email"
+                                    value="{{ $user->email }}">
                             </div>
                         </div>
-                        <div class="col-7">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>: {{$user->name}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>: {{$user->email}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Password</th>
-                                        <th>: {{$user->password}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Jenis Kelamin</th>
-                                        <th>: {{$user->jenis_kelamin}}</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="jenisKelamin">Jurusan</label>
+                                <input type="text" class="form-control" id="jenisKelamin" name="jenis_kelamin"
+                                    value="{{ $user->jenis_kelamin }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="level">Level</label>
+                                <input type="text" class="form-control" id="level" name="level"
+                                    value="{{ $user->level }}" disabled>
+                            </div>
                         </div>
-                    </div>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
+                        <a href="{{ route('ProfileAdmin') }}" class="btn btn-warning">Kembali</a>
+                    </form>
                 </div>
             </div>
         </div>
