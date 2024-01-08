@@ -3,6 +3,11 @@
 @section('main')
     <div class="row">
         <div class="col-lg-12 col-md-6">
+            @if (Session::has('Success'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('Success') }}
+                </div>
+            @endif
             <div class="card shadow">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="content-text m-0">

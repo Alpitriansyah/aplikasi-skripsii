@@ -7,6 +7,7 @@ use App\Models\Peminjaman;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
@@ -171,5 +172,29 @@ class MahasiswaController extends Controller
         }
 
         return redirect()->route('')->with(['Success' => 'Profile Berhasil Diubah!']);
+    }
+
+    public function ChangePassword(string $id)
+    {
+        $user = Mahasiswa::where('id', $id)->first();
+        return view('mahasiswa.profile.change_password', compact('user'));
+    }
+
+    public function ChangePasswordPUT(Request $request, string $id)
+    {
+        if (!Hash::check($request->old_password, Auth::guard('mahasiswa')->user()->password)) {
+            return back()->with('error', 'Password lama tidak sesuai');
+        }
+        if ($request->new_password != $request->repeat_password) {
+            return back()->with('error', 'Password baru dan password verifikasi tidak sama');
+        }
+
+        $user = Mahasiswa::findOrFail($id);
+
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('ProfileMahasiswa')->with('Success', 'Password Berhasil Diubah');
     }
 }

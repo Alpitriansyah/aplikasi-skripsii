@@ -65,14 +65,14 @@
                 @endif
                 @if (Auth::guard('mahasiswa')->user())
                     <a class="dropdown-item"
-                        href="{{ route('ChangePasswordAdmin', ['id' => Auth::guard('mahasiswa')->user()->id]) }}">
+                        href="{{ route('ChangePasswordMahasiswa', ['id' => Auth::guard('mahasiswa')->user()->id]) }}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Change Password
                     </a>
                 @endif
                 @if (Auth::guard('dosen')->user())
                     <a class="dropdown-item"
-                        href="{{ route('ChangePasswordAdmin', ['id' => Auth::guard('dosen')->user()->id]) }}">
+                        href="{{ route('ChangePasswordDosen', ['id' => Auth::guard('dosen')->user()->id]) }}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Change Password
                     </a>

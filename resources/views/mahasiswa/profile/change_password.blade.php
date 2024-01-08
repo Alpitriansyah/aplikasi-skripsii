@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     @dump($errors->all())
-                    <form action="{{ route('ChangePasswordAdminPUT', ['id' => $user->id]) }}" method="POST"
+                    <form action="{{ route('ChangePasswordMahasiswaPUT', ['id' => $user->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Ubah</button>
-                        <a href="{{ route('ProfileDosen') }}" class="btn btn-warning">Kembali</a>
+                        <a href="{{ route('ProfileMahasiswa') }}" class="btn btn-warning">Kembali</a>
                     </form>
                 </div>
             </div>

@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     @dump($errors->all())
-                    <form action="{{ route('ChangePasswordAdminPUT', ['id' => $user->id]) }}" method="POST"
+                    <form action="{{ route('ChangePasswordDosenPUT', ['id' => $user->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
