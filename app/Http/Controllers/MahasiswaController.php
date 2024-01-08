@@ -3,32 +3,143 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Peminjaman;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
-    function dashboard(){
+    function dashboard()
+    {
         return view('mahasiswa.index');
     }
 
-    function viewPeminjaman(){
-        return view('admin.peminjaman');
+    function viewPeminjaman()
+    {
+        $pinjam = Peminjaman::latest()->get();
+        return view('mahasiswa.peminjaman.index_peminjaman', compact('pinjam'));
     }
 
-    function viewProfile(){
+    function CreatePeminjamanMahasiswa()
+    {
+        $ruangan = Ruangan::where(['status' => 'Tersedia', 'status_level' => 'Mahasiswa'])->get();
+        return view('mahasiswa.peminjaman.create_peminjaman', compact('ruangan'));
+    }
+
+    function CreatePeminjamanMahasiswaPOST(Request $request)
+    {
+        $validateData = $this->validate($request, [
+            'nama_peminjam' => 'required',
+            'jurusan' => 'required',
+            'ruangan_id' => 'required',
+            'keperluan' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        if (Auth::guard('mahasiswa')->check()) {
+            $validateData['mahasiswa_id'] = Auth::guard('mahasiswa')->id();
+
+            Peminjaman::create([
+                'mahasiswa_id' => $validateData['mahasiswa_id'],
+                'nama_peminjam' => $validateData['nama_peminjam'],
+                'jurusan' => $validateData['jurusan'],
+                'ruangan_id' => $validateData['ruangan_id'],
+                'keperluan' => $validateData['keperluan'],
+                'tanggal_mulai' => $validateData['tanggal_mulai'],
+                'tanggal_selesai' => $validateData['tanggal_selesai'],
+                'deskripsi' => $validateData['deskripsi'],
+                'status' => 'Diproses'
+            ]);
+            Ruangan::where('id', $validateData['ruangan_id'])->update(['status' => 'Tidak Tersedia']);
+        }
+        return redirect()->route('DashboardPeminjamanMahasiswa')->with(['Success' => 'Data berhasil disimpan !']);
+    }
+
+    public function UpdatePeminjamanMahasiswa(string $id)
+    {
+        $peminjaman = Peminjaman::where('id', $id)->with('ruangan')->first();
+        $ruangan = Ruangan::where(['status' => 'Tidak Tersedia', 'status_level' => 'Mahasiswa'])->get();
+
+        return view('mahasiswa.peminjaman.update_peminjaman', compact('peminjaman', 'ruangan'));
+    }
+
+    public function UpdatePeminjamanMahasiswaPUT(Request $request, string $id)
+    {
+        // dd($request->all());
+        $validateData = $this->validate($request, [
+            'nama_peminjam' => 'required',
+            'ruangan_id' => 'required',
+            'keperluan' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'deskripsi' => 'required',
+            'status' => 'required',
+        ]);
+
+
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        $updateRuangan = Ruangan::whereHas('peminjaman', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->first()->update([
+            'status' => 'Tersedia',
+        ]);
+
+        $peminjaman->update([
+            'nama_peminjam' => $validateData['nama_peminjam'],
+            'ruangan_id' => $validateData['ruangan_id'],
+            'keperluan' => $validateData['keperluan'],
+            'tanggal_mulai' => $validateData['tanggal_mulai'],
+            'tanggal_selesai' => $validateData['tanggal_selesai'],
+            'deskripsi' => $validateData['deskripsi'],
+            'status' => $validateData['status'],
+        ]);
+
+
+
+        Ruangan::where('id', $validateData['ruangan_id'])->update([
+            'status' => 'Tidak Tersedia'
+        ]);
+
+        return redirect()->route('DashboardPeminjamanMahasiswa')->with(['Success' => 'Data berhasil diubah !']);
+    }
+
+    public function showDetailPeminjamanMahasiswa(string $id)
+    {
+        $peminjaman = Peminjaman::where('id', $id)->with('ruangan')->first();
+        // dd($peminjaman);
+        return view('mahasiswa.peminjaman.show_peminjaman', compact('peminjaman'));
+    }
+
+    public function destroyPeminjaman(string $id)
+    {
+
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->delete();
+
+        return redirect()->route('DashboardPeminjamanMahasiswa')->with(['Success' => 'Peminjaman Berhasil Dihapus!']);
+    }
+
+    function viewProfile()
+    {
         $mahasiswa = Mahasiswa::latest()->first();
 
-        return view('mahasiswa.profile', compact('mahasiswa'));
+        return view('mahasiswa.profile.index_profile', compact('mahasiswa'));
     }
 
-    function viewProfileUpdate($id){
+    function viewProfileUpdate($id)
+    {
         $mahasiswa = Mahasiswa::where('id', $id)->first();
 
-        return view('mahasiswa.profileEdit', compact('mahasiswa'));
+        return view('mahasiswa.profile.update_profile', compact('mahasiswa'));
     }
 
-    public function updateProfile(Request $request, $id) {
+    public function updateProfilePost(Request $request, $id)
+    {
         $this->validate($request, [
             'name' => 'required',
             'nim' => 'required',
@@ -38,11 +149,11 @@ class MahasiswaController extends Controller
 
         $mahasiswa = Mahasiswa::findOrFail($id);
 
-        if ($request->hasFile('foto')){
+        if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $image->storeAs('public/images', $image->hasName());
 
-            Storage::delete('public/images'.$mahasiswa->foto);
+            Storage::delete('public/images' . $mahasiswa->foto);
 
             $mahasiswa->update([
                 'foto' => $image->hasName(),
@@ -52,8 +163,6 @@ class MahasiswaController extends Controller
 
             ]);
         } else {
-
-
             $mahasiswa->update([
                 'name' => $request->name,
                 'nim' => $request->nim,
@@ -61,7 +170,6 @@ class MahasiswaController extends Controller
             ]);
         }
 
-        return redirect()->route('')->with(['success' => 'Profile Berhasil Diubah!']);
+        return redirect()->route('')->with(['Success' => 'Profile Berhasil Diubah!']);
     }
-
 }

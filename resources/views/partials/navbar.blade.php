@@ -56,11 +56,27 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item"
-                    href="{{ route('ChangePasswordAdmin', ['id' => Auth::guard('user')->user()->id]) }}">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Change Password
-                </a>
+                @if (Auth::guard('user')->user())
+                    <a class="dropdown-item"
+                        href="{{ route('ChangePasswordAdmin', ['id' => Auth::guard('user')->user()->id]) }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Change Password
+                    </a>
+                @endif
+                @if (Auth::guard('mahasiswa')->user())
+                    <a class="dropdown-item"
+                        href="{{ route('ChangePasswordAdmin', ['id' => Auth::guard('mahasiswa')->user()->id]) }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Change Password
+                    </a>
+                @endif
+                @if (Auth::guard('dosen')->user())
+                    <a class="dropdown-item"
+                        href="{{ route('ChangePasswordAdmin', ['id' => Auth::guard('dosen')->user()->id]) }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Change Password
+                    </a>
+                @endif
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('LogoutSession') }}" data-toggle="modal"
                     data-target="#logoutModal">

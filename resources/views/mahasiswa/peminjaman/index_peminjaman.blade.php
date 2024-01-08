@@ -16,7 +16,7 @@
             <div class="card-header py-3 d-flex justify-content-between">
                 <h6 class="font-weight-bold text-primary">Data Peminjaman</h6>
                 <div class="">
-                    <a href="{{ route('AdminCreatePeminjaman') }}" class="btn btn-primary">Tambah Data</a>
+                    <a href="{{ route('CreatePeminjamanMahasiswa') }}" class="btn btn-primary">Tambah Data</a>
                 </div>
             </div>
             <div class="card-body">
@@ -56,13 +56,12 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('AdminShowDetailPeminjaman', ['id' => $item->id]) }}"
+                                            <a href="{{ route('ShowDetailPeminjamanMahasiswa', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-primary">Detail</a>
-                                            <a href="{{ route('AdminShowPeminjamanPost', ['id' => $item->id]) }}"
+                                            <a href="{{ route('UpdatePeminjamanMahasiswa', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('AdminDeletePeminjaman', ['id' => $item->id]) }}"
-                                                method="POST" type="button" class="btn btn-danger p-0"
-                                                onsubmit="return confirm('Delete?')">
+                                            <form action="{{ route('HapusPeminjamanMahasiswa', ['id' => $item->id]) }}"
+                                                method="POST" type="button" class="btn btn-danger p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger m-0">Hapus</button>

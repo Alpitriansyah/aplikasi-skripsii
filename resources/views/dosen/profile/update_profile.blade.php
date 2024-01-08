@@ -10,7 +10,7 @@
                     <h6 class="font-weight-bold text-primary">Ubah Profile</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('UpdateProfileMahasiswaPUT', ['id' => $mahasiswa->id]) }}" method="POST">
+                    <form action="{{ route('UpdateProfileDosenPUT', ['id' => $mahasiswa->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-row">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="mt-5 d-flex justify-content-end">
-                            <a href="{{ route('ProfileMahasiswa') }}" class="btn btn-warning mr-1">Kembali</a>
+                            <a href="{{ route('ProfileDosen') }}" class="btn btn-warning mr-1">Kembali</a>
                             <button type="reset" class="btn btn-danger mr-1">Reset</button>
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>

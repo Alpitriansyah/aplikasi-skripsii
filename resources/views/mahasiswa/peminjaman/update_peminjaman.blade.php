@@ -10,8 +10,7 @@
                     Ubah Peminjaman
                 </div>
                 <div class="card-body">
-                    @dump($errors->all())
-                    <form action="{{ route('AdminUpdatePeminjamanPost', $peminjaman->id) }}" method="POST"
+                    <form action="{{ route('UpdatePeminjamanMahasiswaPUT', $peminjaman->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -79,7 +78,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Ubah</button>
-                        <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-warning">Kembali</a>
+                        <a href="{{ route('DashboardPeminjamanMahasiswa') }}" class="btn btn-warning">Kembali</a>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Dosen')
+@section('title', 'Data Dosen')
 
 @section('main')
     <!-- Begin Page Content -->

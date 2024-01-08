@@ -9,7 +9,7 @@
                         <h6 class="font-weight-bold text-primary">Profile</h6>
                     </div>
                     <div class="content-button">
-                        <a href="{{ route('UpdateProfileMahasiswa', $mahasiswa->id) }}" class="btn btn-primary">Setting
+                        <a href="{{ route('UpdateProfileDosen', $mahasiswa->id) }}" class="btn btn-primary">Setting
                             Profile</a>
                     </div>
                 </div>

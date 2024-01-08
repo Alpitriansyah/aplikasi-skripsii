@@ -10,7 +10,7 @@
                     <h6 class="font-weight-bold text-primary">Tambah Peminjaman</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreatePeminjamanPost') }}" method="POST">
+                    <form action="{{ route('CreatePeminjamanMahasiswaPOST') }}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -52,7 +52,6 @@
                                     <option value="Teknik Arsitektur">Teknik Arsitektur</option>
                                     <option value="Teknik Elektro">Teknik Elektro</option>
                                     <option value="Teknik Geologi">Teknik Geologi</option>
-                                    <option value="Admin">Admin</option>
                                 </select>
                                 @error('jurusan')
                                     <div class="invalid-feedback">
@@ -110,7 +109,7 @@
                             </div>
                         </div>
                         <div class="mt-5 d-flex justify-content-end">
-                            <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-warning mr-1">Kembali</a>
+                            <a href="{{ route('DashboardPeminjamanMahasiswa') }}" class="btn btn-warning mr-1">Kembali</a>
                             <button type="reset" class="btn btn-danger mr-1">Reset</button>
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>

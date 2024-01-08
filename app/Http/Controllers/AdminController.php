@@ -363,9 +363,10 @@ class AdminController extends Controller
     {
     }
 
-    public function ShowMahasiswa()
+    public function ShowMahasiswa(string $id)
     {
-        return view('admin.mahasiswa.show_mahasiswa');
+        $mahasiswa = Mahasiswa::where('id', $id)->first();
+        return view('admin.mahasiswa.show_mahasiswa', compact('mahasiswa'));
     }
 
     public function ShowUpdateMahasiswa()
