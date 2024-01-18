@@ -32,3 +32,10 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+(function ($) {
+    "use strict";
+
+    $('.carousel').carousel({
+    })
+})

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MahasiswaController extends Controller
 {
@@ -63,14 +64,14 @@ class MahasiswaController extends Controller
     public function UpdatePeminjamanMahasiswa(string $id)
     {
         $peminjaman = Peminjaman::where('id', $id)->with('ruangan')->first();
-        $ruangan = Ruangan::where(['status' => 'Tidak Tersedia', 'status_level' => 'Mahasiswa'])->get();
+        $ruangan = Ruangan::where(['status_level' => 'Mahasiswa'])->get();
 
         return view('mahasiswa.peminjaman.update_peminjaman', compact('peminjaman', 'ruangan'));
     }
 
     public function UpdatePeminjamanMahasiswaPUT(Request $request, string $id)
     {
-        // dd($request->all());
+        //dd($request->all());
         $validateData = $this->validate($request, [
             'nama_peminjam' => 'required',
             'ruangan_id' => 'required',
@@ -78,7 +79,6 @@ class MahasiswaController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
-            'status' => 'required',
         ]);
 
 
@@ -97,7 +97,6 @@ class MahasiswaController extends Controller
             'tanggal_mulai' => $validateData['tanggal_mulai'],
             'tanggal_selesai' => $validateData['tanggal_selesai'],
             'deskripsi' => $validateData['deskripsi'],
-            'status' => $validateData['status'],
         ]);
 
 
@@ -120,8 +119,14 @@ class MahasiswaController extends Controller
     {
 
         $peminjaman = Peminjaman::findOrFail($id);
+        Ruangan::whereHas('peminjaman', function ($query) use ($peminjaman) {
+            $query->where('id', $peminjaman->id);
+        })->first()->update([
+            'status' => 'Tersedia',
+        ]);
         $peminjaman->delete();
 
+        Alert::success('Success Title', 'Success Message');
         return redirect()->route('DashboardPeminjamanMahasiswa')->with(['Success' => 'Peminjaman Berhasil Dihapus!']);
     }
 

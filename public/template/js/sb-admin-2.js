@@ -54,3 +54,9 @@
   });
 
 })(jQuery); // End of use strict
+
+document.querySelector('custom-file-input').addEventListener('change', function (e) {
+  var fileName = document.getElementById("inputGroupFile01").files[0].name;
+  var nextSibling = e.target.nextElementSibling
+  nextSibling.innerText = fileName
+})

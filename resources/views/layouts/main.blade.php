@@ -6,6 +6,7 @@
 </head>
 
 <body id="page-top">
+    @include('sweetalert::alert')
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -62,7 +63,7 @@
                 <div class="modal-body">Tekan tombol <strong>Logout</strong> jika anda ingin keluar</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-primary" href="{{route('LogoutSession')}}">Logout</a>
+                    <a class="btn btn-primary" href="{{ route('LogoutSession') }}">Logout</a>
                 </div>
             </div>
         </div>

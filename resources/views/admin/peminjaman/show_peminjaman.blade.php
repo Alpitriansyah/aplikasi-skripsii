@@ -47,7 +47,13 @@
                     @if ($peminjaman->status == 'Dipinjam')
                         <th> : <span class="badge badge-pill badge-success">{{ $peminjaman->status }}</span></th>
                     @endif
-
+                </tr>
+                <tr>
+                    @if ($peminjaman->status == 'Dipinjam')
+                        <th>Surat Peminjaman</th>
+                        <th> : <a href="" class="btn btn-primary btn-sm">Download</a>
+                        </th>
+                    @endif
                 </tr>
             </table>
             <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-danger mt-4">Kembali</a>

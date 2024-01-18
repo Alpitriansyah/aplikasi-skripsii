@@ -109,6 +109,18 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="mt-5 d-flex justify-content-end">
                             <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-warning mr-1">Kembali</a>
                             <button type="reset" class="btn btn-danger mr-1">Reset</button>

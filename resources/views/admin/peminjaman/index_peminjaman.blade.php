@@ -63,15 +63,20 @@
                                         <div class="btn-group">
                                             <a href="{{ route('AdminShowDetailPeminjaman', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-primary">Detail</a>
-                                            <a href="{{ route('AdminShowPeminjamanPost', ['id' => $item->id]) }}"
-                                                type="button" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('AdminDeletePeminjaman', ['id' => $item->id]) }}"
-                                                method="POST" type="button" class="btn btn-danger p-0"
-                                                onsubmit="return confirm('Delete?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger m-0">Hapus</button>
-                                            </form>
+                                            @if (Auth::guard('user')->user())
+                                                @if (Auth::guard('user')->user()->id == Auth::guard('user')->user()->id)
+                                                    <a href="{{ route('AdminShowPeminjamanPost', ['id' => $item->id]) }}"
+                                                        type="button" class="btn btn-warning">Edit</a>
+                                                    <form
+                                                        action="{{ route('AdminDeletePeminjaman', ['id' => $item->id]) }}"
+                                                        method="POST" type="button" class="btn btn-danger p-0"
+                                                        onsubmit="return confirm('Delete?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger m-0">Hapus</button>
+                                                    </form>
+                                                @endif
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

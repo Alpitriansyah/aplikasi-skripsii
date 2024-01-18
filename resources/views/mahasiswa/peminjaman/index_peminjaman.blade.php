@@ -58,14 +58,19 @@
                                         <div class="btn-group">
                                             <a href="{{ route('ShowDetailPeminjamanMahasiswa', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-primary">Detail</a>
-                                            <a href="{{ route('UpdatePeminjamanMahasiswa', ['id' => $item->id]) }}"
-                                                type="button" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('HapusPeminjamanMahasiswa', ['id' => $item->id]) }}"
-                                                method="POST" type="button" class="btn btn-danger p-0">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger m-0">Hapus</button>
-                                            </form>
+                                            @if (Auth::guard('user')->user())
+                                                @if (Auth::guard('user')->user()->id == Auth::guard('user')->user()->id)
+                                                    <a href="{{ route('UpdatePeminjamanMahasiswa', ['id' => $item->id]) }}"
+                                                        type="button" class="btn btn-warning">Edit</a>
+                                                    <form
+                                                        action="{{ route('HapusPeminjamanMahasiswa', ['id' => $item->id]) }}"
+                                                        method="POST" type="button" class="btn btn-danger p-0">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger m-0">Hapus</button>
+                                                    </form>
+                                                @endif
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

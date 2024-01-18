@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                dateClick: function() {
+                    alert('a day has been clicked');
+                },
+                events: [{
+                    title: 'Ini Peminjaman',
+                    start: '2024-01-13',
+                    end: '2024-01-15'
+                }],
+                editable: true,
+            });
+            calendar.render();
+        });
+    </script>
     <title>Peminjaman Ruangan Fakultas Teknik UNMUL</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('template/img/unmu_logo.png') }}" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -38,23 +57,56 @@
             <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
         </div>
     </header>
+
+    <section id="slider">
+        <div class="container">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="asset('template/img/tamu.jpg')" class="d-block w-100" alt="gambar1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="asset('template/img/tamu2.jpg')" class="d-block w-100" alt="gambar2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Second slide label</h5>
+                            <p>Some representative placeholder content for the second slide.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('template/img/tamu3.jpg') }}" class="d-block w-100" alt="gambar3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Third slide label</h5>
+                            <p>Some representative placeholder content for the third slide.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"
+                    data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"
+                    data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </section>
     <!-- About section-->
     <section id="jadwal">
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
-                <div class="col-lg-8">
-                    <h2>About this page</h2>
-                    <p class="lead">This is a great place to talk about your webpage. This template is purposefully
-                        unstyled so you can use it as a boilerplate or starting point for you own landing page designs!
-                        This template features:</p>
-                    <ul>
-                        <li>Clickable nav links that smooth scroll to page sections</li>
-                        <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-                        <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the
-                            navbar</li>
-                        <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-                    </ul>
-                </div>
+                <div id="calendar"></div>
             </div>
         </div>
     </section>
@@ -62,6 +114,7 @@
     <section class="bg-light" id="tatib">
         <div class="container px-4">
             <div class="row gx-4">
+                <h2 class="text-center">Tata Tertib</h2>
                 <div class="col-lg-6">
                     <div class="card card-shadow">
                         <div class="card-header">
@@ -100,24 +153,24 @@
         <div class="container px-4">
             <div class="row gx-4 ">
                 <div class="d-flex gap-5 justify-content-center align-items-center">
-                    <div class="w-40 card mb-3 bg-warning">
+                    <a class="w-40 card mb-3 bg-warning" href="{{ route('LoginAdmin') }}">
                         <div class="card-body">
                             <div>
                                 <i class="ion-ios-person-outline"></i>
                             </div>
                             <p class="text-center">Admin</p>
                         </div>
-                    </div>
-                    <div class="card mb-3 bg-primary">
+                    </a>
+                    <a class="card mb-3 bg-primary" href="{{ route('LoginDosen') }}">
                         <div class="card-body">
                             <p class="text-center">Dosen</p>
                         </div>
-                    </div>
-                    <div class="card mb-3 bg-success">
+                    </a>
+                    <a class="card mb-3 bg-success" href="{{ route('LoginMahasiswa') }}">
                         <div class="card-body">
                             <p class="text-center">Mahasiswa</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
