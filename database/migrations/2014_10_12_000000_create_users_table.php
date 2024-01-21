@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('foto')->nullable();
             $table->string('level');
-            $table->timestamp('email_verified_at');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -45,7 +45,7 @@ return new class extends Migration
             $table->string('level')->nullable();
             $table->string('jenis_kelamin');
             $table->string('foto')->nullable();
-            $table->timestamp('email_verified_at');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

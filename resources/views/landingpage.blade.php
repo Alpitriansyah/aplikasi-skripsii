@@ -153,22 +153,22 @@
         <div class="container px-4">
             <div class="row gx-4 ">
                 <div class="d-flex gap-5 justify-content-center align-items-center">
-                    <a class="w-40 card mb-3 bg-warning" href="{{ route('LoginAdmin') }}">
+                    <a class="w-40 card mb-3 text-decoration-none h5 bg-warning" href="{{ route('LoginAdmin') }}">
                         <div class="card-body">
                             <div>
                                 <i class="ion-ios-person-outline"></i>
                             </div>
-                            <p class="text-center">Admin</p>
+                            <p class="text-center text-white ">Admin</p>
                         </div>
                     </a>
-                    <a class="card mb-3 bg-primary" href="{{ route('LoginDosen') }}">
+                    <a class="card mb-3 text-decoration-none h5 bg-primary" href="{{ route('LoginDosen') }}">
                         <div class="card-body">
-                            <p class="text-center">Dosen</p>
+                            <p class="text-center text-white ">Dosen</p>
                         </div>
                     </a>
-                    <a class="card mb-3 bg-success" href="{{ route('LoginMahasiswa') }}">
+                    <a class="card mb-3 text-decoration-none h5 bg-success" href="{{ route('LoginMahasiswa') }}">
                         <div class="card-body">
-                            <p class="text-center">Mahasiswa</p>
+                            <p class="text-center text-white ">Mahasiswa</p>
                         </div>
                     </a>
                 </div>

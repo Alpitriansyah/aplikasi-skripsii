@@ -55,6 +55,12 @@
                         </th>
                     @endif
                 </tr>
+                @if ($peminjaman->message && $peminjaman->status === 'Ditolak')
+                    <tr>
+                        <th>Message</th>
+                        <th> : {{ $peminjaman->message }}</th>
+                    </tr>
+                @endif
             </table>
             <a href="{{ route('DashboardPeminjamanAdmin') }}" class="btn btn-danger mt-4">Kembali</a>
         </div>

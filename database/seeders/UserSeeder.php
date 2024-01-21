@@ -18,8 +18,9 @@ class UserSeeder extends Seeder
             'name' => 'Indra Wijaya',
             'email' => 'indra@gmail.com',
             'password' => Hash::make('password'),
+            'jenis_kelamin' => 'Pria',
             'level' => 'admin',
-            'email_verified_now' => now()
+            'email_verified_at' => now()
         ]);
 
         for ($i = 0; $i < 10; $i++) {
@@ -27,8 +28,9 @@ class UserSeeder extends Seeder
                 'name' => fake()->name(),
                 'email' => fake()->email(),
                 'password' => Hash::make('password'),
+                'jenis_kelamin' => fake()->randomElement(['Pria', 'Perempuan']),
                 'level' => 'admin',
-                'email_verified_now' => now()
+                'email_verified_at' => now()
             ]);
         }
     }

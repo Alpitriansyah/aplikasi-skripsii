@@ -72,6 +72,8 @@
     <!--Script-->
     @include('partials.script')
 
+    @stack('costum-js')
+
 </body>
 
 </html>
