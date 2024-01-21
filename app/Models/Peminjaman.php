@@ -24,12 +24,12 @@ class Peminjaman extends Model
         'ruangan_id',
         'nama_peminjam',
         'jurusan',
-        'ruangan',
         'keperluan',
         'tanggal_mulai',
         'tanggal_selesai',
         'deskripsi',
-        'status'
+        'status',
+        'message'
     ];
 
     protected $table = "peminjamans";
@@ -56,12 +56,13 @@ class Peminjaman extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function user(): BelongsTo 
+    public function user(): BelongsTo
     {
         return $this->belongsTo(user::class);
     }
 
-    public function ruangan(){
+    public function ruangan()
+    {
         return $this->belongsTo(Ruangan::class);
     }
 }

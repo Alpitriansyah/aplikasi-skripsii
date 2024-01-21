@@ -211,7 +211,6 @@ class AdminController extends Controller
      */
     public function updatePeminjaman(Request $request, string $id)
     {
-        // dd($request->all());
         $validateData = $this->validate($request, [
             'nama_peminjam' => 'required',
             'ruangan_id' => 'required',
@@ -220,8 +219,8 @@ class AdminController extends Controller
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
             'status' => 'required',
+            'message' => 'sometimes|required'
         ]);
-
 
         $peminjaman = Peminjaman::findOrFail($id);
 
@@ -231,15 +230,7 @@ class AdminController extends Controller
             'status' => 'Tersedia',
         ]);
 
-        $peminjaman->update([
-            'nama_peminjam' => $validateData['nama_peminjam'],
-            'ruangan_id' => $validateData['ruangan_id'],
-            'keperluan' => $validateData['keperluan'],
-            'tanggal_mulai' => $validateData['tanggal_mulai'],
-            'tanggal_selesai' => $validateData['tanggal_selesai'],
-            'deskripsi' => $validateData['deskripsi'],
-            'status' => $validateData['status'],
-        ]);
+        $peminjaman->update($validateData);
 
 
 

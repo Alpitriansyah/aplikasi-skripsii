@@ -19,7 +19,7 @@ class DosenSeeder extends Seeder
                 'name' => fake()->name(),
                 'nip' => fake()->numerify('##########'),
                 'password' => Hash::make('password'),
-                'jenis_kelamin' => fake()->randomElement('Pria', 'Perempuan'),
+                'jenis_kelamin' => fake()->randomElement(['Pria', 'Perempuan']),
                 'level' => 'dosen'
             ]);
         }

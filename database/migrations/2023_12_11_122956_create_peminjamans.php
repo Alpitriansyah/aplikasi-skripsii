@@ -23,14 +23,13 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->nullable()->constrained('users');
             $table->string('nama_peminjam');
             $table->string('jurusan');
-            $table->string('ruangan');
             $table->string('keperluan');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->text('deskripsi');
             $table->string('status');
+            $table->string('message')->nullable();
             $table->timestamps();
-
         });
     }
 

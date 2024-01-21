@@ -10,7 +10,6 @@
                     Ubah Peminjaman
                 </div>
                 <div class="card-body">
-                    @dump($errors->all())
                     <form action="{{ route('AdminUpdatePeminjamanPost', $peminjaman->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -81,12 +80,19 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputState">Status</label>
-                                <select id="inputState" class="form-control" name="status">
+                                <label for="status">Status</label>
+                                <select id="status" class="form-control" name="status">
                                     <option value="Diproses" @selected('Diproses' == $peminjaman->status)>Diproses</option>
                                     <option value="Dipinjam" @selected('Dipinjam' == $peminjaman->status)>Dipinjam</option>
                                     <option value="Ditolak" @selected('Ditolak' == $peminjaman->status)>Ditolak</option>
                                 </select>
+                            </div>
+                            <div class="form-group col-md-6" id="comment">
+                                @if ($peminjaman->status == 'Ditolak')
+                                    <label for="message">Nama Peminjam</label>
+                                    <input type="text" class="form-control" id="message" name="message"
+                                        value="{{ $peminjaman->message }}">
+                                @endif
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Ubah</button>
@@ -96,4 +102,20 @@
             </div>
         </div>
     </div>
+
+    @push('costum-js')
+        <script>
+            const selectStatus = document.getElementById('status');
+            const comment = document.getElementById('comment');
+            selectStatus.addEventListener('change', function(e) {
+                if (e.target.value == 'Ditolak') {
+                    comment.innerHTML =
+                        `<label for="message">Message</label>
+                                        <input type="text" class="form-control" id="message" name="message" value="{{ $peminjaman->message }}">`
+                } else {
+                    comment.innerHTML = '';
+                }
+            });
+        </script>
+    @endpush
 @endsection
