@@ -52,8 +52,18 @@
                     </span>
                 @endif
 
-                <img class="img-profile rounded-circle"
-                    src="{{ asset('/storage/images/profile/' . Auth::guard('user')->user()->foto) }}">
+                @if (Auth::guard('user')->user())
+                    <img class="img-profile rounded-circle"
+                        src="{{ asset('/storage/images/profile/' . Auth::guard('user')->user()->foto) }}">
+                @endif
+                @if (Auth::guard('dosen')->user())
+                    <img class="img-profile rounded-circle"
+                        src="{{ asset('/storage/images/profile/' . Auth::guard('dosen')->user()->foto) }}">
+                @endif
+                @if (Auth::guard('mahasiswa')->user())
+                    <img class="img-profile rounded-circle"
+                        src="{{ asset('/storage/images/profile/' . Auth::guard('mahasiswa')->user()->foto) }}">
+                @endif
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

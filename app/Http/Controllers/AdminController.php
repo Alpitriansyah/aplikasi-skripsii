@@ -57,19 +57,16 @@ class AdminController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
-            'input_surat' => 'required|mimes:pdf',
+            'input_surat' => 'required',
         ]);
 
-        dd($request->all());
-
         if ($request->hasFile('input_surat')) {
-            $file = $request->file('input_surat');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $path = 'upload/surat';
-            $file->move($path, $filename);
+            $destination_path = 'asset';
+            $surat = $request->file('input_surat');
+            $surat_name = $surat->getClientOriginalName();
+            $path = $request->file('input_surat')->storeAs($destination_path, $surat_name);
+            $validateData['input_surat'] = $surat_name;
         }
-
         if (Auth::guard('user')->check()) {
             $validateData['user_id'] = Auth::guard('user')->id();
 
@@ -82,7 +79,7 @@ class AdminController extends Controller
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
-                'file_surat' => $path . $filename,
+                'file_surat' => $validateData['input_surat'],
                 'status' => 'Diproses'
             ]);
 

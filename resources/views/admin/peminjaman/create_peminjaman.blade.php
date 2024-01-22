@@ -12,6 +12,7 @@
                 <div class="card-body">
                     <form action="{{ route('AdminCreatePeminjamanPost') }}" method="POST">
                         @csrf
+                        @dump($errors->all())
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama Peminjam</label>
@@ -116,10 +117,10 @@
                                 </div>
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input @error('input_file_surat') is-invalid @enderror"
-                                        id="input_surat" name="input_surat" accept="application/pdf">
+                                        class="custom-file-input @error('input_surat') is-invalid @enderror"
+                                        id="input_surat" name="input_surat">
                                     <label class="custom-file-label" for="input_surat">Choose file</label>
-                                    @error('input_file_surat')
+                                    @error('input_surat')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

@@ -74,6 +74,7 @@
 
     @stack('costum-js')
     @stack('inputview-js')
+    @stack('modal_surat-js')
 
 </body>
 
