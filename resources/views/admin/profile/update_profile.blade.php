@@ -39,6 +39,23 @@
                                     value="{{ $user->level }}" disabled>
                             </div>
                         </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload Gambar</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input @error('image') is-invalid @enderror"
+                                        id="image" name="image">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                    @error('image')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Ubah</button>
                         <a href="{{ route('ProfileAdmin') }}" class="btn btn-warning">Kembali</a>
                     </form>
@@ -46,4 +63,13 @@
             </div>
         </div>
     </div>
+
+    @push('inputview-js')
+        <script>
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    @endpush
 @endsection

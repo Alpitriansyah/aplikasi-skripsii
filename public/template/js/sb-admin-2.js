@@ -53,10 +53,9 @@
     e.preventDefault();
   });
 
-})(jQuery); // End of use strict
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
 
-document.querySelector('custom-file-input').addEventListener('change', function (e) {
-  var fileName = document.getElementById("inputGroupFile01").files[0].name;
-  var nextSibling = e.target.nextElementSibling
-  nextSibling.innerText = fileName
-})
+})(jQuery); // End of use strict

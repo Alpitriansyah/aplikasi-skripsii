@@ -73,6 +73,7 @@
     @include('partials.script')
 
     @stack('costum-js')
+    @stack('inputview-js')
 
 </body>
 

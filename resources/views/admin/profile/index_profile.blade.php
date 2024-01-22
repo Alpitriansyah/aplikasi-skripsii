@@ -23,9 +23,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('template/img/alpit.jpg') }}" width="100" height="100"
-                                    alt="Gambar Profile" class="img-thumbnail">
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <img src="{{ asset('/storage/images/profile/' . $user->foto) }}" width="100"
+                                    height="100" alt="Gambar Profile" class="img-thumbnail">
+                                <a href="{{ route('UpdateProfileAdmin', ['id' => $user->id]) }}"
+                                    class="btn btn-primary mt-3">Change Picture</a>
                             </div>
                         </div>
                         <div class="col-7">

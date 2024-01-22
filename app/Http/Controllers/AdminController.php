@@ -57,8 +57,18 @@ class AdminController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
+            'input_surat' => 'required|mimes:pdf',
         ]);
 
+        dd($request->all());
+
+        if ($request->hasFile('input_surat')) {
+            $file = $request->file('input_surat');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $path = 'upload/surat';
+            $file->move($path, $filename);
+        }
 
         if (Auth::guard('user')->check()) {
             $validateData['user_id'] = Auth::guard('user')->id();
@@ -72,6 +82,7 @@ class AdminController extends Controller
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
+                'file_surat' => $path . $filename,
                 'status' => 'Diproses'
             ]);
 
@@ -302,7 +313,16 @@ class AdminController extends Controller
             'nama' => 'required',
             'email' => 'required',
             'jenis_kelamin' => 'required',
+            'image' => 'nullable|mimes:png,jpg|image',
         ]);
+
+        if ($request->hasFile('image')) {
+            $destination_path = 'public/images/profile';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path, $image_name);
+            $validateData['image'] = $image_name;
+        }
 
         $profile = User::findOrFail($id);
 
@@ -310,6 +330,7 @@ class AdminController extends Controller
             'name' => $validateData['nama'],
             'email' => $validateData['email'],
             'jenis_kelamin' => $validateData['jenis_kelamin'],
+            'foto' => $validateData['image'],
         ]);
 
         return redirect()->route('ProfileAdmin')->with(['Success' => 'Profile Berhasil Diubah']);

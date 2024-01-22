@@ -52,7 +52,8 @@
                     </span>
                 @endif
 
-                <img class="img-profile rounded-circle" src="{{ asset('template/img/undraw_profile.svg') }}">
+                <img class="img-profile rounded-circle"
+                    src="{{ asset('/storage/images/profile/' . Auth::guard('user')->user()->foto) }}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

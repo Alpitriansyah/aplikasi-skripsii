@@ -112,12 +112,18 @@
                         <div class="form-row mt-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Surat Kegiatan</span>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                        aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    <input type="file"
+                                        class="custom-file-input @error('input_file_surat') is-invalid @enderror"
+                                        id="input_surat" name="input_surat" accept="application/pdf">
+                                    <label class="custom-file-label" for="input_surat">Choose file</label>
+                                    @error('input_file_surat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -131,4 +137,13 @@
             </div>
         </div>
     </div>
+
+    @push('inputview-js')
+        <script>
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    @endpush
 @endsection

@@ -28,6 +28,7 @@ class Peminjaman extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'deskripsi',
+        'file_surat',
         'status',
         'message'
     ];
