@@ -61,12 +61,16 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('input_surat')) {
-            $destination_path = 'asset';
+            $destination_path = 'public/asset/file';
             $surat = $request->file('input_surat');
             $surat_name = $surat->getClientOriginalName();
-            $path = $request->file('input_surat')->storeAs($destination_path, $surat_name);
-            $validateData['input_surat'] = $surat_name;
+            $surat_extension = $surat->getClientOriginalExtension();
+            $fileNameToStore = $surat_name . '-' . time() . '.' . $surat_extension;
+            $path = $request->file('input_surat')->move($destination_path, $fileNameToStore);
+            $validateData['input_surat'] = $fileNameToStore;
         }
+        // dd($request->all());
+
         if (Auth::guard('user')->check()) {
             $validateData['user_id'] = Auth::guard('user')->id();
 
@@ -135,6 +139,11 @@ class AdminController extends Controller
     public function destroyPeminjaman(string $id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
+        $updateRuangan = Ruangan::whereHas('peminjaman', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->first()->update([
+            'status' => 'Tersedia',
+        ]);
         $peminjaman->delete();
 
         return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Peminjaman Berhasil Dihapus!']);
@@ -180,7 +189,7 @@ class AdminController extends Controller
 
     public function showProfileAdmin()
     {
-        $user = User::latest()->first();
+        $user = User::all()->first();
 
         return view('admin.profile.index_profile', compact('user'));
     }

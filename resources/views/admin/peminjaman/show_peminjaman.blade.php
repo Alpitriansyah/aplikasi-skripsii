@@ -66,18 +66,17 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" width="100%">
-        <div class="modal-dialog">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog" width="100%">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">View Surat</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="close" data-dismiss="modal">X</button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="{{ $peminjaman->file_surat }}" width="100%" height="50%"
-                        frameborder="0">{{ $peminjaman->file_surat }}</iframe>
+                    <embed src="{{ asset('asset/Transkrip.pdf') }}" width="100%" height="50%" frameborder="0">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
