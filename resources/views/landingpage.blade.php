@@ -7,6 +7,11 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -15,16 +20,19 @@
                 dateClick: function() {
                     alert('a day has been clicked');
                 },
-                events: [{
-                    title: 'Ini Peminjaman',
-                    start: '2024-01-13',
-                    end: '2024-01-15'
-                }],
+                events: @json($events),
                 editable: true,
             });
             calendar.render();
         });
     </script>
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
     <title>Peminjaman Ruangan Fakultas Teknik UNMUL</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('template/img/unmu_logo.png') }}" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -62,18 +70,45 @@
     <section id="slider">
         <div class="container">
             <h2 class="text-center">Gambar Ruangan</h2>
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item">
+                    <div class="carousel-item active">
                         <img src="{{ asset('template/img/tamu.jpg') }}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                        </div>
                     </div>
                     <div class="carousel-item">
                         <img src="{{ asset('template/img/tamu2.jpg') }}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Second slide label</h5>
+                            <p>Some representative placeholder content for the second slide.</p>
+                        </div>
                     </div>
-                    <div class="carousel-item active">
+                    <div class="carousel-item">
                         <img src="{{ asset('template/img/tamu3.jpg') }}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Third slide label</h5>
+                            <p>Some representative placeholder content for the third slide.</p>
+                        </div>
                     </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"
+                    data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"
+                    data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
             </div>
         </div>
     </section>
@@ -160,6 +195,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="{{ asset('template/js/landing-page.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Activate Carousel
+            $("#carouselExampleCaptions").carousel();
+
+            // Enable Carousel Indicators
+            $(".item1").click(function() {
+                $("#myCarousel").carousel(0);
+            });
+            $(".item2").click(function() {
+                $("#myCarousel").carousel(1);
+            });
+            $(".item3").click(function() {
+                $("#myCarousel").carousel(2);
+            });
+
+            // Enable Carousel Controls
+            $(".carousel-control-prev").click(function() {
+                $("#carouselExampleCaptions").carousel("prev");
+            });
+            $(".carousel-control-next").click(function() {
+                $("#carouselExampleCaptions").carousel("next");
+            });
+        });
+    </script>
 </body>
 
 </html>

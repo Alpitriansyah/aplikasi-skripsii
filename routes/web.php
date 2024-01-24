@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
 use App\Models\Mahasiswa;
@@ -18,11 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landingpage');
-})->name('Homepage');
-
-
+Route::get('/', [HomePageController::class, 'index'])->name('Homepage');
 
 Route::get('/login/admin', [LoginController::class, 'view_admin'])->name('LoginAdmin');
 Route::get('/login/mahasiswa', [LoginController::class, 'view_mahasiswa'])->name('LoginMahasiswa');
