@@ -11,14 +11,22 @@ class HomePageController extends Controller
 {
     public function index()
     {
+
         $events = [];
         $peminjaman_events = Peminjaman::latest()->with('ruangan')->get();
-
         foreach ($peminjaman_events as $peminjaman) {
+            if ($peminjaman->keperluan == 'Seminar') {
+                $color = 'bg-danger';
+            }
+            if ($peminjaman->keperluan == 'Pelatihan') {
+                $color = 'bg-success';
+            }
             $events[] = [
                 'title' => $peminjaman->nama_peminjam,
                 'start' => $peminjaman->tanggal_mulai,
                 'end' => $peminjaman->tanggal_selesai,
+
+                'className' => $color
             ];
         }
 

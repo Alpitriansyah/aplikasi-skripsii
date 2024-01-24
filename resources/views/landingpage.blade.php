@@ -116,7 +116,17 @@
     <section id="jadwal">
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
-                <div id="calendar"></div>
+                <h2 class="text-center">Jadwal</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Keterangan :</h3>
+                        <button class="btn btn-primary">test</button>
+                        <span class="badge badge-primary">Primary</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -161,6 +171,7 @@
     <!-- Login Section-->
     <section id="login">
         <div class="container px-4">
+            <h2 class="text-center mb-4">Login</h2>
             <div class="row gx-4 ">
                 <div class="d-flex gap-5 justify-content-center align-items-center">
                     <a class="w-40 card mb-3 text-decoration-none h5 bg-warning" href="{{ route('LoginAdmin') }}">
