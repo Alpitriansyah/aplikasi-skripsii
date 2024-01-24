@@ -10,7 +10,7 @@
                     <h6 class="font-weight-bold text-primary">Tambah Peminjaman</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreatePeminjamanPost') }}" method="POST">
+                    <form action="{{ route('AdminCreatePeminjamanPost') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @dump($errors->all())
                         <div class="form-row">
@@ -117,10 +117,10 @@
                                 </div>
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input @error('input_surat') is-invalid @enderror"
-                                        id="input_surat" name="input_surat">
-                                    <label class="custom-file-label" for="input_surat">Choose file</label>
-                                    @error('input_surat')
+                                        class="custom-file-input @error('file_surat') is-invalid @enderror" id="file_surat"
+                                        name="file_surat">
+                                    <label class="custom-file-label" for="file_surat">Choose file</label>
+                                    @error('file_surat')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

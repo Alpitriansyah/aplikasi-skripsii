@@ -57,17 +57,17 @@ class AdminController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
-            'input_surat' => 'required',
+            'file_surat' => 'required|file|mimes:pdf|max:3000',
         ]);
 
-        if ($request->hasFile('input_surat')) {
-            $destination_path = 'public/asset/file';
-            $surat = $request->file('input_surat');
-            $surat_name = $surat->getClientOriginalName();
+        if ($request->hasFile('file_surat')) {
+            $destination_path = 'berkas/surat-kegiatan';
+            $surat = $request->file('file_surat');
+            $surat_name = pathinfo($surat->getClientOriginalName(), PATHINFO_FILENAME);
             $surat_extension = $surat->getClientOriginalExtension();
             $fileNameToStore = $surat_name . '-' . time() . '.' . $surat_extension;
-            $path = $request->file('input_surat')->move($destination_path, $fileNameToStore);
-            $validateData['input_surat'] = $fileNameToStore;
+            $fileStore = $surat->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['file_surat'] = $fileStore;
         }
         // dd($request->all());
 
@@ -83,7 +83,7 @@ class AdminController extends Controller
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
-                'file_surat' => $validateData['input_surat'],
+                'file_surat' => $validateData['file_surat'],
                 'status' => 'Diproses'
             ]);
 
@@ -189,7 +189,7 @@ class AdminController extends Controller
 
     public function showProfileAdmin()
     {
-        $user = User::all()->first();
+        $user = User::query()->where('id', auth()->id())->first();
 
         return view('admin.profile.index_profile', compact('user'));
     }

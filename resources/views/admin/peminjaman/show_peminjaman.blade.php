@@ -67,7 +67,7 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog" width="100%">
+        <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -76,7 +76,8 @@
                     <button type="button" class="close" data-dismiss="modal">X</button>
                 </div>
                 <div class="modal-body">
-                    <embed src="{{ asset('asset/Transkrip.pdf') }}" width="100%" height="50%" frameborder="0">
+                    <embed src="{{ asset('storage/' . $peminjaman->file_surat) }}" width="100%" height="100%"
+                        style="min-height: 600px;" frameborder="0">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
