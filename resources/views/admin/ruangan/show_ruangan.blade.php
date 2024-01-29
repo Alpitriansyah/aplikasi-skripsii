@@ -9,6 +9,10 @@
         <div class="card-body">
             <table>
                 <tr>
+                    <th>Gambar</th>
+                    <th> : <img src="" class="img-thumbnail" alt="Null"></th>
+                </tr>
+                <tr>
                     <th>Nama Ruangan</th>
                     <th> : {{ $ruang->name }}</th>
                 </tr>

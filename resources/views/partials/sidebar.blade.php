@@ -52,13 +52,6 @@
                     <span>Profile</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('LogoutSession') }}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Logout</span></a>
-            </li>
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -103,12 +96,12 @@
                     <span>Profile</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            {{-- <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('LogoutSession') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Logout</span></a>
-            </li>
+            </li> --}}
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -154,12 +147,12 @@
                     <span>Profile</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            {{-- <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('LogoutSession') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Logout</span></a>
-            </li>
+            </li> --}}
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

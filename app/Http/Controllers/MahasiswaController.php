@@ -132,7 +132,7 @@ class MahasiswaController extends Controller
 
     function viewProfile()
     {
-        $mahasiswa = Mahasiswa::latest()->first();
+        $mahasiswa = Mahasiswa::query()->where('id', auth()->id())->first();
 
         return view('mahasiswa.profile.index_profile', compact('mahasiswa'));
     }

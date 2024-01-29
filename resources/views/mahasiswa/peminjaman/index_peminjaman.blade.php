@@ -58,7 +58,7 @@
                                         <div class="btn-group">
                                             <a href="{{ route('ShowDetailPeminjamanMahasiswa', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-primary">Detail</a>
-                                            @if (Auth::guard('user')->user())
+                                            {{-- @if (Auth::guard('user')->user())
                                                 @if (Auth::guard('user')->user()->id == Auth::guard('user')->user()->id)
                                                     <a href="{{ route('UpdatePeminjamanMahasiswa', ['id' => $item->id]) }}"
                                                         type="button" class="btn btn-warning">Edit</a>
@@ -70,7 +70,7 @@
                                                         <button class="btn btn-danger m-0">Hapus</button>
                                                     </form>
                                                 @endif
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </td>
                                 </tr>

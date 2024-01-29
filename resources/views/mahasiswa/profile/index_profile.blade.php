@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="row">
-        <div class="col-lg-12 col-md-6">
+        <div class="col-12 col-lg-12 col-md-12">
             @if (Session::has('Success'))
                 <div class="alert alert-success" role="alert">
                     {{ Session::get('Success') }}

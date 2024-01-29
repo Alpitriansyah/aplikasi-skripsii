@@ -20,7 +20,9 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.index');
+        $count_peminjaman = Peminjaman::count();
+        $room_ready = Ruangan::where('status', 'Tersedia')->count();
+        return view('admin.index', compact('count_peminjaman', 'room_ready'));
     }
 
     /**
@@ -214,6 +216,16 @@ class AdminController extends Controller
     public function CreateUser()
     {
         return view('admin.user.create_user');
+    }
+
+    public function ShowUpdateUser()
+    {
+        return view('admin.user.update_user');
+    }
+
+    public function ShowDetailUser()
+    {
+        return view('admin.user.show_user');
     }
 
 

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DosenController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
@@ -44,6 +43,10 @@ Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin/ruangan/detail/{id}', [AdminController::class, 'ShowDetailRuangan'])->name('AdminShowDetailRuagan');
     Route::get('/admin/user', [AdminController::class, 'DashboardUser'])->name('DashboardUser');
     Route::get('/admin/user/create', [AdminController::class, 'CreateUser'])->name('AdminCreateUser');
+    Route::get('/admin/user/detail/{id}', [AdminController::class, 'ShowDetailUser'])->name('AdminShowDetailUser');
+    Route::get('/admin/user/{id}', [AdminController::class, 'ShowUpdateUser'])->name('AdminUpdateUser');
+    Route::put('/admin/user/{id}', [AdminController::class, 'UpdateUserStore'])->name('AdminUpdateUserStore');
+    Route::delete('/admin/user/{id}', [AdminController::class, 'destroyUser'])->name('AdminDeleteUser');
     Route::get('/admin/ruangan/{id}', [AdminController::class, 'updateRuanganDetail'])->name('AdminUpdateRuangan');
     Route::put('/admin/ruangan/{id}', [AdminController::class, 'updateRuangan'])->name('AdminUpdateRuanganPut');
     Route::delete('/admin/ruangan/{id}', [AdminController::class, 'destroyRuangan'])->name('AdminDeleteRuangan');
@@ -72,10 +75,10 @@ Route::group(['middleware' => ['auth:dosen', 'checklevel:dosen']], function () {
     Route::get('/dosen/peminjaman', [DosenController::class, 'viewPeminjamanDosen'])->name('DashboardPeminjamanDosen');
     Route::get('/dosen/peminjaman/create', [DosenController::class, 'CreatePeminjamanDosen'])->name('CreatePeminjamanDosen');
     Route::post('/dosen/peminjaman/create', [DosenController::class, 'CreatePeminjamanDosenPOST'])->name('CreatePeminjamanDosenPOST');
-    Route::get('/dosen/peminjaman/{id}', [DosenController::class, 'UpdatePeminjamanDosen'])->name('UpdatePeminjamanDosen');
-    Route::put('/dosen/peminjaman/{id}', [DosenController::class, 'UpdatePeminjamanDosenPUT'])->name('UpdatePeminjamanDosenPUT');
+    // Route::get('/dosen/peminjaman/{id}', [DosenController::class, 'UpdatePeminjamanDosen'])->name('UpdatePeminjamanDosen');
+    // Route::put('/dosen/peminjaman/{id}', [DosenController::class, 'UpdatePeminjamanDosenPUT'])->name('UpdatePeminjamanDosenPUT');
     Route::delete('/dosen/peminjaman/{id}', [DosenController::class, 'destroyPeminjaman'])->name('DeletePeminjamanDosen');
-    Route::get('/dosen/peminjaman/detail/{id}', [DosenController::class, 'showDetailPeminjamanDosen'])->name('DetailPeminjamanDosen');
+    // Route::get('/dosen/peminjaman/detail/{id}', [DosenController::class, 'showDetailPeminjamanDosen'])->name('DetailPeminjamanDosen');
     Route::get('/dosen/profile', [DosenController::class, 'index'])->name('ProfileDosen');
     Route::get('/dosen/profile/{id}', [DosenController::class, 'viewProfileUpdate'])->name('UpdateProfileDosen');
     Route::put('/dosen/profile/{id}', [DosenController::class, 'updateProfilePost'])->name('UpdateProfileDosenPUT');
@@ -88,9 +91,9 @@ Route::group(['middleware' => ['auth:mahasiswa', 'checklevel:mhs']], function ()
     Route::get('/mahasiswa/peminjaman', [MahasiswaController::class, 'viewPeminjaman'])->name('DashboardPeminjamanMahasiswa');
     Route::get('/mahasiswa/peminjaman/create', [MahasiswaController::class, 'CreatePeminjamanMahasiswa'])->name('CreatePeminjamanMahasiswa');
     Route::post('/mahasiswa/peminjaman/create', [MahasiswaController::class, 'CreatePeminjamanMahasiswaPOST'])->name('CreatePeminjamanMahasiswaPOST');
-    Route::get('/mahasiswa/peminjaman/{id}', [MahasiswaController::class, 'UpdatePeminjamanMahasiswa'])->name('UpdatePeminjamanMahasiswa');
-    Route::put('/mahasiswa/peminjaman/{id}', [MahasiswaController::class, 'UpdatePeminjamanMahasiswaPUT'])->name('UpdatePeminjamanMahasiswaPUT');
-    Route::delete('/mahasiswa/peminjaman/{id}', [MahasiswaController::class, 'destroyPeminjaman'])->name('HapusPeminjamanMahasiswa');
+    // Route::get('/mahasiswa/peminjaman/{id}', [MahasiswaController::class, 'UpdatePeminjamanMahasiswa'])->name('UpdatePeminjamanMahasiswa');
+    // Route::put('/mahasiswa/peminjaman/{id}', [MahasiswaController::class, 'UpdatePeminjamanMahasiswaPUT'])->name('UpdatePeminjamanMahasiswaPUT');
+    // Route::delete('/mahasiswa/peminjaman/{id}', [MahasiswaController::class, 'destroyPeminjaman'])->name('HapusPeminjamanMahasiswa');
     Route::get('/mahasiswa/peminjaman/detail/{id}', [MahasiswaController::class, 'showDetailPeminjamanMahasiswa'])->name('ShowDetailPeminjamanMahasiswa');
     Route::get('/mahasiswa/profile', [MahasiswaController::class, 'viewProfile'])->name('ProfileMahasiswa');
     Route::get('/mahasiswa/profile/{id}', [MahasiswaController::class, 'viewProfileUpdate'])->name('UpdateProfileMahasiswa');

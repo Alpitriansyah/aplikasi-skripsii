@@ -75,6 +75,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>
+                        <a href="{{ route('DashboardRuangan') }}" class="btn btn-danger">Kembali</a>
                     </form>
                 </div>
             </div>

@@ -10,7 +10,7 @@
                     Ubah Password
                 </div>
                 <div class="card-body">
-                    @dump($errors->all())
+                    {{-- @dump($errors->all()) --}}
                     <form action="{{ route('ChangePasswordAdminPUT', ['id' => $user->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

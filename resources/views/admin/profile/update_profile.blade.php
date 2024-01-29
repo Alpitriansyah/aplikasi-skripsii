@@ -10,7 +10,7 @@
                     Ubah Profile
                 </div>
                 <div class="card-body">
-                    @dump($errors->all())
+                    {{-- @dump($errors->all()) --}}
                     <form action="{{ route('UpdateProfileAdminPUT', $user->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

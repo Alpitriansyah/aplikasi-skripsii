@@ -15,18 +15,26 @@ class HomePageController extends Controller
         $events = [];
         $peminjaman_events = Peminjaman::latest()->with('ruangan')->get();
         foreach ($peminjaman_events as $peminjaman) {
-            if ($peminjaman->keperluan == 'Seminar') {
-                $color = 'bg-danger';
+            if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Diproses') {
+                $color = 'bg-success border border-white';
             }
-            if ($peminjaman->keperluan == 'Pelatihan') {
-                $color = 'bg-success';
+            if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Dipinjam') {
+                $color = 'bg-primary border border-white';
+            }
+            if ($peminjaman->keperluan == 'Pelatihan' && $peminjaman->status == 'Dipinjam') {
+                $color = 'bg-success border border-white';
+            }
+            if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Diproses') {
+                $color = 'bg-primary border border-white';
             }
             $events[] = [
+                'id' => $peminjaman->id,
                 'title' => $peminjaman->nama_peminjam,
                 'start' => $peminjaman->tanggal_mulai,
                 'end' => $peminjaman->tanggal_selesai,
-
-                'className' => $color
+                'keperluan' => $peminjaman->keperluan,
+                'className' => $color,
+                'url' => '#login'
             ];
         }
 

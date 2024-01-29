@@ -24,6 +24,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Gambar</th>
                                 <th>Nama Ruangan</th>
                                 <th>Lokasi</th>
                                 <th>Kapasitas</th>
@@ -35,6 +36,7 @@
                         <tbody>
                             @foreach ($ruangan as $item)
                                 <tr>
+                                    <td><img src="" alt="Null"></td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->lokasi }}</td>
                                     <td>{{ $item->kapasitas }} Orang</td>

@@ -40,8 +40,10 @@
                                     <td>{{ $item->level }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="" type="button" class="btn btn-primary">Detail</a>
-                                            <a href="" type="button" class="btn btn-warning">Edit</a>
+                                            <a href="{{ route('AdminShowDetailUser', ['id' => $item->id]) }}" type="button"
+                                                class="btn btn-primary">Detail</a>
+                                            <a href="{{ route('AdminUpdateUser', ['id' => $item->id]) }}" type="button"
+                                                class="btn btn-warning">Edit</a>
                                             <form action="" method="POST" type="button" class="btn btn-danger p-0"
                                                 onsubmit="return confirm('Delete?')">
                                                 @csrf

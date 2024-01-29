@@ -41,7 +41,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total Peminjaman</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ Auth::guard('user')->user()->email }}
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $count_peminjaman }}
                             </div>
                         </div>
                         <div class="col-auto">
@@ -62,7 +62,7 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">5</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $room_ready }}</div>
                                 </div>
                             </div>
                         </div>
@@ -155,13 +155,34 @@
                     </div>
                     <div class="mt-4 text-center small">
                         <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
+                            <i class="fas fa-circle text-primary"></i> Sistem Informasi
                         </span>
                         <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
+                            <i class="fas fa-circle text-success"></i> Teknik Sipil
                         </span>
                         <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
+                            <i class="fas fa-circle text-info"></i> Informatika
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Pertambangan
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Kimia
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Arsitektur
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Elektro
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Lingkungan
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Geologi
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Teknik Mesin
                         </span>
                     </div>
                 </div>
