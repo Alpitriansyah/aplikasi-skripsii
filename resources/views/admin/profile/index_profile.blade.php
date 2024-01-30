@@ -24,8 +24,8 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="d-flex flex-column justify-content-center align-items-center">
-                                <img src="{{ asset('/storage/images/profile/' . $user->foto) }}" width="100"
-                                    height="100" alt="Gambar Profile" class="img-thumbnail">
+                                <img src="{{ asset('storage/' . $user->foto) }}" width="100" height="100"
+                                    alt="Gambar Profile" class="img-thumbnail">
                                 <a href="{{ route('UpdateProfileAdmin', ['id' => $user->id]) }}"
                                     class="btn btn-primary mt-3">Change Picture</a>
                             </div>

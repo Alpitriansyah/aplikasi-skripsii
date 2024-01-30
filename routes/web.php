@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin/dosen/detail/{id}', [AdminController::class, 'ShowDosen'])->name('AdminShowDetailDosen');
     Route::get('/admin/dosen/{id}', [AdminController::class, 'ShowUpdateDosen'])->name('AdminUpdateDosen');
     Route::put('/admin/dosen/{id}', [AdminController::class, 'ShowUpdateMDosenPut'])->name('AdminUpdateDosenPUT');
+    Route::delete('/admin/dosen/{id}', [AdminController::class, 'destroyDosen'])->name('AdminDeleteDosen');
 });
 
 Route::group(['middleware' => ['auth:dosen', 'checklevel:dosen']], function () {

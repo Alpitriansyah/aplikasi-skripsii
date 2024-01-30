@@ -24,6 +24,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Gambar Dosen</th>
                                 <th>Nama Dosen</th>
                                 <th>NIP</th>
                                 <th>Jenis Kelamin</th>
@@ -34,6 +35,9 @@
                         <tbody>
                             @foreach ($dosen as $item)
                                 <tr>
+                                    <td><img src="{{ asset('storage/' . $item->foto) }}" alt="Gambar Dosen"
+                                            class="img-thumbnail rounded mx-auto d-block" width="100" height="100">
+                                    </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->nip }}</td>
                                     <td>{{ $item->jenis_kelamin }}</td>
@@ -44,9 +48,8 @@
                                                 type="button" class="btn btn-primary">Detail</a>
                                             <a href="{{ route('AdminUpdateDosen', ['id' => $item->id]) }}" type="button"
                                                 class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('DeletePeminjamanDosen', ['id' => $item->id]) }}"
-                                                method="POST" type="button" class="btn btn-danger p-0"
-                                                onsubmit="return confirm('Delete?')">
+                                            <form action="{{ route('AdminDeleteDosen', ['id' => $item->id]) }}"
+                                                method="POST" type="button" class="btn btn-danger p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger m-0">Hapus</button>

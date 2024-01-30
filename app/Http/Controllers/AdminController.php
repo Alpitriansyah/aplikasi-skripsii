@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Charts\ChartRuangan;
-use App\Charts\RuanganUsersChart;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Peminjaman;
@@ -11,7 +10,6 @@ use App\Models\Ruangan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -493,7 +491,7 @@ class AdminController extends Controller
             'level' => 'mhs'
         ]);
 
-        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'User Berhasil Dihapus!']);
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'User Berhasil Dibuat!']);
     }
 
     public function ShowMahasiswa(string $id)
@@ -566,34 +564,101 @@ class AdminController extends Controller
         return view('admin.dosen.create_dosen');
     }
 
-    public function CreateDosenPost()
+    public function CreateDosenPost(Request $request)
     {
+        $validateData = $this->validate(
+            $request,
+            [
+                'nama_dosen' => 'required',
+                'nip' => 'required',
+                'password_dosen' => 'required',
+                'jenisKelamin' => 'required',
+                'image_dosen' => 'nullable|image|mimes:jpg,png,jpeg',
+            ]
+        );
+
+        if ($request->hasFile('image_dosen')) {
+            $destination_path = 'images/profile/dosen';
+            $image = $request->file('image_dosen');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_dosen'] = $fileStore;
+        }
+
+        Dosen::create([
+            'name' => $validateData['nama_dosen'],
+            'nip' => $validateData['nip'],
+            'password' => Hash::make($validateData['password_dosen']),
+            'jenis_kelamin' => $validateData['jenisKelamin'],
+            'foto' => $validateData['image_dosen'],
+            'level' => 'dosen'
+        ]);
+
+        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'Dosen Berhasil Dibuat!']);
     }
 
     public function ShowDosen(string $id)
     {
-        $dosen = Dosen::where('id', $id)->first();
+        $dosen = Dosen::FindOrFail($id);
         return view('admin.dosen.show_dosen', compact('dosen'));
     }
 
     public function ShowUpdateDosen(string $id)
     {
-        $dosen = Dosen::where('id', $id)->first();
+        $dosen = Dosen::FindOrFail($id);
         return view('admin.dosen.update_dosen', compact('dosen'));
     }
 
-    public function ShowUpdateMDosenPut()
+    public function ShowUpdateMDosenPut(Request $request, string $id)
     {
+        $validateData = $this->validate($request, [
+            'nama_dosen' => 'required',
+            'nip' => 'required',
+            'password_dosen' => 'required',
+            'jenisKelamin' => 'required',
+            'image_dosen' => 'nullable|image|mimes:jpg,png,jpeg',
+        ]);
+
+        $dosen = Dosen::FindOrFail($id);
+
+        if ($request->hasFile('image_dosen')) {
+            Storage::delete($dosen->foto);
+            $destination_path = 'images/profile/dosen';
+            $image = $request->file('image_dosen');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_dosen'] = $fileStore;
+        } else {
+            $validateData['image_dosen'] = $dosen->foto;
+        }
+
+        // @dd($validateData);
+        $dosen->update([
+            'name' => $validateData['nama_dosen'],
+            'nip' => $validateData['nip'],
+            'password' => Hash::make($validateData['password_dosen']),
+            'jenis_kelamin' => $validateData['jenisKelamin'],
+            'foto' => $validateData['image_dosen'],
+            'level' => 'dosen'
+        ]);
+
+        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'Data berhasil Diubah !']);
     }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyDosen(string $id)
     {
-        //
+        $dosen = Dosen::findOrFail($id);
+        $dosen->delete();
+
+        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'User Berhasil Dihapus!']);
     }
-
-
 
     /**
      * Show Profile Admin.
@@ -607,7 +672,7 @@ class AdminController extends Controller
 
     public function UpdateProfile(string $id)
     {
-        $user = User::where('id', $id)->first();
+        $user = User::FindOrFail($id);
         return view('admin.profile.update_profile', compact('user'));
     }
 
@@ -620,15 +685,19 @@ class AdminController extends Controller
             'image' => 'nullable|mimes:png,jpg|image',
         ]);
 
+        $profile = User::findOrFail($id);
+
         if ($request->hasFile('image')) {
+            Storage::delete('storage/' . $profile->foto);
             $destination_path = 'public/images/profile';
             $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $path = $request->file('image')->storeAs($destination_path, $image_name);
-            $validateData['image'] = $image_name;
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image'] = $fileStore;
         }
 
-        $profile = User::findOrFail($id);
 
         $profile->update([
             'name' => $validateData['nama'],

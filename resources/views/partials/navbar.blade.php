@@ -54,15 +54,15 @@
 
                 @if (Auth::guard('user')->user())
                     <img class="img-profile rounded-circle"
-                        src="{{ asset('/storage/images/profile/' . Auth::guard('user')->user()->foto) }}">
+                        src="{{ asset('storage/' . Auth::guard('user')->user()->foto) }}">
                 @endif
                 @if (Auth::guard('dosen')->user())
                     <img class="img-profile rounded-circle"
-                        src="{{ asset('/storage/images/profile/' . Auth::guard('dosen')->user()->foto) }}">
+                        src="{{ asset('storage/' . Auth::guard('dosen')->user()->foto) }}">
                 @endif
                 @if (Auth::guard('mahasiswa')->user())
                     <img class="img-profile rounded-circle"
-                        src="{{ asset('/storage/images/profile/' . Auth::guard('mahasiswa')->user()->foto) }}">
+                        src="{{ asset('storage/' . Auth::guard('mahasiswa')->user()->foto) }}">
                 @endif
             </a>
             <!-- Dropdown - User Information -->

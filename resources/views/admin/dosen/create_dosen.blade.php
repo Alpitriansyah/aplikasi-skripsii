@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah User')
+@section('title', 'Tambah Dosen')
 
 @section('main')
     <div class="row">
@@ -10,23 +10,23 @@
                     Tambah Dosen
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreateRuanganPost') }}" method="POST">
+                    <form action="{{ route('AdminCreateDosenPOST') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nama Dosen</label>
-                                <input type="text" class="form-control @error('nama_user') is-invalid @enderror"
-                                    id="inputEmail4" name="nama_user">
-                                @error('nama_user')
+                                <label for="nama_dosen">Nama Dosen</label>
+                                <input type="text" class="form-control @error('nama_dosen') is-invalid @enderror"
+                                    id="nama_dosen" name="nama_dosen">
+                                @error('nama_dosen')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="UserEmail">NIP</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="Useremail" name="lokasi">
+                                <label for="nip">NIP</label>
+                                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip"
+                                    name="nip">
                                 @error('lokasi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -36,10 +36,10 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password_user">
-                                @error('password')
+                                <label for="password_dosen">Password</label>
+                                <input type="password" class="form-control @error('password_dosen') is-invalid @enderror"
+                                    id="password_dosen" name="password_dosen">
+                                @error('password_dosen')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -54,6 +54,24 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="image_text">Foto Dosen</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input @error('image_dosen') is-invalid @enderror"
+                                        id="image_dosen" name="image_dosen">
+                                    <label class="custom-file-label" for="image_dosen">Choose file</label>
+                                    @error('image_dosen')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">Tambah</button>

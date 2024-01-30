@@ -21,7 +21,10 @@ class Dosen extends Authenticatable
         'name',
         'nip',
         'password',
+        'jenis_kelamin',
+        'foto',
         'level',
+
     ];
 
     protected $table = "dosens";
