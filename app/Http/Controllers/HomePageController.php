@@ -12,6 +12,7 @@ class HomePageController extends Controller
     public function index()
     {
 
+        $ruanganAll = Ruangan::all();
         $events = [];
         $peminjaman_events = Peminjaman::latest()->with('ruangan')->get();
         foreach ($peminjaman_events as $peminjaman) {
@@ -38,6 +39,6 @@ class HomePageController extends Controller
             ];
         }
 
-        return view('landingpage', compact('events'));
+        return view('landingpage', compact('events', 'ruanganAll'));
     }
 }

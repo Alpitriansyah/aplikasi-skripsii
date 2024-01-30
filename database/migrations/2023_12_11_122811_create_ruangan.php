@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('kapasitas');
             $table->string('status');
             $table->string('status_level');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

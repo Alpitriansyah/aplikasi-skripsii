@@ -175,14 +175,26 @@ class AdminController extends Controller
             'kapasitas' => 'required',
             'status_level' => 'required',
             'status' => 'required',
+            'image_ruangan' => 'required|image|mimes:jpg,jpeg,png',
         ]);
+
+        if ($request->hasFile('image_ruangan')) {
+            $destination_path = 'images/ruangan';
+            $image = $request->file('image_ruangan');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_ruangan'] = $fileStore;
+        }
 
         Ruangan::create([
             'name' => $validateData['nama_ruangan'],
             'lokasi' => $validateData['lokasi'],
             'kapasitas' => $validateData['kapasitas'],
             'status_level' => $validateData['status_level'],
-            'status' => $validateData['status']
+            'status' => $validateData['status'],
+            'foto' => $validateData['image_ruangan']
         ]);
 
 
@@ -259,8 +271,15 @@ class AdminController extends Controller
             'status' => 'Tersedia',
         ]);
 
-        $peminjaman->update($validateData);
+        if ($validateData['status'] == 'Ditolak') {
+            Ruangan::whereHas('peminjaman', function ($query) use ($id) {
+                $query->where('id', $id);
+            })->first()->update([
+                'status' => 'Tersedia',
+            ]);
+        }
 
+        $peminjaman->update($validateData);
 
 
         Ruangan::where('id', $validateData['ruangan_id'])->update([

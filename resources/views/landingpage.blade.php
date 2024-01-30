@@ -106,45 +106,20 @@
     <section id="ruangan">
         <div class="container mt-2">
             <div class="row">
-                <h4 class="text-center">Ruangan</h4>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                        </div>
-                        <div class="card-body">
-                            Test
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                        </div>
-                        <div class="card-body">
-                            Test
+                <h2 class="text-center">Ruangan</h2>
+                @foreach ($ruanganAll as $item)
+                    <div class="col-md-3 mb-2">
+                        <div class="card">
+                            <div class="card-header d-flex flex-column align-items-center">
+                                <span class="font-weight-bold">Lokasi : {{ $item->lokasi }}</span>
+                                <span class="font-weight-bold text-center">{{ $item->name }}</span>
+                            </div>
+                            <div class="card-body">
+                                <img src="{{ asset('storage/' . $item->foto) }}" alt="Ruangan" class="card-img">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header d-flex flex-column align-items-center">
-                            <span class="font-weight-bold">Lokasi : Gedung Lama</span>
-                            <span class="font-weight-bold">D306</span>
-                        </div>
-                        <div class="card-body">
-                            Test
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                        </div>
-                        <div class="card-body">
-                            Test
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

@@ -36,7 +36,7 @@
                         <tbody>
                             @foreach ($ruangan as $item)
                                 <tr>
-                                    <td><img src="" alt="Null"></td>
+                                    <td><img src="{{ asset('storage/' . $item->foto) }}" alt="Null" width="200px"></td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->lokasi }}</td>
                                     <td>{{ $item->kapasitas }} Orang</td>

@@ -10,8 +10,9 @@
                     Tambah Ruangan
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreateRuanganPost') }}" method="POST">
+                    <form action="{{ route('AdminCreateRuanganPost') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @dump($errors->all())
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama Ruangan</label>
@@ -74,6 +75,24 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Foto Ruangan</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input @error('image_ruangan') is-invalid @enderror"
+                                        id="image_ruangan" name="image_ruangan">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                    @error('image_ruangan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('DashboardRuangan') }}" class="btn btn-danger">Kembali</a>
                     </form>
@@ -81,4 +100,12 @@
             </div>
         </div>
     </div>
+    @push('inputview-js')
+        <script>
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    @endpush
 @endsection
