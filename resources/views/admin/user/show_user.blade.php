@@ -2,39 +2,51 @@
 
 @section('title', 'Detail Ruangan')
 @section('main')
-    <div class="card card-shadow">
-        <div class="card-header">
-            Detail Ruangan
-        </div>
-        <div class="card-body">
-            <table>
-                <tr>
-                    <th>Nama Ruangan</th>
-                    <th> : {{ $ruang->name }}</th>
-                </tr>
-                <tr>
-                    <th>Lokasi Ruangan</th>
-                    <th> : {{ $ruang->lokasi }}</th>
-                </tr>
-                <tr>
-                    <th>Kapasitas</th>
-                    <th> : {{ $ruang->kapasitas }} Orang</th>
-                </tr>
-                <tr>
-                    <th>Khusus</th>
-                    <th> : {{ $ruang->status_level }}</th>
-                </tr>
-                <tr>
-                    <th>Status</th>
-                    @if ($ruang->status == 'Tersedia')
-                        <th> : <span class="badge badge-pill badge-success">{{ $ruang->status }}</span></th>
-                    @endif
-                    @if ($ruang->status == 'Tidak Tersedia')
-                        <th> : <span class="badge badge-pill badge-danger">{{ $ruang->status }}</span></th>
-                    @endif
-                </tr>
-            </table>
-            <a href="{{ route('DashboardRuangan') }}" class="btn btn-danger mt-4">Kembali</a>
+    <div class="row">
+        <div class="col-lg-12 col-md-6">
+            @if (Session::has('Success'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('Success') }}
+                </div>
+            @endif
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="content-text m-0">
+                        <h6 class="font-weight-bold text-primary">Show User</h6>
+                    </div>
+                    <div class="content-button">
+                        <a href="{{ route('DashboardUser') }}" class="btn btn-danger">Kembali</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <img src="{{ asset('storage/' . $user->foto) }}" width="100" height="100"
+                                    alt="Gambar Profile" class="img-thumbnail">
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>: {{ $user->name }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>: {{ $user->email }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Kelamin</th>
+                                        <th>: {{ $user->jenis_kelamin }}</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

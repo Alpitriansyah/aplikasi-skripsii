@@ -398,9 +398,10 @@ class AdminController extends Controller
     /**
      * Show Detail User Admin.
      */
-    public function ShowDetailUser()
+    public function ShowDetailUser(string $id)
     {
-        return view('admin.user.show_user');
+        $user = User::FindOrFail($id);
+        return view('admin.user.show_user', compact('user'));
     }
 
     public function DashboardMahasiswa()
