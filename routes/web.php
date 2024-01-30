@@ -33,6 +33,12 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('LogoutSession')
 Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('DashboardAdmin');
     Route::get('/admin/peminjaman', [AdminController::class, 'showPeminjaman'])->name('DashboardPeminjamanAdmin');
+    Route::get('/admin/peminjaman/create', [AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
+    Route::post('/admin/peminjaman/create', [AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
+    Route::delete('/admin/peminjaman/{id}', [AdminController::class, 'destroyPeminjaman'])->name('AdminDeletePeminjaman');
+    Route::get('/admin/peminjaman/{id}', [AdminController::class, 'edit'])->name('AdminShowPeminjamanPost');
+    Route::get('/admin/peminjaman/detail/{id}', [AdminController::class, 'showDetailPeminjaman'])->name('AdminShowDetailPeminjaman');
+    Route::put('/admin/peminjaman/{id}', [AdminController::class, 'updatePeminjaman'])->name('AdminUpdatePeminjamanPost');
     Route::get('/admin/profile', [AdminController::class, 'showProfileAdmin'])->name('ProfileAdmin');
     Route::get('/admin/profile/{id}', [AdminController::class, 'UpdateProfile'])->name('UpdateProfileAdmin');
     Route::put('/admin/profile/{id}', [AdminController::class, 'UpdateProfilePUT'])->name('UpdateProfileAdminPUT');
@@ -42,6 +48,9 @@ Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin/ruangan/create', [AdminController::class, 'showCreateRuangan'])->name('AdminCreateRuangan');
     Route::post('/admin/ruangan/create', [AdminController::class, 'storeCreateRuanganPost'])->name('AdminCreateRuanganPost');
     Route::get('/admin/ruangan/detail/{id}', [AdminController::class, 'ShowDetailRuangan'])->name('AdminShowDetailRuagan');
+    Route::get('/admin/ruangan/{id}', [AdminController::class, 'updateRuanganDetail'])->name('AdminUpdateRuangan');
+    Route::put('/admin/ruangan/{id}', [AdminController::class, 'updateRuangan'])->name('AdminUpdateRuanganPut');
+    Route::delete('/admin/ruangan/{id}', [AdminController::class, 'destroyRuangan'])->name('AdminDeleteRuangan');
     Route::get('/admin/user', [AdminController::class, 'DashboardUser'])->name('DashboardUser');
     Route::get('/admin/user/create', [AdminController::class, 'CreateUser'])->name('AdminCreateUser');
     Route::post('/admin/user/create', [AdminController::class, 'StoreUser'])->name('StoreUserAdmin');
@@ -49,21 +58,13 @@ Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin/user/{id}', [AdminController::class, 'ShowUpdateUser'])->name('AdminUpdateUser');
     Route::put('/admin/user/{id}', [AdminController::class, 'UpdateUserStore'])->name('AdminUpdateUserStore');
     Route::delete('/admin/user/{id}', [AdminController::class, 'destroyUser'])->name('AdminDeleteUser');
-    Route::get('/admin/ruangan/{id}', [AdminController::class, 'updateRuanganDetail'])->name('AdminUpdateRuangan');
-    Route::put('/admin/ruangan/{id}', [AdminController::class, 'updateRuangan'])->name('AdminUpdateRuanganPut');
-    Route::delete('/admin/ruangan/{id}', [AdminController::class, 'destroyRuangan'])->name('AdminDeleteRuangan');
-    Route::get('/admin/peminjaman/create', [AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
-    Route::post('/admin/peminjaman/create', [AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
-    Route::delete('/admin/peminjaman/{id}', [AdminController::class, 'destroyPeminjaman'])->name('AdminDeletePeminjaman');
-    Route::get('/admin/peminjaman/{id}', [AdminController::class, 'edit'])->name('AdminShowPeminjamanPost');
-    Route::get('/admin/peminjaman/detail/{id}', [AdminController::class, 'showDetailPeminjaman'])->name('AdminShowDetailPeminjaman');
-    Route::put('/admin/peminjaman/{id}', [AdminController::class, 'updatePeminjaman'])->name('AdminUpdatePeminjamanPost');
     Route::get('/admin/mahasiswa', [AdminController::class, 'DashboardMahasiswa'])->name('AdminDashboardMahasiswa');
     Route::get('/admin/mahasiswa/create', [AdminController::class, 'CreateMahasiswa'])->name('AdminCreateMahasiswa');
     Route::post('/admin/mahasiswa/create', [AdminController::class, 'CreateMahasiswaPost'])->name('AdminCreateMahasiswaPOST');
     Route::get('/admin/mahasiswa/detail/{id}', [AdminController::class, 'ShowMahasiswa'])->name('AdminShowDetailMahasiswa');
     Route::get('/admin/mahasiswa/{id}', [AdminController::class, 'ShowUpdateMahasiswa'])->name('AdminUpdateMahasiswa');
-    Route::put('/admin/mahasiswa/{id}', [AdminController::class, 'ShowUpdateMahasiswaPost'])->name('AdminUpdateMahasiswaPUT');
+    Route::put('/admin/mahasiswa/{id}', [AdminController::class, 'ShowUpdateMahasiswaPut'])->name('AdminUpdateMahasiswaPUT');
+    Route::delete('/admin/mahasiswa/{id}', [AdminController::class, 'destroyMahasiswa'])->name('AdminDeleteMahasiswa');
     Route::get('/admin/dosen', [AdminController::class, 'DashboardDosen'])->name('AdminDashboardDosen');
     Route::get('/admin/dosen/create', [AdminController::class, 'CreateDosen'])->name('AdminCreateDosen');
     Route::post('/admin/dosen/create', [AdminController::class, 'CreateDosenPost'])->name('AdminCreateDosenPOST');

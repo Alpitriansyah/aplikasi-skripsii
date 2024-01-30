@@ -36,7 +36,7 @@
                             @foreach ($user as $item)
                                 <tr>
                                     <td><img src="{{ asset('storage/' . $item->foto) }}" alt="Foto User"
-                                            class="img-thumbnail">
+                                            class="img-thumbnail rounded mx-auto d-block" width="100" height="100">
                                     </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>

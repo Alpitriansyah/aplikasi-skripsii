@@ -24,6 +24,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Gambar Mahasiswa</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>NIM</th>
                                 <th>Jenis Kelamin</th>
@@ -34,6 +35,9 @@
                         <tbody>
                             @foreach ($siswa as $item)
                                 <tr>
+                                    <td><img src="{{ asset('storage/' . $item->foto) }}"
+                                            class="img-thumbnail rounded mx-auto d-block" width="100" height="100"
+                                            alt="Gambar Mahasiswa"></td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->nim }}</td>
                                     <td>{{ $item->jenis_kelamin }}</td>
@@ -44,8 +48,8 @@
                                                 type="button" class="btn btn-primary">Detail</a>
                                             <a href="{{ route('AdminUpdateMahasiswa', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-warning">Edit</a>
-                                            <form action="" method="POST" type="button" class="btn btn-danger p-0"
-                                                onsubmit="return confirm('Delete?')">
+                                            <form action="{{ route('AdminDeleteMahasiswa', ['id' => $item->id]) }}"
+                                                method="POST" type="button" class="btn btn-danger p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger m-0">Hapus</button>

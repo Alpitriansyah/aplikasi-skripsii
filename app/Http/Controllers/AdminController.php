@@ -365,7 +365,7 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image_user')) {
-            $destination_path = 'images/profile';
+            $destination_path = 'images/profile/user';
             $image = $request->file('image_user');
             $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
             $image_extension = $image->getClientOriginalExtension();
@@ -410,7 +410,7 @@ class AdminController extends Controller
 
         if ($request->hasFile('image_user')) {
             Storage::delete('storage/' . $user->foto);
-            $destination_path = 'images/profile';
+            $destination_path = 'images/profile/user';
             $image = $request->file('image_user');
             $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
             $image_extension = $image->getClientOriginalExtension();
@@ -421,10 +421,7 @@ class AdminController extends Controller
             $validateData['image_user'] = "";
         }
 
-
         // @dd($validateData);
-
-
         $user->update([
             'name' => $validateData['nama_user'],
             'email' => $validateData['user_email'],
@@ -464,8 +461,39 @@ class AdminController extends Controller
         return view('admin.mahasiswa.create_mahasiswa');
     }
 
-    public function CreateMahasiswaPost()
+    public function CreateMahasiswaPost(Request $request)
     {
+        $validateData = $this->validate(
+            $request,
+            [
+                'nama_mahasiswa' => 'required',
+                'nim' => 'required',
+                'password_mahasiswa' => 'required',
+                'jenisKelamin' => 'required',
+                'image_mahasiswa' => 'nullable|image|mimes:jpg,png,jpeg',
+            ]
+        );
+
+        if ($request->hasFile('image_mahasiswa')) {
+            $destination_path = 'images/profile/mahasiswa';
+            $image = $request->file('image_mahasiswa');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_mahasiswa'] = $fileStore;
+        }
+
+        Mahasiswa::create([
+            'name' => $validateData['nama_mahasiswa'],
+            'nim' => $validateData['nim'],
+            'password' => Hash::make($validateData['password_mahasiswa']),
+            'jenis_kelamin' => $validateData['jenisKelamin'],
+            'foto' => $validateData['image_mahasiswa'],
+            'level' => 'mhs'
+        ]);
+
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'User Berhasil Dihapus!']);
     }
 
     public function ShowMahasiswa(string $id)
@@ -474,13 +502,57 @@ class AdminController extends Controller
         return view('admin.mahasiswa.show_mahasiswa', compact('mahasiswa'));
     }
 
-    public function ShowUpdateMahasiswa()
+    public function ShowUpdateMahasiswa(string $id)
     {
-        return view('admin.mahasiswa.update_mahasiswa');
+        $mahasiswa = Mahasiswa::FindOrFail($id);
+        return view('admin.mahasiswa.update_mahasiswa', compact('mahasiswa'));
     }
 
-    public function ShowUpdateMahasiswaPut()
+    public function ShowUpdateMahasiswaPut(Request $request, string $id)
     {
+        $validateData = $this->validate($request, [
+            'nama_mahasiswa' => 'required',
+            'nim' => 'required',
+            'password_mahasiswa' => 'required',
+            'jenisKelamin' => 'required',
+            'image_mahasiswa' => 'nullable|image|mimes:jpg,png,jpeg',
+        ]);
+
+        $mahasiswa = Mahasiswa::FindOrFail($id);
+
+        if ($request->hasFile('image_mahasiswa')) {
+            Storage::delete('storage/' . $mahasiswa->foto);
+            $destination_path = 'images/profile/mahasiswa';
+            $image = $request->file('image_mahasiswa');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_mahasiswa'] = $fileStore;
+        } else {
+            $validateData['image_mahasiswa'] = "";
+        }
+
+        // @dd($validateData);
+        $mahasiswa->update([
+            'name' => $validateData['nama_mahasiswa'],
+            'nim' => $validateData['nim'],
+            'password' => Hash::make($validateData['password_mahasiswa']),
+            'jenis_kelamin' => $validateData['jenisKelamin'],
+            'foto' => $validateData['image_mahasiswa'],
+            'level' => 'mhs'
+        ]);
+
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Data berhasil Diubah !']);
+    }
+
+    public function destroyMahasiswa(string $id)
+    {
+        $mahasiswa = Mahasiswa::FindOrFail($id);
+        $mahasiswa->delete();
+        Storage::delete('storage/' . $mahasiswa->foto);
+
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Data berhasil dihapus !']);
     }
 
     public function DashboardDosen()
