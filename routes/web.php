@@ -5,6 +5,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
+use App\Charts\RuanganUsersChart;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Route;
 

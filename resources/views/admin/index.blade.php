@@ -2,7 +2,13 @@
 
 @section('title', 'Dashboard')
 
+
 @section('main')
+    @push('charts-js')
+        <script src="{{ $chart->cdn() }}"></script>
+        {{ $chart->script() }}
+    @endpush
+
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -120,9 +126,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
+                    {!! $chart->container() !!}
                 </div>
             </div>
         </div>

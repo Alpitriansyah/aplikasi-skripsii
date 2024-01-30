@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\ChartRuangan;
+use App\Charts\RuanganUsersChart;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Peminjaman;
@@ -18,11 +20,13 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function dashboard()
+    public function dashboard(ChartRuangan $chart)
     {
+
+        $chart = $chart->build();
         $count_peminjaman = Peminjaman::count();
         $room_ready = Ruangan::where('status', 'Tersedia')->count();
-        return view('admin.index', compact('count_peminjaman', 'room_ready'));
+        return view('admin.index', compact(['count_peminjaman', 'room_ready', 'chart']));
     }
 
     /**
