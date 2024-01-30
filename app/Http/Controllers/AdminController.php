@@ -445,6 +445,14 @@ class AdminController extends Controller
         return view('admin.user.show_user', compact('user'));
     }
 
+    public function destroyUser(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('DashboardUser')->with(['Success' => 'User Berhasil Dihapus!']);
+    }
+
     public function DashboardMahasiswa()
     {
         $siswa = Mahasiswa::latest()->get();

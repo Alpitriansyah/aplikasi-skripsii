@@ -48,8 +48,8 @@
                                                 class="btn btn-primary">Detail</a>
                                             <a href="{{ route('AdminUpdateUser', ['id' => $item->id]) }}" type="button"
                                                 class="btn btn-warning">Edit</a>
-                                            <form action="" method="POST" type="button" class="btn btn-danger p-0"
-                                                onsubmit="return confirm('Delete?')">
+                                            <form action="{{ route('AdminDeleteUser', ['id' => $item->id]) }}"
+                                                method="POST" type="button" class="btn btn-danger p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger m-0">Hapus</button>
