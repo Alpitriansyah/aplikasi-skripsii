@@ -390,11 +390,52 @@ class AdminController extends Controller
     /**
      * Update User Page Admin.
      */
-    public function ShowUpdateUser()
+    public function ShowUpdateUser(string $id)
     {
-        return view('admin.user.update_user');
+        $user = User::FindOrFail($id);
+        return view('admin.user.update_user', compact('user'));
     }
 
+    public function UpdateUserStore(Request $request, string $id)
+    {
+        $validateData = $this->validate($request, [
+            'nama_user' => 'required',
+            'user_email' => 'required|email',
+            'password_user' => 'required',
+            'jenisKelamin' => 'required',
+            'image_user' => 'nullable|image|mimes:jpg,png.jpeg'
+        ]);
+
+        $user = User::FindOrFail($id);
+
+        if ($request->hasFile('image_user')) {
+            Storage::delete('storage/' . $user->foto);
+            $destination_path = 'images/profile';
+            $image = $request->file('image_user');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_user'] = $fileStore;
+        } else {
+            $validateData['image_user'] = "";
+        }
+
+
+        // @dd($validateData);
+
+
+        $user->update([
+            'name' => $validateData['nama_user'],
+            'email' => $validateData['user_email'],
+            'password' => $validateData['password_user'],
+            'jenis_kelamin' => $validateData['jenisKelamin'],
+            'foto' => $validateData['image_user'],
+            'level' => 'admin'
+        ]);
+
+        return redirect()->route('DashboardUser')->with(['Success' => 'Data berhasil Diubah !']);
+    }
     /**
      * Show Detail User Admin.
      */
