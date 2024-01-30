@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Dashboard Admin.
      */
     public function dashboard(ChartRuangan $chart)
     {
@@ -30,14 +30,16 @@ class AdminController extends Controller
     }
 
     /**
-     * Peminjaman.
+     * Dashboard Peminjaman Admin.
      */
-
     public function dashboardPeminjaman()
     {
         return view('admin.peminjaman.index');
     }
 
+    /**
+     * Show Peminjaman Admin.
+     */
     public function showPeminjaman()
     {
         $pinjam = Peminjaman::latest()->with('ruangan')->get();
@@ -45,13 +47,18 @@ class AdminController extends Controller
         return view('admin.peminjaman.index_peminjaman', compact('pinjam'));
     }
 
-
+    /**
+     * Show Create Page Peminjaman Admin.
+     */
     public function showCreatePeminjaman()
     {
         $ruangan = Ruangan::where('status', 'Tersedia')->get();
         return view('admin.peminjaman.create_peminjaman', compact('ruangan'));
     }
 
+    /**
+     * Store Data Peminjaman Admin.
+     */
     public function storeCreatePeminjamanPost(Request $request)
     {
         // dd($request->all());
@@ -130,6 +137,9 @@ class AdminController extends Controller
         return redirect()->route('DashboardPeminjamanAdmin')->with(['Success' => 'Data berhasil disimpan !']);
     }
 
+    /**
+     * Show Update Page Peminjaman Admin.
+     */
     public function edit(string $id)
     {
 
@@ -140,119 +150,17 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Show Detail Peminjaman Admin.
      */
-    public function destroyPeminjaman(string $id)
-    {
-        $peminjaman = Peminjaman::findOrFail($id);
-        $updateRuangan = Ruangan::whereHas('peminjaman', function ($query) use ($id) {
-            $query->where('id', $id);
-        })->first()->update([
-            'status' => 'Tersedia',
-        ]);
-        $peminjaman->delete();
-
-        return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Peminjaman Berhasil Dihapus!']);
-    }
-
-    /**
-     * Ruangan
-     */
-    public function dashboardRuangan()
-    {
-        return view('admin.ruangan.index_ruangan');
-    }
-
-    public function showRuangan()
-    {
-        $ruangan = Ruangan::latest()->get();
-
-        return view('admin.ruangan.index_ruangan', compact('ruangan'));
-    }
-
-    public function storeCreateRuanganPost(Request $request)
-    {
-        // dd($request->all());
-        $validateData = $this->validate($request, [
-            'nama_ruangan' => 'required',
-            'lokasi' => 'required',
-            'kapasitas' => 'required',
-            'status_level' => 'required',
-            'status' => 'required',
-            'image_ruangan' => 'required|image|mimes:jpg,jpeg,png',
-        ]);
-
-        if ($request->hasFile('image_ruangan')) {
-            $destination_path = 'images/ruangan';
-            $image = $request->file('image_ruangan');
-            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            $image_extension = $image->getClientOriginalExtension();
-            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
-            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
-            $validateData['image_ruangan'] = $fileStore;
-        }
-
-        Ruangan::create([
-            'name' => $validateData['nama_ruangan'],
-            'lokasi' => $validateData['lokasi'],
-            'kapasitas' => $validateData['kapasitas'],
-            'status_level' => $validateData['status_level'],
-            'status' => $validateData['status'],
-            'foto' => $validateData['image_ruangan']
-        ]);
-
-
-        return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
-    }
-
-    public function showProfileAdmin()
-    {
-        $user = User::query()->where('id', auth()->id())->first();
-
-        return view('admin.profile.index_profile', compact('user'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function DashboardUser()
-    {
-        $user = User::latest()->get();
-        return view('admin.user.index_user', compact('user'));
-    }
-
-    public function CreateUser()
-    {
-        return view('admin.user.create_user');
-    }
-
-    public function ShowUpdateUser()
-    {
-        return view('admin.user.update_user');
-    }
-
-    public function ShowDetailUser()
-    {
-        return view('admin.user.show_user');
-    }
-
-
     public function showDetailPeminjaman(string $id)
     {
         $peminjaman = Peminjaman::where('id', $id)->with('ruangan')->first();
         // dd($peminjaman);
         return view('admin.peminjaman.show_peminjaman', compact('peminjaman'));
     }
+
     /**
-     * Update the specified resource in storage.
+     * Update Peminjaman Page Admin
      */
     public function updatePeminjaman(Request $request, string $id)
     {
@@ -293,23 +201,107 @@ class AdminController extends Controller
         return redirect()->route('DashboardPeminjamanAdmin')->with(['Success' => 'Data berhasil diubah !']);
     }
 
+    /**
+     * Destroy Peminjaman Admin.
+     */
+    public function destroyPeminjaman(string $id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        $updateRuangan = Ruangan::whereHas('peminjaman', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->first()->update([
+            'status' => 'Tersedia',
+        ]);
+        $peminjaman->delete();
+
+        return redirect()->route('DashboardPeminjamanAdmin')->with(['success' => 'Peminjaman Berhasil Dihapus!']);
+    }
+
+    /**
+     * Dashboard Ruangan Admin
+     */
+    public function dashboardRuangan()
+    {
+        return view('admin.ruangan.index_ruangan');
+    }
+
+    /**
+     * Show Ruangan Admin.
+     */
+    public function showRuangan()
+    {
+        $ruangan = Ruangan::latest()->get();
+
+        return view('admin.ruangan.index_ruangan', compact('ruangan'));
+    }
+
+    /**
+     * Store Create Ruangan Admin.
+     */
+    public function storeCreateRuanganPost(Request $request)
+    {
+        // dd($request->all());
+        $validateData = $this->validate($request, [
+            'nama_ruangan' => 'required',
+            'lokasi' => 'required',
+            'kapasitas' => 'required',
+            'status_level' => 'required',
+            'status' => 'required',
+            'image_ruangan' => 'required|image|mimes:jpg,jpeg,png',
+        ]);
+
+        if ($request->hasFile('image_ruangan')) {
+            $destination_path = 'images/ruangan';
+            $image = $request->file('image_ruangan');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_ruangan'] = $fileStore;
+        }
+
+        Ruangan::create([
+            'name' => $validateData['nama_ruangan'],
+            'lokasi' => $validateData['lokasi'],
+            'kapasitas' => $validateData['kapasitas'],
+            'status_level' => $validateData['status_level'],
+            'status' => $validateData['status'],
+            'foto' => $validateData['image_ruangan']
+        ]);
+
+
+        return redirect()->route('DashboardRuangan')->with(['Success' => 'Data berhasil disimpan !']);
+    }
+
+    /**
+     * Create Ruangan Page Admin.
+     */
     public function showCreateRuangan()
     {
         return view('admin.ruangan.create_ruangan');
     }
 
+    /**
+     * Show Detail Ruangan Admin.
+     */
     public function ShowDetailRuangan(string $id)
     {
         $ruang = Ruangan::where('id', $id)->first();
         return view('admin.ruangan.show_ruangan', compact('ruang'));
     }
 
+    /**
+     * Update Ruangan Page Admin.
+     */
     public function updateRuanganDetail(string $id)
     {
         $ruang = Ruangan::where('id', $id)->first();
         return view('admin.ruangan.update_ruangan', compact('ruang'));
     }
 
+    /**
+     * Store Ruangan Admin.
+     */
     public function updateRuangan(Request $request, string $id)
     {
         // dd($request->all());
@@ -334,6 +326,9 @@ class AdminController extends Controller
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data Ruangan berhasil diubah !']);
     }
 
+    /**
+     * Destroy Ruangan Admin.
+     */
     public function destroyRuangan(string $id)
     {
         $ruang = Ruangan::findOrFail($id);
@@ -342,63 +337,70 @@ class AdminController extends Controller
         return redirect()->route('DashboardRuangan')->with(['Success' => 'Data Ruangan Berhasil Dihapus!']);
     }
 
-    public function UpdateProfile(string $id)
+    /**
+     * Dashboard User Admin.
+     */
+    public function DashboardUser()
     {
-        $user = User::where('id', $id)->first();
-        return view('admin.profile.update_profile', compact('user'));
+        $user = User::latest()->get();
+        return view('admin.user.index_user', compact('user'));
     }
 
-    public function UpdateProfilePUT(Request $request, string $id)
+    /**
+     * Create User Page Admin.
+     */
+    public function CreateUser()
+    {
+        return view('admin.user.create_user');
+    }
+
+    public function StoreUser(Request $request)
     {
         $validateData = $this->validate($request, [
-            'nama' => 'required',
-            'email' => 'required',
-            'jenis_kelamin' => 'required',
-            'image' => 'nullable|mimes:png,jpg|image',
+            'nama_user' => 'required',
+            'user_email' => 'required|email',
+            'password_user' => 'required',
+            'jenisKelamin' => 'required',
+            'image_user' => 'nullable|image|mimes:jpeg,jpg,png'
         ]);
 
-        if ($request->hasFile('image')) {
-            $destination_path = 'public/images/profile';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $path = $request->file('image')->storeAs($destination_path, $image_name);
-            $validateData['image'] = $image_name;
+        if ($request->hasFile('image_user')) {
+            $destination_path = 'images/profile';
+            $image = $request->file('image_user');
+            $image_name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_extension = $image->getClientOriginalExtension();
+            $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
+            $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image_user'] = $fileStore;
         }
 
-        $profile = User::findOrFail($id);
+        User::create([
+            'name' => $validateData['nama_user'],
+            'email' => $validateData['user_email'],
+            'password' => Hash::make($validateData['password_user']),
+            'jenis_kelamin' => $validateData['jenisKelamin'],
+            'foto' => $validateData['image_user'],
+            'level' => 'admin'
 
-        $profile->update([
-            'name' => $validateData['nama'],
-            'email' => $validateData['email'],
-            'jenis_kelamin' => $validateData['jenis_kelamin'],
-            'foto' => $validateData['image'],
         ]);
 
-        return redirect()->route('ProfileAdmin')->with(['Success' => 'Profile Berhasil Diubah']);
+        return redirect()->route('DashboardUser')->with(['Success' => 'Data berhasil Disimpan !']);
     }
 
-    public function ChangePassword(string $id)
+    /**
+     * Update User Page Admin.
+     */
+    public function ShowUpdateUser()
     {
-        $user = User::where('id', $id)->first();
-        return view('admin.profile.change_password', compact('user'));
+        return view('admin.user.update_user');
     }
 
-    public function ChangePasswordPUT(Request $request, string $id)
+    /**
+     * Show Detail User Admin.
+     */
+    public function ShowDetailUser()
     {
-        if (!Hash::check($request->old_password, Auth::guard('user')->user()->password)) {
-            return back()->with('error', 'Password lama tidak sesuai');
-        }
-        if ($request->new_password != $request->repeat_password) {
-            return back()->with('error', 'Password baru dan password verifikasi tidak sama');
-        }
-
-        $user = User::findOrFail($id);
-
-        $user->update([
-            'password' => Hash::make($request->new_password)
-        ]);
-
-        return redirect()->route('ProfileAdmin')->with('Success', 'Password Berhasil Diubah');
+        return view('admin.user.show_user');
     }
 
     public function DashboardMahasiswa()
@@ -467,5 +469,76 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+
+    /**
+     * Show Profile Admin.
+     */
+    public function showProfileAdmin()
+    {
+        $user = User::query()->where('id', auth()->id())->first();
+
+        return view('admin.profile.index_profile', compact('user'));
+    }
+
+    public function UpdateProfile(string $id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('admin.profile.update_profile', compact('user'));
+    }
+
+    public function UpdateProfilePUT(Request $request, string $id)
+    {
+        $validateData = $this->validate($request, [
+            'nama' => 'required',
+            'email' => 'required',
+            'jenis_kelamin' => 'required',
+            'image' => 'nullable|mimes:png,jpg|image',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $destination_path = 'public/images/profile';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path, $image_name);
+            $validateData['image'] = $image_name;
+        }
+
+        $profile = User::findOrFail($id);
+
+        $profile->update([
+            'name' => $validateData['nama'],
+            'email' => $validateData['email'],
+            'jenis_kelamin' => $validateData['jenis_kelamin'],
+            'foto' => $validateData['image'],
+        ]);
+
+        return redirect()->route('ProfileAdmin')->with(['Success' => 'Profile Berhasil Diubah']);
+    }
+
+    public function ChangePassword(string $id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('admin.profile.change_password', compact('user'));
+    }
+
+    public function ChangePasswordPUT(Request $request, string $id)
+    {
+        if (!Hash::check($request->old_password, Auth::guard('user')->user()->password)) {
+            return back()->with('error', 'Password lama tidak sesuai');
+        }
+        if ($request->new_password != $request->repeat_password) {
+            return back()->with('error', 'Password baru dan password verifikasi tidak sama');
+        }
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('ProfileAdmin')->with('Success', 'Password Berhasil Diubah');
     }
 }

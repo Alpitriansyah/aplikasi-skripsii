@@ -10,8 +10,9 @@
                     Tambah User
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('AdminCreateRuanganPost') }}" method="POST">
+                    <form action="{{ route('StoreUserAdmin') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @dump($errors->all())
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama User</label>
@@ -24,10 +25,10 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="UserEmail">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="Useremail" name="lokasi">
-                                @error('lokasi')
+                                <label for="user-email">Email</label>
+                                <input type="email" class="form-control @error('user_email') is-invalid @enderror"
+                                    id="user_email" name="user_email">
+                                @error('user_email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -36,9 +37,9 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="password">Password</label>
+                                <label for="password_user">Password</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password_user">
+                                    id="password_user" name="password_user">
                                 @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -54,6 +55,24 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Foto User</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input @error('image_user') is-invalid @enderror" id="image_user"
+                                        name="image_user">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                    @error('image_user')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">Tambah</button>

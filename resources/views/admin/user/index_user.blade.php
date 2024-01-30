@@ -24,6 +24,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Gambar User</th>
                                 <th>Nama Admin</th>
                                 <th>Email</th>
                                 <th>Jenis Kelamin</th>
@@ -34,6 +35,9 @@
                         <tbody>
                             @foreach ($user as $item)
                                 <tr>
+                                    <td><img src="{{ asset('storage/' . $item->foto) }}" alt="Foto User"
+                                            class="img-thumbnail">
+                                    </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->jenis_kelamin }}</td>

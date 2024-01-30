@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin/ruangan/detail/{id}', [AdminController::class, 'ShowDetailRuangan'])->name('AdminShowDetailRuagan');
     Route::get('/admin/user', [AdminController::class, 'DashboardUser'])->name('DashboardUser');
     Route::get('/admin/user/create', [AdminController::class, 'CreateUser'])->name('AdminCreateUser');
+    Route::post('/admin/user/create', [AdminController::class, 'StoreUser'])->name('StoreUserAdmin');
     Route::get('/admin/user/detail/{id}', [AdminController::class, 'ShowDetailUser'])->name('AdminShowDetailUser');
     Route::get('/admin/user/{id}', [AdminController::class, 'ShowUpdateUser'])->name('AdminUpdateUser');
     Route::put('/admin/user/{id}', [AdminController::class, 'UpdateUserStore'])->name('AdminUpdateUserStore');
