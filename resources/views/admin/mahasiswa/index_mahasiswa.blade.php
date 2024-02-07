@@ -27,6 +27,7 @@
                                 <th>Gambar Mahasiswa</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>NIM</th>
+                                <th>Jurusan</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Level</th>
                                 <th>Action</th>
@@ -40,6 +41,7 @@
                                             alt="Gambar Mahasiswa"></td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->nim }}</td>
+                                    <td>{{ $item->jurusan }}</td>
                                     <td>{{ $item->jenis_kelamin }}</td>
                                     <td>{{ $item->level }}</td>
                                     <td>

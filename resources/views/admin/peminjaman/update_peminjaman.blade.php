@@ -93,6 +93,25 @@
                                     <input type="text" class="form-control" id="message" name="message"
                                         value="{{ $peminjaman->message }}">
                                 @endif
+                                @if ($peminjaman->status == 'Dipinjam')
+                                    <label for="input_surat_hasil">Input Surat Izin Peminjaman</label>
+                                    <div class="input-group mb-3" id="input_surat_hasil">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupFileAddon01">Surat Kegiatan</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file"
+                                                class="custom-file-input @error('file_surat_izin') is-invalid @enderror"
+                                                id="file_surat_izin" name="file_surat_izin">
+                                            <label class="custom-file-label" for="file_surat_izin">Choose file</label>
+                                            @error('file_surat_izin')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Ubah</button>
@@ -115,7 +134,32 @@
                 } else {
                     comment.innerHTML = '';
                 }
+
+                if (e.target.value == 'Dipinjam') {
+                    comment.innerHTML = `<label for="input_surat_hasil">Input Surat Izin Peminjaman</label>
+                                    <div class="input-group mb-3" id="input_surat_hasil">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupFileAddon01">Surat Izin</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file"
+                                                class="custom-file-input @error('file_surat_izin') is-invalid @enderror"
+                                                id="file_surat_izin" name="file_surat_izin">
+                                            <label class="custom-file-label" for="file_surat_izin">Choose file</label>
+                                            @error('file_surat_izin')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>`
+                } else {
+                    comment.innerHTML = '';
+                }
             });
+        </script>
+        <script>
+            const selectStatus = document.getElementById('status');
         </script>
     @endpush
 @endsection

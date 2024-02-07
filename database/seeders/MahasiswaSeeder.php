@@ -19,6 +19,7 @@ class MahasiswaSeeder extends Seeder
                 'name' => fake()->name(),
                 'nim' => fake()->numerify('##########'),
                 'password' => Hash::make('password'),
+                'jurusan' => fake()->randomElement(['Sistem Informasi', 'Informatika', 'Teknik Pertambangan']),
                 'jenis_kelamin' => fake()->randomElement(['Pria', 'Perempuan']),
                 'level' => 'mhs'
             ]);

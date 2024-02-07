@@ -30,7 +30,8 @@ class Peminjaman extends Model
         'deskripsi',
         'file_surat',
         'status',
-        'message'
+        'message',
+        'file_surat_izin'
     ];
 
     protected $table = "peminjamans";

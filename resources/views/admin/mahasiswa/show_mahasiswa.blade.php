@@ -15,7 +15,7 @@
                         <h6 class="font-weight-bold text-primary">Show Mahasiswa</h6>
                     </div>
                     <div class="content-button">
-                        <a href="{{ route('DashboardUser') }}" class="btn btn-danger">Kembali</a>
+                        <a href="{{ route('AdminDashboardMahasiswa') }}" class="btn btn-danger">Kembali</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -36,6 +36,10 @@
                                     <tr>
                                         <th>NIM</th>
                                         <th>: {{ $mahasiswa->nim }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Jurusan</th>
+                                        <th>: {{ $mahasiswa->jurusan }}</th>
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin</th>

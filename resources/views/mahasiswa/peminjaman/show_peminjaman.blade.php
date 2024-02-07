@@ -37,6 +37,11 @@
                     <th> : {{ $peminjaman->tanggal_selesai }}</th>
                 </tr>
                 <tr>
+                    <th>Surat Peminjaman</th>
+                    <th> : <button type="button" class="btn btn-primary btn-sm" id="show_surat">Buka Surat</button>
+                    </th>
+                </tr>
+                <tr>
                     <th>Status</th>
                     @if ($peminjaman->status == 'Diproses')
                         <th> : <span class="badge badge-pill badge-warning">{{ $peminjaman->status }}</span></th>
@@ -48,8 +53,46 @@
                         <th> : <span class="badge badge-pill badge-success">{{ $peminjaman->status }}</span></th>
                     @endif
                 </tr>
+                @if ($peminjaman->message && $peminjaman->status === 'Ditolak')
+                    <tr>
+                        <th>Message</th>
+                        <th> : {{ $peminjaman->message }}</th>
+                    </tr>
+                @endif
             </table>
             <a href="{{ route('DashboardPeminjamanMahasiswa') }}" class="btn btn-danger mt-4">Kembali</a>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Surat</h4>
+                    <button type="button" class="close" data-dismiss="modal">X</button>
+                </div>
+                <div class="modal-body">
+                    <embed src="{{ asset('storage/' . $peminjaman->file_surat) }}" width="100%" height="100%"
+                        style="min-height: 600px;" frameborder="0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @push('modal_surat-js')
+        <script>
+            $(document).ready(function() {
+                $("#show_surat").click(function() {
+                    $("#myModal").modal({
+                        show: true
+                    });
+                });
+            });
+        </script>
+    @endpush
 @endsection

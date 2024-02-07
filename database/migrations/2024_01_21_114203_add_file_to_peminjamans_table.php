@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('peminjamans', function (Blueprint $table) {
             $table->string('file_surat')->after('deskripsi')->nullable();
+            $table->string('file_surat_izin')->after('file_surat')->nullable();
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('peminjamans', function (Blueprint $table) {
             $table->dropColumn('file_surat');
+            $table->dropColumn('file_surat_izin');
         });
     }
 };

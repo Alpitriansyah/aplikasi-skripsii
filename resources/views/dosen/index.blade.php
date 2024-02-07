@@ -61,9 +61,8 @@
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                            aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
+                                            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -98,6 +97,20 @@
     <!-- Content Row -->
 
     <div class="row">
+        <div class="col-md-12">
+            <div class="card card-shadow">
+                <div class="card-header">
+                    <h3 class="text-dark">PENGUMUMAN</h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-uppercase text-danger">Sebelum melakukan peminjaman harap membaca tata tertib terlebih
+                        dahulu</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="row">
 
         <!-- Area Chart -->
         <div class="col-xl-8 col-lg-7">
@@ -324,5 +337,5 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
 @endsection

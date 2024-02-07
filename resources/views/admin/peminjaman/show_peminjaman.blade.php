@@ -37,12 +37,16 @@
                     <th> : {{ $peminjaman->tanggal_selesai }}</th>
                 </tr>
                 <tr>
-                    @if ($peminjaman->status == 'Diproses')
-                        <th>Surat Peminjaman</th>
-                        <th> : <button type="button" class="btn btn-primary btn-sm" id="show_surat">Buka Surat</button>
-                        </th>
-                    @endif
+                    <th>Surat Kegiatan</th>
+                    <th> : <button type="button" class="btn btn-primary btn-sm" id="show_surat">Buka Surat</button>
+                    </th>
                 </tr>
+                @if ($peminjaman->file_surat_izin && $peminjaman->status === 'Dipinjam')
+                    <tr>
+                        <th>File Surat Izin</th>
+                        <th> : <button type="button" class="btn btn-success btn-sm">Surat Izin Peminjaman</button></th>
+                    </tr>
+                @endif
                 <tr>
                     <th>Status</th>
                     @if ($peminjaman->status == 'Diproses')
@@ -68,7 +72,6 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,7 +86,25 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Surat</h4>
+                    <button type="button" class="close" data-dismiss="modal">X</button>
+                </div>
+                <div class="modal-body">
+                    <embed src="{{ asset('storage/' . $peminjaman->file_surat_izin) }}" width="100%" height="100%"
+                        style="min-height: 600px;" frameborder="0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
     @push('modal_surat-js')

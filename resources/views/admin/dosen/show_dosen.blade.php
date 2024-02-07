@@ -38,6 +38,10 @@
                                         <th>: {{ $dosen->nip }}</th>
                                     </tr>
                                     <tr>
+                                        <th>Jurusan</th>
+                                        <th>: {{ $dosen->jurusan }}</th>
+                                    </tr>
+                                    <tr>
                                         <th>Jenis Kelamin</th>
                                         <th>: {{ $dosen->jenis_kelamin }}</th>
                                     </tr>

@@ -25,8 +25,9 @@ class DosenController extends Controller
 
     function CreatePeminjamanDosen()
     {
-        $ruangan = Ruangan::where(['status' => 'Tersedia', 'status_level' => 'Dosen'])->get();
-        return view('dosen.peminjaman.create_peminjaman', compact('ruangan'));
+        $dosen = Dosen::query()->where('id', auth()->id())->first();
+        $ruangan = Ruangan::where(['status' => 'Tersedia', 'status_level' => ['Dosen', 'Mahasiswa & Dosen']])->get();
+        return view('dosen.peminjaman.create_peminjaman', compact(['ruangan', 'dosen']));
     }
 
     function CreatePeminjamanDosenPOST(Request $request)
@@ -39,7 +40,18 @@ class DosenController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
+            'file_surat' => 'required|file|mimes:pdf|max:3000',
         ]);
+
+        if ($request->hasFile('file_surat')) {
+            $destination_path = 'berkas/surat-kegiatan';
+            $surat = $request->file('file_surat');
+            $surat_name = pathinfo($surat->getClientOriginalName(), PATHINFO_FILENAME);
+            $surat_extension = $surat->getClientOriginalExtension();
+            $fileNameToStore = $surat_name . '-' . time() . '.' . $surat_extension;
+            $fileStore = $surat->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['file_surat'] = $fileStore;
+        }
 
         if (Auth::guard('dosen')->check()) {
             $validateData['dosen_id'] = Auth::guard('dosen')->id();
@@ -53,7 +65,8 @@ class DosenController extends Controller
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
-                'status' => 'Diproses'
+                'status' => 'Diproses',
+                'file_surat' => $validateData['file_surat'],
             ]);
             Ruangan::where('id', $validateData['ruangan_id'])->update(['status' => 'Tidak Tersedia']);
         }

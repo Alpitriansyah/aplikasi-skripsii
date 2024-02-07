@@ -25,9 +25,12 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Lokasi</label>
-                                <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
-                                    id="inputEmail4" name="lokasi">
+                                <label for="lokasi">Lokasi</label>
+                                <select class="form-control @error('lokasi') is-invalid @enderror" name="lokasi"
+                                    id="lokasi">
+                                    <option value="Gedung Lama">Gedung Lama</option>
+                                    <option value="Gedung Baru">Gedung Baru</option>
+                                </select>
                                 @error('lokasi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -52,6 +55,7 @@
                                     name="status_level">
                                     <option value="Dosen" selected>Dosen</option>
                                     <option value="Mahasiswa">Mahasiswa</option>
+                                    <option value="Mahasiswa Dan Dosen">Mahasiswa Dan Dosen</option>
                                 </select>
                                 @error('status_level')
                                     <div class="invalid-feedback">
@@ -74,24 +78,27 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="form-row mt-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Foto Ruangan</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file"
-                                        class="custom-file-input @error('image_ruangan') is-invalid @enderror"
-                                        id="image_ruangan" name="image_ruangan">
-                                    <label class="custom-file-label" for="image">Choose file</label>
-                                    @error('image_ruangan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                            <div class="form-group col-md-6">
+                                <label for="input_gambar">Input Gambar</label>
+                                <div class="input-group" id="input_gambar">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Foto Ruangan</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file"
+                                            class="custom-file-input @error('image_ruangan') is-invalid @enderror"
+                                            id="image_ruangan" name="image_ruangan">
+                                        <label class="custom-file-label" for="image">Choose file</label>
+                                        @error('image_ruangan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-row mt-3">
                         </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('DashboardRuangan') }}" class="btn btn-danger">Kembali</a>

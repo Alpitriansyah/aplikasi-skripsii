@@ -15,31 +15,56 @@
                         @method('PUT')
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nama</label>
-                                <input type="text" class="form-control @error('nama_peminjam') is-invalid @enderror"
-                                    id="inputEmail4" value="{{ $mahasiswa->name }}" name="nama_peminjam">
-                                @error('nama_peminjam')
+                                <label for="nama_mahasiswa">Nama</label>
+                                <input type="text" class="form-control @error('nama_mahasiswa') is-invalid @enderror"
+                                    id="nama_mahasiswa" value="{{ $mahasiswa->name }}" name="nama_mahasiswa">
+                                @error('nama_mahasiswa')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">NIM</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="{{ $mahasiswa->nim }}"
-                                    disabled name="nama_peminjam">
+                                <label for="nim">NIM</label>
+                                <input type="text" class="form-control" id="nim" value="{{ $mahasiswa->nim }}"
+                                    readonly name="nim">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Jurusan</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    value="{{ $mahasiswa->jurusan }}" name="nama_peminjam">
+                                <label for="jurusan">Jurusan</label>
+                                <input type="text"
+                                    class="form-control @error('jurusan')
+                                    is-invalid
+                                @enderror"
+                                    id="jurusan" value="{{ $mahasiswa->jurusan }}" name="jurusan">
+                                @error('jurusan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Jenis Kelamin</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    value="{{ $mahasiswa->jenis_kelamin }}" disabled name="nama_peminjam">
+                                <label for="jenisKelamin">Jenis Kelamin</label>
+                                <input type="text" class="form-control" id="jenisKelamin"
+                                    value="{{ $mahasiswa->jenis_kelamin }}" readonly name="jenisKelamin">
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload Gambar</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input @error('image') is-invalid @enderror"
+                                        id="image" name="image" value="{{ $mahasiswa->foto }}">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                    @error('image')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="mt-5 d-flex justify-content-end">

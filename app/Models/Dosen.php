@@ -24,6 +24,7 @@ class Dosen extends Authenticatable
         'jenis_kelamin',
         'foto',
         'level',
+        'jurusan'
 
     ];
 

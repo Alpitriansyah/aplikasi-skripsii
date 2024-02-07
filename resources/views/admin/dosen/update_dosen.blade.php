@@ -49,8 +49,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="jenisKelamin">Jenis Kelamin</label>
-                                <input type="text" class="form-control @error('jenisKelamin') is-invalid @enderror"
-                                    id="jenisKelamin" name="jenisKelamin" value="{{ $dosen->jenis_kelamin }}">
+                                <select name="jenisKelamin" id="jenisKelamin" class="form-control">
+                                    <option value="Laki-Laki" @selected('Laki-Laki' == $dosen->jenis_kelamin)>Laki-Laki</option>
+                                    <option value="Perempuan" @selected('Perempuan' == $dosen->jenis_kelamin)>Perempuan</option>
+                                </select>
                                 @error('jenisKelamin')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -58,21 +60,41 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row mt-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="image_text">Foto Dosen</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file"
-                                        class="custom-file-input @error('image_dosen') is-invalid @enderror"
-                                        id="image_dosen" name="image_dosen" value="{{ $dosen->foto }}">
-                                    <label class="custom-file-label" for="image_dosen">Choose file</label>
-                                    @error('image_dosen')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Jurusan</label>
+                                <select id="inputState" class="form-control" name="jurusan">
+                                    <option value="Sistem Informasi" @selected('Sistem Informasi' == $dosen->jurusan)>Sistem Informasi</option>
+                                    <option value="Informatika" @selected('Informatika' == $dosen->jurusan)>Informatika</option>
+                                    <option value="Teknik Pertambangan" @selected('Teknik Pertambangan' == $dosen->jurusan)>Teknik Pertambangan
+                                    </option>
+                                    <option value="Teknik Sipil" @selected('Teknik Sipil' == $dosen->jurusan)>Teknik Sipil</option>
+                                    <option value="Teknik Lingkungan" @selected('Teknik Lingkungan' == $dosen->jurusan)>Teknik Lingkungan
+                                    </option>
+                                    <option value="Teknik Kimia" @selected('Teknik Kimia' == $dosen->jurusan)>Teknik Kimia</option>
+                                    <option value="Teknik Arsitektur" @selected('Teknik Arsitektur' == $dosen->jurusan)>Teknik Arsitektur
+                                    </option>
+                                    <option value="Teknik Elektro" @selected('Teknik Elektro' == $dosen->jurusan)>Teknik Elektro</option>
+                                    <option value="Teknik Geologi" @selected('Teknik Geologi' == $dosen->jurusan)>Teknik Geologi</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input_gambar">Input Gambar</label>
+                                <div class="input-group mb-3" id="input_gambar">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="image_text">Foto Dosen</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file"
+                                            class="custom-file-input @error('image_dosen') is-invalid @enderror"
+                                            id="image_dosen" name="image_dosen" value="{{ $dosen->foto }}">
+                                        <label class="custom-file-label" for="image_dosen">Choose file</label>
+                                        @error('image_dosen')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,4 +105,12 @@
             </div>
         </div>
     </div>
+    @push('inputview-js')
+        <script>
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    @endpush
 @endsection

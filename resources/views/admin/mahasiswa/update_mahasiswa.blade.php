@@ -50,8 +50,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="jenisKelamin">Jenis Kelamin</label>
-                                <input type="text" class="form-control @error('jenisKelamin') is-invalid @enderror"
-                                    id="jenisKelamin" name="jenisKelamin" value="{{ $mahasiswa->jenis_kelamin }}">
+                                <select name="jenisKelamin" id="jenisKelamin" class="form-control">
+                                    <option value="Laki-Laki" @selected('Laki-Laki' == $mahasiswa->jenis_kelamin)>Laki-Laki</option>
+                                    <option value="Perempuan" @selected('Perempuan' == $mahasiswa->jenis_kelamin)>Perempuan</option>
+                                </select>
                                 @error('jenisKelamin')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -59,20 +61,41 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row mt-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="image_text">Foto Mahasiswa</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input @error('image_mhs') is-invalid @enderror"
-                                        id="image_mahasiswa" name="image_mahasiswa">
-                                    <label class="custom-file-label" for="image_mahasiswa">Choose file</label>
-                                    @error('image_mhs')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="jurusan">Jurusan</label>
+                                <select id="jurusan" class="form-control" name="jurusan">
+                                    <option value="Sistem Informasi" @selected('Sistem Informasi' == $mahasiswa->jurusan)>Sistem Informasi</option>
+                                    <option value="Informatika" @selected('Informatika' == $mahasiswa->jurusan)>Informatika</option>
+                                    <option value="Teknik Pertambangan" @selected('Teknik Pertambangan' == $mahasiswa->jurusan)>Teknik Pertambangan
+                                    </option>
+                                    <option value="Teknik Sipil" @selected('Teknik Sipil' == $mahasiswa->jurusan)>Teknik Sipil</option>
+                                    <option value="Teknik Lingkungan" @selected('Teknik Lingkungan' == $mahasiswa->jurusan)>Teknik Lingkungan
+                                    </option>
+                                    <option value="Teknik Kimia" @selected('Teknik Kimia' == $mahasiswa->jurusan)>Teknik Kimia</option>
+                                    <option value="Teknik Arsitektur" @selected('Teknik Arsitektur' == $mahasiswa->jurusan)>Teknik Arsitektur
+                                    </option>
+                                    <option value="Teknik Elektro" @selected('Teknik Elektro' == $mahasiswa->jurusan)>Teknik Elektro</option>
+                                    <option value="Teknik Geologi" @selected('Teknik Geologi' == $mahasiswa->jurusan)>Teknik Geologi</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input_gambar">Input Gambar</label>
+                                <div class="input-group mb-3" id="input_gambar">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="image_text">Foto Mahasiswa</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file"
+                                            class="custom-file-input @error('image_mhs') is-invalid @enderror"
+                                            id="image_mahasiswa" name="image_mahasiswa">
+                                        <label class="custom-file-label" for="image_mahasiswa">Choose file</label>
+                                        @error('image_mhs')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,4 +106,12 @@
             </div>
         </div>
     </div>
+    @push('inputview-js')
+        <script>
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    @endpush
 @endsection

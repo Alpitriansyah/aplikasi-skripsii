@@ -58,14 +58,14 @@
                                         <div class="btn-group">
                                             <a href="{{ route('DetailPeminjamanDosen', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-primary">Detail</a>
-                                            <a href="{{ route('UpdatePeminjamanDosen', ['id' => $item->id]) }}"
+                                            {{-- <a href="{{ route('UpdatePeminjamanDosen', ['id' => $item->id]) }}"
                                                 type="button" class="btn btn-warning">Edit</a>
                                             <form action="{{ route('DeletePeminjamanDosen', ['id' => $item->id]) }}"
                                                 method="POST" type="button" class="btn btn-danger p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger m-0">Hapus</button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>

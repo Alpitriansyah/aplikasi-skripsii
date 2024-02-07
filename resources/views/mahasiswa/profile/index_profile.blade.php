@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('template/img/alpit.jpg') }}" width="100" height="100"
+                                <img src="{{ asset('storage/' . $mahasiswa->foto) }}" width="100" height="100"
                                     alt="Gambar Profile" class="img-thumbnail">
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                     </tr>
                                     <tr>
                                         <th>Jurusan</th>
-                                        <th>: Sistem Informasi</th>
+                                        <th>: {{ $mahasiswa->jurusan }}</th>
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin</th>

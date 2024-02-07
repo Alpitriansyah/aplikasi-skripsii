@@ -16,7 +16,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama Peminjam</label>
                                 <input type="text" class="form-control @error('nama_peminjam') is-invalid @enderror"
-                                    id="inputEmail4" name="nama_peminjam">
+                                    id="inputEmail4" name="nama_peminjam" value="{{ $dosen->name }}" readonly>
                                 @error('nama_peminjam')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -40,19 +40,9 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputState">Jurusan</label>
-                                <select id="inputState" class="form-control @error('jurusan') is-invalid @enderror"
-                                    name="jurusan">
-                                    <option value="Sistem Informasi">Sistem Informasi</option>
-                                    <option value="Informatika">Informatika</option>
-                                    <option value="Teknik Pertambangan">Teknik Pertambangan</option>
-                                    <option value="Teknik Sipil">Teknik Sipil</option>
-                                    <option value="Teknik Lingkungan">Teknik Lingkungan</option>
-                                    <option value="Teknik Kimia">Teknik Kimia</option>
-                                    <option value="Teknik Arsitektur">Teknik Arsitektur</option>
-                                    <option value="Teknik Elektro">Teknik Elektro</option>
-                                    <option value="Teknik Geologi">Teknik Geologi</option>
-                                </select>
+                                <label for="jurusan">Jurusan</label>
+                                <input type="text" class="form-control @error('jurusan') is-invalid @enderror"
+                                    name="jurusan" id="jurusan" value="{{ $dosen->jurusan }}" readonly>
                                 @error('jurusan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -106,6 +96,24 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Surat Kegiatan</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input @error('file_surat') is-invalid @enderror" id="file_surat"
+                                        name="file_surat">
+                                    <label class="custom-file-label" for="file_surat">Choose file</label>
+                                    @error('file_surat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="mt-5 d-flex justify-content-end">

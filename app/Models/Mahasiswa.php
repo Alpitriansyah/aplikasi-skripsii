@@ -22,7 +22,8 @@ class Mahasiswa extends Authenticatable
         'password',
         'level',
         'jenis_kelamin',
-        'foto'
+        'foto',
+        'jurusan'
     ];
 
     protected $table = "mahasiswas";

@@ -16,7 +16,7 @@
             <div class="card-header py-3 d-flex justify-content-between">
                 <h6 class="font-weight-bold text-primary">Data Peminjaman</h6>
                 <div class="">
-                    <a href="{{ route('CreatePeminjamanMahasiswa') }}" class="btn btn-primary">Tambah Data</a>
+                    <a href="{{ route('CreatePeminjamanMahasiswa') }}" class="btn btn-primary">Buat Peminjaman</a>
                 </div>
             </div>
             <div class="card-body">

@@ -27,6 +27,7 @@
                                 <th>Gambar Dosen</th>
                                 <th>Nama Dosen</th>
                                 <th>NIP</th>
+                                <th>Jurusan</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Level</th>
                                 <th>Action</th>
@@ -40,6 +41,7 @@
                                     </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->nip }}</td>
+                                    <td>{{ $item->jurusan }}</td>
                                     <td>{{ $item->jenis_kelamin }}</td>
                                     <td>{{ $item->level }}</td>
                                     <td>

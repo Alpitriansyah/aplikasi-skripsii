@@ -245,7 +245,7 @@ class AdminController extends Controller
             'kapasitas' => 'required',
             'status_level' => 'required',
             'status' => 'required',
-            'image_ruangan' => 'required|image|mimes:jpg,jpeg,png',
+            'image_ruangan' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
         if ($request->hasFile('image_ruangan')) {
@@ -256,6 +256,8 @@ class AdminController extends Controller
             $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
             $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
             $validateData['image_ruangan'] = $fileStore;
+        } else {
+            $validateData['image_ruangan'] = null;
         }
 
         Ruangan::create([
@@ -416,7 +418,7 @@ class AdminController extends Controller
             $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
             $validateData['image_user'] = $fileStore;
         } else {
-            $validateData['image_user'] = "";
+            $validateData['image_user'] = $user->foto;
         }
 
         // @dd($validateData);
@@ -468,6 +470,7 @@ class AdminController extends Controller
                 'nim' => 'required',
                 'password_mahasiswa' => 'required',
                 'jenisKelamin' => 'required',
+                'jurusan' => 'required',
                 'image_mahasiswa' => 'nullable|image|mimes:jpg,png,jpeg',
             ]
         );
@@ -480,18 +483,21 @@ class AdminController extends Controller
             $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
             $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
             $validateData['image_mahasiswa'] = $fileStore;
+        } else {
+            $validateData['image_mahasiswa'] = null;
         }
 
         Mahasiswa::create([
             'name' => $validateData['nama_mahasiswa'],
             'nim' => $validateData['nim'],
             'password' => Hash::make($validateData['password_mahasiswa']),
+            'jurusan' => $validateData['jurusan'],
             'jenis_kelamin' => $validateData['jenisKelamin'],
             'foto' => $validateData['image_mahasiswa'],
             'level' => 'mhs'
         ]);
 
-        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'User Berhasil Dibuat!']);
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Mahasiswa Berhasil Dibuat!']);
     }
 
     public function ShowMahasiswa(string $id)
@@ -528,7 +534,7 @@ class AdminController extends Controller
             $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
             $validateData['image_mahasiswa'] = $fileStore;
         } else {
-            $validateData['image_mahasiswa'] = "";
+            $validateData['image_mahasiswa'] = $mahasiswa->foto;
         }
 
         // @dd($validateData);
@@ -541,7 +547,7 @@ class AdminController extends Controller
             'level' => 'mhs'
         ]);
 
-        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Data berhasil Diubah !']);
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Mahasiswa berhasil Diubah !']);
     }
 
     public function destroyMahasiswa(string $id)
@@ -550,7 +556,7 @@ class AdminController extends Controller
         $mahasiswa->delete();
         Storage::delete('storage/' . $mahasiswa->foto);
 
-        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Data berhasil dihapus !']);
+        return redirect()->route('AdminDashboardMahasiswa')->with(['Success' => 'Mahasiswa berhasil dihapus !']);
     }
 
     public function DashboardDosen()
@@ -573,6 +579,7 @@ class AdminController extends Controller
                 'nip' => 'required',
                 'password_dosen' => 'required',
                 'jenisKelamin' => 'required',
+                'jurusan' => 'required',
                 'image_dosen' => 'nullable|image|mimes:jpg,png,jpeg',
             ]
         );
@@ -585,6 +592,8 @@ class AdminController extends Controller
             $fileNameToStore = $image_name . '-' . time() . '.' . $image_extension;
             $fileStore = $image->storeAs($destination_path, $fileNameToStore, 'public');
             $validateData['image_dosen'] = $fileStore;
+        } else {
+            $validateData['image_dosen'] = null;
         }
 
         Dosen::create([
@@ -592,6 +601,7 @@ class AdminController extends Controller
             'nip' => $validateData['nip'],
             'password' => Hash::make($validateData['password_dosen']),
             'jenis_kelamin' => $validateData['jenisKelamin'],
+            'jurusan' => $validateData['jurusan'],
             'foto' => $validateData['image_dosen'],
             'level' => 'dosen'
         ]);
@@ -618,6 +628,7 @@ class AdminController extends Controller
             'nip' => 'required',
             'password_dosen' => 'required',
             'jenisKelamin' => 'required',
+            'jurusan' => 'required',
             'image_dosen' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
 
@@ -642,11 +653,12 @@ class AdminController extends Controller
             'nip' => $validateData['nip'],
             'password' => Hash::make($validateData['password_dosen']),
             'jenis_kelamin' => $validateData['jenisKelamin'],
+            'jurusan' => $validateData['jurusan'],
             'foto' => $validateData['image_dosen'],
             'level' => 'dosen'
         ]);
 
-        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'Data berhasil Diubah !']);
+        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'Dosen berhasil Diubah !']);
     }
 
     /**
@@ -657,7 +669,7 @@ class AdminController extends Controller
         $dosen = Dosen::findOrFail($id);
         $dosen->delete();
 
-        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'User Berhasil Dihapus!']);
+        return redirect()->route('AdminDashboardDosen')->with(['Success' => 'Dosen Berhasil Dihapus!']);
     }
 
     /**

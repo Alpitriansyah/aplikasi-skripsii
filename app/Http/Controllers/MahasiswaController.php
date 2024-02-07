@@ -15,7 +15,10 @@ class MahasiswaController extends Controller
 {
     function dashboard()
     {
-        return view('mahasiswa.index');
+        $ruangan = Ruangan::where('status_level', 'Mahasiswa')->where('status', 'Tersedia')->count();
+        $peminjaman = Peminjaman::count();
+        $mahasiswa = Mahasiswa::query('id', Auth()->id())->first();
+        return view('mahasiswa.index', compact('mahasiswa', 'ruangan', 'peminjaman'));
     }
 
     function viewPeminjaman()
@@ -26,8 +29,9 @@ class MahasiswaController extends Controller
 
     function CreatePeminjamanMahasiswa()
     {
-        $ruangan = Ruangan::where(['status' => 'Tersedia', 'status_level' => 'Mahasiswa'])->get();
-        return view('mahasiswa.peminjaman.create_peminjaman', compact('ruangan'));
+        $mahasiswa = Mahasiswa::query()->where('id', auth()->id())->first();
+        $ruangan = Ruangan::where('status', 'Tersedia')->where('status_level', 'Mahasiswa')->get();
+        return view('mahasiswa.peminjaman.create_peminjaman', compact(['ruangan', 'mahasiswa']));
     }
 
     function CreatePeminjamanMahasiswaPOST(Request $request)
@@ -40,7 +44,18 @@ class MahasiswaController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'deskripsi' => 'required',
+            'file_surat' => 'required|file|mimes:pdf|max:3000',
         ]);
+
+        if ($request->hasFile('file_surat')) {
+            $destination_path = 'berkas/surat-kegiatan';
+            $surat = $request->file('file_surat');
+            $surat_name = pathinfo($surat->getClientOriginalName(), PATHINFO_FILENAME);
+            $surat_extension = $surat->getClientOriginalExtension();
+            $fileNameToStore = $surat_name . '-' . time() . '.' . $surat_extension;
+            $fileStore = $surat->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['file_surat'] = $fileStore;
+        }
 
         if (Auth::guard('mahasiswa')->check()) {
             $validateData['mahasiswa_id'] = Auth::guard('mahasiswa')->id();
@@ -54,6 +69,7 @@ class MahasiswaController extends Controller
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
+                'file_surat' => $validateData['file_surat'],
                 'status' => 'Diproses'
             ]);
             Ruangan::where('id', $validateData['ruangan_id'])->update(['status' => 'Tidak Tersedia']);
@@ -147,34 +163,34 @@ class MahasiswaController extends Controller
     public function updateProfilePost(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'nama_mahasiswa' => 'required',
             'nim' => 'required',
-            'jenis_kelamin' => 'required',
-            'foto' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'jenisKelamin' => 'required',
+            'jurusan' => 'required',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
         $mahasiswa = Mahasiswa::findOrFail($id);
 
-        if ($request->hasFile('foto')) {
-            $image = $request->file('foto');
-            $image->storeAs('public/images', $image->hasName());
-
-            Storage::delete('public/images' . $mahasiswa->foto);
-
-            $mahasiswa->update([
-                'foto' => $image->hasName(),
-                'name' => $request->name,
-                'nim' => $request->nim,
-                'jenis_kelamin' => $request->jenis_kelamin,
-
-            ]);
+        if ($request->hasFile('image')) {
+            $destination_path = 'images/profile/mahasiswa';
+            $surat = $request->file('image');
+            $surat_name = pathinfo($surat->getClientOriginalName(), PATHINFO_FILENAME);
+            $surat_extension = $surat->getClientOriginalExtension();
+            $fileNameToStore = $surat_name . '-' . time() . '.' . $surat_extension;
+            $fileStore = $surat->storeAs($destination_path, $fileNameToStore, 'public');
+            $validateData['image'] = $fileStore;
         } else {
-            $mahasiswa->update([
-                'name' => $request->name,
-                'nim' => $request->nim,
-                'jenis_kelamin' => $request->jenis_kelamin,
-            ]);
+            $validateData['image'] = $mahasiswa->foto;
         }
+
+        $mahasiswa->update([
+            'name' => $validateData['name'],
+            'nim' => $validateData['nim'],
+            'jurusan' => $validateData['jurusan'],
+            'jenis_kelamin' => $validateData['jenis_kelamin'],
+            'foto' => $validateData['foto'],
+        ]);
 
         return redirect()->route('')->with(['Success' => 'Profile Berhasil Diubah!']);
     }
