@@ -19,7 +19,7 @@
                     <a href="{{ route('AdminCreatePeminjaman') }}" class="btn btn-primary">Tambah Data</a>
                     @if (Str::length(Auth::guard('user')->user()) > 0)
                         @if (Auth::guard('user')->user()->level = 'admin')
-                            <a href="" class="btn btn-success">Export</a>
+                            <a href="{{ route('ExportPeminjamanAdmin') }}" class="btn btn-success">Export</a>
                         @endif
                     @endif
                 </div>

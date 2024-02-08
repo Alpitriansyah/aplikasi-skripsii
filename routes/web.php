@@ -33,6 +33,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('LogoutSession')
 Route::group(['middleware' => ['auth:user', 'checklevel:admin']], function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('DashboardAdmin');
     Route::get('/admin/peminjaman', [AdminController::class, 'showPeminjaman'])->name('DashboardPeminjamanAdmin');
+    Route::get('/admin/peminjaman/export', [AdminController::class, 'export'])->name('ExportPeminjamanAdmin');
     Route::get('/admin/peminjaman/create', [AdminController::class, 'showCreatePeminjaman'])->name('AdminCreatePeminjaman');
     Route::post('/admin/peminjaman/create', [AdminController::class, 'storeCreatePeminjamanPost'])->name('AdminCreatePeminjamanPost');
     Route::delete('/admin/peminjaman/{id}', [AdminController::class, 'destroyPeminjaman'])->name('AdminDeletePeminjaman');

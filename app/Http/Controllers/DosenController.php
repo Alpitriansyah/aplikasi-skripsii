@@ -26,7 +26,10 @@ class DosenController extends Controller
     function CreatePeminjamanDosen()
     {
         $dosen = Dosen::query()->where('id', auth()->id())->first();
-        $ruangan = Ruangan::where(['status' => 'Tersedia', 'status_level' => ['Dosen', 'Mahasiswa & Dosen']])->get();
+        $ruangan = Ruangan::where('status', 'Tersedia')->orWhere(function ($query) {
+            $query->where('status_level', 'Dosen')
+                ->where('status_level', 'Mahasiswa & Dosen');
+        })->get();
         return view('dosen.peminjaman.create_peminjaman', compact(['ruangan', 'dosen']));
     }
 

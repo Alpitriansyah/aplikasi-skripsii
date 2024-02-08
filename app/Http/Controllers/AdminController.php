@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\ChartRuangan;
+use App\Exports\UsersExport;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Peminjaman;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -43,6 +45,11 @@ class AdminController extends Controller
         $pinjam = Peminjaman::latest()->with('ruangan')->get();
 
         return view('admin.peminjaman.index_peminjaman', compact('pinjam'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'peminjaman.xlsx');
     }
 
     /**
