@@ -142,9 +142,9 @@ class DosenController extends Controller
 
     function viewProfile()
     {
-        $mahasiswa = Dosen::latest()->first();
+        $dosen = Dosen::query()->where('id', auth()->id())->first();
 
-        return view('dosen.profile.index_profile', compact('mahasiswa'));
+        return view('dosen.profile.index_profile', compact('dosen'));
     }
 
     function viewProfileUpdate($id)

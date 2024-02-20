@@ -15,20 +15,21 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="{{ Route::currentRouteName() == 'DashboardAdmin' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('DashboardAdmin') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="{{ Route::currentRouteName() == 'DashboardPeminjamanAdmin' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('DashboardPeminjamanAdmin') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Peminjaman</span></a>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li
+                class="{{ Route::currentRouteName() == 'DashboardPeminjamanMahasiswa' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -46,7 +47,7 @@
             </li>
 
             <!-- Nav Item --Profile -->
-            <li class="nav-item">
+            <li class="{{ Route::currentRouteName() == 'ProfileAdmin' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('ProfileAdmin') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Profile</span></a>
@@ -58,6 +59,19 @@
             </div>
 
         </ul>
+        @push('sidebar-js')
+            <script>
+                $(document).ready(function() {
+                    // Add active class to the clicked sidebar item based on current route
+                    $('#accordionSidebar li').each(function() {
+                        var route = $(this).find('a').attr('href');
+                        if (currentRoute == route) {
+                            $(this).addClass('active');
+                        }
+                    });
+                });
+            </script>
+        @endpush
     @endif
 @endif
 @if (Str::length(Auth::guard('mahasiswa')->user()) > 0)
@@ -77,20 +91,21 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="{{ Route::currentRouteName() == 'DashboardMahasiswa' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('DashboardMahasiswa') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <li class="nav-item">
+            <li
+                class="{{ Route::currentRouteName() == 'DashboardPeminjamanMahasiswa' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('DashboardPeminjamanMahasiswa') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Peminjaman</span></a>
             </li>
 
             <!-- Nav Item --Profile -->
-            <li class="nav-item">
+            <li class="{{ Route::currentRouteName() == 'ProfileMahasiswa' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('ProfileMahasiswa') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Profile</span></a>
@@ -109,6 +124,19 @@
             </div>
 
         </ul>
+        @push('sidebar-js')
+            <script>
+                $(document).ready(function() {
+                    // Add active class to the clicked sidebar item based on current route
+                    $('#accordionSidebar li').each(function() {
+                        var route = $(this).find('a').attr('href');
+                        if (currentRoute == route) {
+                            $(this).addClass('active');
+                        }
+                    });
+                });
+            </script>
+        @endpush
     @endif
 @endif
 @if (Str::length(Auth::guard('dosen')->user()) > 0)
@@ -128,20 +156,20 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="{{ Route::currentRouteName() == 'DashboardDosen' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('DashboardDosen') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="{{ Route::currentRouteName() == 'DashboardPeminjamanDosen' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('DashboardPeminjamanDosen') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Peminjaman</span></a>
             </li>
 
             <!-- Nav Item --Profile -->
-            <li class="nav-item">
+            <li class="{{ Route::currentRouteName() == 'ProfileDosen' ? 'nav-item active' : 'nav-item' }}">
                 <a class="nav-link" href="{{ route('ProfileDosen') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Profile</span></a>
@@ -160,5 +188,18 @@
             </div>
 
         </ul>
+        @push('sidebar-js')
+            <script>
+                $(document).ready(function() {
+                    // Add active class to the clicked sidebar item based on current route
+                    $('#accordionSidebar li').each(function() {
+                        var route = $(this).find('a').attr('href');
+                        if (currentRoute == route) {
+                            $(this).addClass('active');
+                        }
+                    });
+                });
+            </script>
+        @endpush
     @endif
 @endif

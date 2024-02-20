@@ -58,4 +58,8 @@
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
   });
 
+  $("#nav-item").on("click", function (e) {
+    $("#nav-item").addClass("active");
+  })
+
 })(jQuery); // End of use strict

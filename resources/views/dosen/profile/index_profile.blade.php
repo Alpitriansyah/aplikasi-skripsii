@@ -14,7 +14,7 @@
                         <h6 class="font-weight-bold text-primary">Profile</h6>
                     </div>
                     <div class="content-button">
-                        <a href="{{ route('UpdateProfileDosen', $mahasiswa->id) }}" class="btn btn-primary">Setting
+                        <a href="{{ route('UpdateProfileDosen', $dosen->id) }}" class="btn btn-primary">Setting
                             Profile</a>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('template/img/alpit.jpg') }}" width="100" height="100"
+                                <img src="{{ asset('storage/' . $dosen->foto) }}" width="100" height="100"
                                     alt="Gambar Profile" class="img-thumbnail">
                             </div>
                         </div>
@@ -31,11 +31,11 @@
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>: {{ $mahasiswa->name }}</th>
+                                        <th>: {{ $dosen->name }}</th>
                                     </tr>
                                     <tr>
-                                        <th>NIM</th>
-                                        <th>: {{ $mahasiswa->nim }}</th>
+                                        <th>NIP</th>
+                                        <th>: {{ $dosen->nip }}</th>
                                     </tr>
                                     <tr>
                                         <th>Jurusan</th>
@@ -43,7 +43,7 @@
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin</th>
-                                        <th>: {{ $mahasiswa->jenis_kelamin }}</th>
+                                        <th>: {{ $dosen->jenis_kelamin }}</th>
                                     </tr>
                                 </thead>
                             </table>

@@ -84,7 +84,7 @@ Route::group(['middleware' => ['auth:dosen', 'checklevel:dosen']], function () {
     // Route::put('/dosen/peminjaman/{id}', [DosenController::class, 'UpdatePeminjamanDosenPUT'])->name('UpdatePeminjamanDosenPUT');
     // Route::delete('/dosen/peminjaman/{id}', [DosenController::class, 'destroyPeminjaman'])->name('DeletePeminjamanDosen');
     Route::get('/dosen/peminjaman/detail/{id}', [DosenController::class, 'showDetailPeminjamanDosen'])->name('DetailPeminjamanDosen');
-    Route::get('/dosen/profile', [DosenController::class, 'index'])->name('ProfileDosen');
+    Route::get('/dosen/profile', [DosenController::class, 'viewProfile'])->name('ProfileDosen');
     Route::get('/dosen/profile/{id}', [DosenController::class, 'viewProfileUpdate'])->name('UpdateProfileDosen');
     Route::put('/dosen/profile/{id}', [DosenController::class, 'updateProfilePost'])->name('UpdateProfileDosenPUT');
     Route::get('/dosen/profile/change/{id}', [DosenController::class, 'ChangePassword'])->name('ChangePasswordDosen');
