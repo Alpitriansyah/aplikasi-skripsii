@@ -11,6 +11,11 @@
                 {{ Session::get('Success') }}
             </div>
         @endif
+        @if (Session::has('Error'))
+            <div class="alert alert-danger" role="alert">
+                {{ Session::get('Error') }}
+            </div>
+        @endif
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between">
@@ -46,8 +51,8 @@
                                     <td>{{ $item->jurusan }}</td>
                                     <td>{{ $item->ruangan->name }}</td>
                                     <td>{{ $item->keperluan }}</td>
-                                    <td>{{ $item->tanggal_mulai }}</td>
-                                    <td>{{ $item->tanggal_selesai }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('l, d-m-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('l, d-m-Y') }}</td>
                                     <td>
                                         @if ($item->status == 'Diproses')
                                             <span class="badge badge-pill badge-warning">{{ $item->status }}</span>

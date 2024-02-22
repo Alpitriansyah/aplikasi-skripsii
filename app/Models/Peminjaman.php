@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,8 @@ class Peminjaman extends Model
         'keperluan',
         'tanggal_mulai',
         'tanggal_selesai',
+        'jam_mulai',
+        'jam_selesai',
         'deskripsi',
         'file_surat',
         'status',
@@ -56,7 +59,15 @@ class Peminjaman extends Model
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'tanggal_mulai' => 'datetime',
+        'tanggal_selesai' => 'datetime',
     ];
+
+    public function setYourDateColumnAttribute()
+    {
+        $this->attributes['created_at'] = Carbon::now();
+        $this->attributes['updated_at'] = Carbon::now();
+    }
 
     public function user(): BelongsTo
     {

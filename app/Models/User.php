@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
         'level',
         'jenis_kelamin',
-        'foto'
+        'foto',
+        'hidden'
     ];
 
     /**
@@ -46,7 +47,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function peminjaman(){
+    public function peminjaman()
+    {
         return $this->hasMany(Peminjaman::class);
     }
 }

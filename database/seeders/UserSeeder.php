@@ -20,16 +20,18 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'jenis_kelamin' => 'Pria',
             'level' => 'admin',
+            'hidden' => true,
             'email_verified_at' => now()
         ]);
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             User::create([
                 'name' => fake()->name(),
                 'email' => fake()->email(),
                 'password' => Hash::make('password'),
                 'jenis_kelamin' => fake()->randomElement(['Pria', 'Perempuan']),
                 'level' => 'admin',
+                'hidden' => false,
                 'email_verified_at' => now()
             ]);
         }

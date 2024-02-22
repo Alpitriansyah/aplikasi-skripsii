@@ -90,9 +90,10 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="tanggalMulai">Tanggal Mulai</label>
-                                <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror"
-                                    id="tanggalMulai" name="tanggal_mulai">
+                                <label for="tanggalMulai">Tanggal Dan Jam Mulai</label>
+                                <input type="datetime-local"
+                                    class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggalMulai"
+                                    name="tanggal_mulai">
                                 @error('tanggal_mulai')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -100,9 +101,10 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="tanggalSelesai">Tanggal Selesai</label>
-                                <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror"
-                                    id="tanggalSelesai" name="tanggal_selesai">
+                                <label for="tanggalSelesai">Tanggal Dan Jam Selesai</label>
+                                <input type="datetime-local"
+                                    class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggalSelesai"
+                                    name="tanggal_selesai">
                                 @error('tanggal_selesai')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -110,21 +112,24 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row mt-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Surat Kegiatan</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file"
-                                        class="custom-file-input @error('file_surat') is-invalid @enderror" id="file_surat"
-                                        name="file_surat">
-                                    <label class="custom-file-label" for="file_surat">Choose file</label>
-                                    @error('file_surat')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="file_surat_form">File</label>
+                                <div class="input-group mb-3" id="file_surat_form">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">File</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file"
+                                            class="custom-file-input @error('file_surat') is-invalid @enderror"
+                                            id="file_surat" name="file_surat">
+                                        <label class="custom-file-label" for="file_surat">Choose file</label>
+                                        @error('file_surat')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>

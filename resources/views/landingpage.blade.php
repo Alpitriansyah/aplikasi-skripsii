@@ -21,7 +21,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                timeZone: 'local',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                buttonText: {
+                    today: 'Sekarang',
+                    month: 'Bulan',
+                    week: 'Minggu',
+                    day: 'Hari'
+                },
+                eventTimeFormat: { // like '14:30:00'
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: false
+                },
+                themeSystem: 'bootstrap',
                 events: @json($events),
                 editable: true,
             });
@@ -38,8 +55,13 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         <div class="container px-4">
-            <a class="navbar-brand" href="#page-top"><img src="{{ asset('template/img/unmu_logo.png') }}" alt=""
-                    width="50"> </a>
+            <a class="navbar-brand" href="#page-top">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="{{ asset('template/img/unmu_logo.png') }}" alt="" width="50">
+                    <h5 class="ml-1">Peminjaman Ruangan Fakultas Teknik</h5>
+                </div>
+
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
                     class="navbar-toggler-icon"></span></button>
@@ -69,22 +91,22 @@
                     <div class="carousel-item active">
                         <img src="{{ asset('template/img/ruangan1.jpg') }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h5>Gedung Baru</h5>
+                            <p>Ruangan 303</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <img src="{{ asset('template/img/ruangan2.jpg') }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
+                            <h5>Gedung Baru</h5>
+                            <p>Ruangan 305</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <img src="{{ asset('template/img/ruangan3.jpg') }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
+                            <h5>Gedung Baru</h5>
+                            <p>Ruangan 304</p>
                         </div>
                     </div>
                 </div>

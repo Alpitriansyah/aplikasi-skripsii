@@ -17,10 +17,10 @@ class HomePageController extends Controller
         $peminjaman_events = Peminjaman::latest()->with('ruangan')->get();
         foreach ($peminjaman_events as $peminjaman) {
             if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Diproses') {
-                $color = 'bg-success border border-white';
+                $color = 'bg-primary border border-white';
             }
             if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Dipinjam') {
-                $color = 'bg-primary border border-white';
+                $color = 'bg-success border border-white';
             }
             if ($peminjaman->keperluan == 'Pelatihan' && $peminjaman->status == 'Dipinjam') {
                 $color = 'bg-success border border-white';

@@ -14,7 +14,7 @@ class DosenSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Dosen::create([
                 'name' => fake()->name(),
                 'nip' => fake()->numerify('##########'),

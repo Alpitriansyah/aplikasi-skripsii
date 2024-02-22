@@ -9,6 +9,7 @@ use App\Models\Mahasiswa;
 use App\Models\Peminjaman;
 use App\Models\Ruangan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -78,6 +79,25 @@ class AdminController extends Controller
             'file_surat' => 'required|file|mimes:pdf|max:3000',
         ]);
 
+        $startDatetime = Carbon::parse($validateData['tanggal_mulai']);
+        $endDatetime = Carbon::parse($validateData['tanggal_selesai']);
+
+        // Cek apakah ada peminjaman yang sudah ada pada rentang waktu yang sama
+        $existingBooking = Peminjaman::where('ruangan_id', $validateData['ruangan_id'])
+            ->where(function ($query) use ($startDatetime, $endDatetime) {
+                $query->whereBetween('tanggal_mulai', [$startDatetime, $endDatetime])
+                    ->orWhereBetween('tanggal_selesai', [$startDatetime, $endDatetime])
+                    ->orWhere(function ($query) use ($startDatetime, $endDatetime) {
+                        $query->where('tanggal_mulai', '<', $startDatetime)
+                            ->where('tanggal_selesai', '>', $endDatetime);
+                    });
+            })
+            ->first();
+
+        if ($existingBooking) {
+            return redirect()->route("DashboardPeminjamanAdmin")->with(['Error' => 'Peminjaman bentrok dengan waktu yang sudah ada.']);
+        }
+
         if ($request->hasFile('file_surat')) {
             $destination_path = 'berkas/surat-kegiatan';
             $surat = $request->file('file_surat');
@@ -98,8 +118,8 @@ class AdminController extends Controller
                 'jurusan' => $validateData['jurusan'],
                 'ruangan_id' => $validateData['ruangan_id'],
                 'keperluan' => $validateData['keperluan'],
-                'tanggal_mulai' => $validateData['tanggal_mulai'],
-                'tanggal_selesai' => $validateData['tanggal_selesai'],
+                'tanggal_mulai' => $startDatetime,
+                'tanggal_selesai' => $endDatetime,
                 'deskripsi' => $validateData['deskripsi'],
                 'file_surat' => $validateData['file_surat'],
                 'status' => 'Diproses'
@@ -167,7 +187,7 @@ class AdminController extends Controller
     /**
      * Update Peminjaman Page Admin
      */
-    public function updatePeminjaman(Request $request, string $id)
+    public function updatePeminjaman(Request $request, string $id, Peminjaman $peminjamanid)
     {
         $validateData = $this->validate($request, [
             'nama_peminjam' => 'required',
@@ -179,6 +199,26 @@ class AdminController extends Controller
             'status' => 'required',
             'message' => 'sometimes|required'
         ]);
+
+        $startDatetime = Carbon::parse($validateData['tanggal_mulai']);
+        $endDatetime = Carbon::parse($validateData['tanggal_selesai']);
+
+        // Cek apakah ada peminjaman yang sudah ada pada rentang waktu yang sama
+        $existingBooking = Peminjaman::where('ruangan_id', $validateData['ruangan_id'])
+            ->where(function ($query) use ($startDatetime, $endDatetime) {
+                $query->whereBetween('tanggal_mulai', [$startDatetime, $endDatetime])
+                    ->orWhereBetween('tanggal_selesai', [$startDatetime, $endDatetime])
+                    ->orWhere(function ($query) use ($startDatetime, $endDatetime) {
+                        $query->where('tanggal_mulai', '<', $startDatetime)
+                            ->where('tanggal_selesai', '>', $endDatetime);
+                    });
+            })
+            ->where('id', '!=', $peminjamanid->id)
+            ->first();
+
+        if ($existingBooking) {
+            return redirect()->route("DashboardPeminjamanAdmin")->with(['Error' => 'Peminjaman bentrok dengan waktu yang sudah ada.']);
+        }
 
         $peminjaman = Peminjaman::findOrFail($id);
 

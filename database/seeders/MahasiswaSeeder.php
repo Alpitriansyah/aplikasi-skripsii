@@ -14,7 +14,7 @@ class MahasiswaSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Mahasiswa::create([
                 'name' => fake()->name(),
                 'nim' => fake()->numerify('##########'),

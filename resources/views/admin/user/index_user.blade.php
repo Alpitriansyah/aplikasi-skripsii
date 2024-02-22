@@ -34,29 +34,31 @@
                         </thead>
                         <tbody>
                             @foreach ($user as $item)
-                                <tr>
-                                    <td><img src="{{ asset('storage/' . $item->foto) }}" alt="Foto User"
-                                            class="img-thumbnail rounded mx-auto d-block" width="100" height="100">
-                                    </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->jenis_kelamin }}</td>
-                                    <td>{{ $item->level }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('AdminShowDetailUser', ['id' => $item->id]) }}" type="button"
-                                                class="btn btn-primary">Detail</a>
-                                            <a href="{{ route('AdminUpdateUser', ['id' => $item->id]) }}" type="button"
-                                                class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('AdminDeleteUser', ['id' => $item->id]) }}"
-                                                method="POST" type="button" class="btn btn-danger p-0">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger m-0">Hapus</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @if (!$item->hidden)
+                                    <tr>
+                                        <td><img src="{{ asset('storage/' . $item->foto) }}" alt="Foto User"
+                                                class="img-thumbnail rounded mx-auto d-block" width="100" height="100">
+                                        </td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->jenis_kelamin }}</td>
+                                        <td>{{ $item->level }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{ route('AdminShowDetailUser', ['id' => $item->id]) }}"
+                                                    type="button" class="btn btn-primary">Detail</a>
+                                                <a href="{{ route('AdminUpdateUser', ['id' => $item->id]) }}" type="button"
+                                                    class="btn btn-warning">Edit</a>
+                                                <form action="{{ route('AdminDeleteUser', ['id' => $item->id]) }}"
+                                                    method="POST" type="button" class="btn btn-danger p-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger m-0">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
