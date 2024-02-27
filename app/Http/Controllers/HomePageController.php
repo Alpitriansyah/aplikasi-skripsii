@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use App\Models\Ruangan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
@@ -19,23 +20,34 @@ class HomePageController extends Controller
             if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Diproses') {
                 $color = 'bg-primary border border-white';
             }
-            if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Dipinjam') {
+            if ($peminjaman->keperluan == 'Talkshow' && $peminjaman->status == 'Dipinjam') {
                 $color = 'bg-success border border-white';
             }
             if ($peminjaman->keperluan == 'Pelatihan' && $peminjaman->status == 'Dipinjam') {
                 $color = 'bg-success border border-white';
             }
-            if ($peminjaman->keperluan == 'Seminar' && $peminjaman->status == 'Diproses') {
+            if ($peminjaman->keperluan == 'Talkshow' && $peminjaman->status == 'Diproses') {
                 $color = 'bg-primary border border-white';
             }
+            if ($peminjaman->keperluan == 'Musyawarah_Besar' && $peminjaman->status == 'Diproses') {
+                $color = 'bg-danger border border-white';
+            }
+            if ($peminjaman->keperluan == 'Musyawarah_Besar' && $peminjaman->status == 'Dipinjam') {
+                $color = 'bg-danger border border-white';
+            }
+
+
+            $startDateTime = Carbon::parse($peminjaman->tanggal_mulai . ' ' . $peminjaman->waktu_mulai);
+            $endDateTime = Carbon::parse($peminjaman->tanggal_selesai . ' ' . $peminjaman->waktu_selesai);
+            // dd($mulai, $selesai);
             $events[] = [
                 'id' => $peminjaman->id,
                 'title' => $peminjaman->nama_peminjam,
-                'start' => $peminjaman->tanggal_mulai,
-                'end' => $peminjaman->tanggal_selesai,
-                'keperluan' => $peminjaman->keperluan,
+                'start' => $startDateTime->toIso8601String(),
+                'end' => $endDateTime->toIso8601String(),
+                'allDay' => false,
                 'className' => $color,
-                'url' => '#login'
+                // 'url' => '#login'
             ];
         }
 

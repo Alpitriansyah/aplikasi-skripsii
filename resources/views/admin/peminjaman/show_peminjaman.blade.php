@@ -30,19 +30,19 @@
                 </tr>
                 <tr>
                     <th>Tanggal Mulai</th>
-                    <th> : {{ $peminjaman->tanggal_mulai->format('l, d-m-Y') }}</th>
+                    <th> : {{ $peminjaman->tanggal_mulai }}</th>
                 </tr>
                 <tr>
                     <th>Tanggal Selesai</th>
-                    <th> : {{ $peminjaman->tanggal_selesai->format('l, d-m-Y') }}</th>
+                    <th> : {{ $peminjaman->tanggal_selesai }}</th>
                 </tr>
                 <tr>
                     <th>Jam Mulai</th>
-                    <th> : {{ $peminjaman->tanggal_mulai->format('H:i') }} WITA</th>
+                    <th> : {{ $peminjaman->waktu_mulai }} WITA</th>
                 </tr>
                 <tr>
                     <th>Jam Selesai</th>
-                    <th> : {{ $peminjaman->tanggal_selesai->format('H:i') }} WITA</th>
+                    <th> : {{ $peminjaman->waktu_selesai }} WITA</th>
                 </tr>
                 <tr>
                     <th>Surat Kegiatan</th>

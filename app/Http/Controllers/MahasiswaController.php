@@ -15,7 +15,10 @@ class MahasiswaController extends Controller
 {
     function dashboard()
     {
-        $ruangan = Ruangan::where('status_level', 'Mahasiswa')->where('status', 'Tersedia')->count();
+        $ruangan = Ruangan::where('status', 'Tersedia')->orWhere(function ($query) {
+            $query->where('status_level', 'Mahasiswa')
+                ->where('status_level', 'Mahasiswa & Dosen');
+        })->count();
         $peminjaman = Peminjaman::count();
         $mahasiswa = Mahasiswa::query('id', Auth()->id())->first();
         return view('mahasiswa.index', compact('mahasiswa', 'ruangan', 'peminjaman'));
@@ -30,7 +33,10 @@ class MahasiswaController extends Controller
     function CreatePeminjamanMahasiswa()
     {
         $mahasiswa = Mahasiswa::query()->where('id', auth()->id())->first();
-        $ruangan = Ruangan::where('status', 'Tersedia')->where('status_level', 'Mahasiswa')->get();
+        $ruangan = Ruangan::where('status', 'Tersedia')->orWhere(function ($query) {
+            $query->where('status_level', 'Mahasiswa')
+                ->where('status_level', 'Mahasiswa & Dosen');
+        })->get();
         return view('mahasiswa.peminjaman.create_peminjaman', compact(['ruangan', 'mahasiswa']));
     }
 
@@ -43,9 +49,38 @@ class MahasiswaController extends Controller
             'keperluan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
+            'waktu_mulai' => 'required',
+            'waktu_selesai' => 'required',
             'deskripsi' => 'required',
             'file_surat' => 'required|file|mimes:pdf|max:3000',
         ]);
+
+        // Cek apakah peminjaman pada waktu tersebut sudah ada untuk ruangan yang sama
+        $existingPeminjaman = Peminjaman::where('tanggal_mulai', $validateData['tanggal_mulai'])
+            ->where('ruangan_id', $validateData['ruangan_id'])
+            ->exists();
+
+        // Jika peminjaman pada tanggal yang sama sudah ada
+        if ($existingPeminjaman) {
+            // Cek tumpang tindih dengan peminjaman yang sudah ada
+            $tumpangTindih = Peminjaman::where('tanggal_mulai', $validateData['tanggal_mulai'])
+                ->where('ruangan_id', $validateData['ruangan_id'])
+                ->where(function ($query) use ($request) {
+                    $query->where(function ($query) use ($request) {
+                        $query->whereBetween('waktu_mulai', [$request->waktu_mulai, $request->waktu_selesai])
+                            ->orWhereBetween('waktu_selesai', [$request->waktu_mulai, $request->waktu_selesai]);
+                    })
+                        ->orWhere(function ($query) use ($request) {
+                            $query->where('waktu_mulai', '>=', $request->waktu_mulai)
+                                ->where('waktu_selesai', '<=', $request->waktu_selesai);
+                        });
+                })
+                ->exists();
+
+            if ($tumpangTindih) {
+                return redirect()->route('DashboardPeminjamanAdmin')->with(['Error' => 'Peminjaman pada tanggal tersebut untuk ruangan yang sama sudah ada pada rentang waktu yang tumpang tindih.']);
+            }
+        }
 
         if ($request->hasFile('file_surat')) {
             $destination_path = 'berkas/surat-kegiatan';
@@ -68,11 +103,12 @@ class MahasiswaController extends Controller
                 'keperluan' => $validateData['keperluan'],
                 'tanggal_mulai' => $validateData['tanggal_mulai'],
                 'tanggal_selesai' => $validateData['tanggal_selesai'],
+                'waktu_mulai' => $validateData['waktu_mulai'],
+                'waktu_selesai' => $validateData['waktu_selesai'],
                 'deskripsi' => $validateData['deskripsi'],
                 'file_surat' => $validateData['file_surat'],
                 'status' => 'Diproses'
             ]);
-            Ruangan::where('id', $validateData['ruangan_id'])->update(['status' => 'Tidak Tersedia']);
         }
         return redirect()->route('DashboardPeminjamanMahasiswa')->with(['Success' => 'Data berhasil disimpan !']);
     }

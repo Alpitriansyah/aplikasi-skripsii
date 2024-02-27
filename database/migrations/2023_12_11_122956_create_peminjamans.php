@@ -24,8 +24,10 @@ return new class extends Migration
             $table->string('nama_peminjam');
             $table->string('jurusan');
             $table->string('keperluan');
-            $table->dateTime('tanggal_mulai');
-            $table->dateTime('tanggal_selesai');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->time('waktu_mulai');
+            $table->time('waktu_selesai');
             $table->text('deskripsi');
             $table->string('status');
             $table->string('message')->nullable();

@@ -30,6 +30,8 @@ class Peminjaman extends Model
         'tanggal_selesai',
         'jam_mulai',
         'jam_selesai',
+        'waktu_mulai',
+        'waktu_selesai',
         'deskripsi',
         'file_surat',
         'status',
@@ -59,8 +61,6 @@ class Peminjaman extends Model
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'tanggal_mulai' => 'datetime',
-        'tanggal_selesai' => 'datetime',
     ];
 
     public function setYourDateColumnAttribute()

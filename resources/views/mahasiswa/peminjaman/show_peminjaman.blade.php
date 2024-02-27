@@ -30,11 +30,19 @@
                 </tr>
                 <tr>
                     <th>Tanggal Mulai</th>
-                    <th> : {{ $peminjaman->tanggal_mulai }}</th>
+                    <th> : {{ \Carbon\Carbon::parse($peminjaman->tanggal_mulai)->isoFormat('dddd, D MMMM Y') }}</th>
                 </tr>
                 <tr>
                     <th>Tanggal Selesai</th>
-                    <th> : {{ $peminjaman->tanggal_selesai }}</th>
+                    <th> : {{ \Carbon\Carbon::parse($peminjaman->tanggal_selesai)->isoFormat('dddd, D MMMM Y') }}</th>
+                </tr>
+                <tr>
+                    <th>Jam Mulai</th>
+                    <th> : {{ $peminjaman->waktu_mulai }} WITA</th>
+                </tr>
+                <tr>
+                    <th>Jam Selesai</th>
+                    <th> : {{ $peminjaman->waktu_selesai }} WITA</th>
                 </tr>
                 <tr>
                     <th>Surat Peminjaman</th>

@@ -1,5 +1,5 @@
 @if (Str::length(Auth::guard('user')->user()) > 0)
-    @if (Auth::guard('user')->user()->level = 'admin')
+    @if (Auth::guard('user')->user()->hidden = 'true')
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -39,7 +39,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu :</h6>
                         <a class="collapse-item" href="{{ route('DashboardRuangan') }}">Ruangan</a>
-                        <a class="collapse-item" href="{{ route('DashboardUser') }}">Admin</a>
+                        @if (Auth::guard('user')->user()->hidden = 'true')
+                            <a class="collapse-item" href="{{ route('DashboardUser') }}">Admin</a>
+                        @endif
                         <a class="collapse-item" href="{{ route('AdminDashboardMahasiswa') }}">Mahasiswa</a>
                         <a class="collapse-item" href="{{ route('AdminDashboardDosen') }}">Dosen</a>
                     </div>

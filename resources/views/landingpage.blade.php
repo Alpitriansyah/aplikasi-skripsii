@@ -10,18 +10,26 @@
     <link href="{{ asset('template/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"
+        integrity="sha512-hUhvpC5f8cgc04OZb55j0KNGh4eh7dLxd/dPSJ5VyzqDWxsayYbojWyl5Tkcgrmb/RVKCRJI1jNlRbVP4WWC4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://kit.fontawesome.com/c770c54e8e.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 timeZone: 'local',
+                themeSystem: 'boostrap5',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -33,17 +41,38 @@
                     week: 'Minggu',
                     day: 'Hari'
                 },
-                eventTimeFormat: { // like '14:30:00'
-                    hour: '2-digit',
+                eventTimeFormat: {
+                    hour: 'numeric',
                     minute: '2-digit',
-                    meridiem: false
+                    meridiem: 'short'
                 },
+                allDay: false,
                 themeSystem: 'bootstrap',
-                events: @json($events),
+                events: {!! json_encode($events) !!},
+                displayEventTime: true,
                 editable: true,
+                eventRender: function(info) {
+                    console.log(info.event); // Debugging: Tampilkan info event
+                    info.el.querySelector('.fc-title').innerHTML = info.event.title;
+                    info.el.querySelector('.fc-time').innerHTML =
+                        moment(info.event.start).format('HH:mm') +
+                        ' - ' +
+                        moment(info.event.end).format('HH:mm');
+                },
+                dateClick: function(info) {
+                    console.log(info);
+                    alert('Anda Click')
+                }
             });
             calendar.render();
+
         });
+    </script>
+    <script>
+        function testing() {
+            var test = {!! json_encode($events) !!}
+            console.log(test);
+        }
     </script>
     <title>Peminjaman Ruangan Fakultas Teknik UNMUL</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('template/img/unmu_logo.png') }}" />
@@ -154,12 +183,33 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Keterangan :</h3>
-                        <span class="badge bg-success">Dipinjam</span>
-                        <span class="badge bg-primary">Diproses</span>
+                        <span class="badge bg-success">Talkshow</span>
+                        <span class="badge bg-primary">Pelatihan</span>
+                        <span class="badge bg-danger">Musyawarah Besar</span>
                     </div>
                     <div class="card-body">
                         <div id="calendar"></div>
                     </div>
+                    <div class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Modal body text goes here.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="testing()">Test Api</button>
                 </div>
             </div>
         </div>

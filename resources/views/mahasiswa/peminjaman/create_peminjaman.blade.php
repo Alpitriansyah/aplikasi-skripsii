@@ -98,6 +98,28 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="jamMulai">Jam Mulai</label>
+                                <input type="time" class="form-control @error('waktu_mulai') is-invalid @enderror"
+                                    id="jamMulai" name="waktu_mulai">
+                                @error('waktu_mulai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="waktuSelesai">Jam Selesai</label>
+                                <input type="time" class="form-control @error('waktu_selesai') is-invalid @enderror"
+                                    id="waktuSelesai" name="waktu_selesai">
+                                @error('waktu_selesai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-row mt-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

@@ -65,8 +65,8 @@
                                 <label for="inputState">Keperluan</label>
                                 <select id="inputState" class="form-control @error('keperluan') is-invalid @enderror"
                                     name="keperluan">
-                                    <option value="Seminar">Seminar</option>
-                                    <option value="Musyawarah Besar">Musyawarah Besar</option>
+                                    <option value="Talkshow">Talkshow</option>
+                                    <option value="Musyawarah_Besar">Musyawarah Besar</option>
                                     <option value="Pelatihan">Pelatihan</option>
                                 </select>
                                 @error('keperluan')
@@ -91,9 +91,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="tanggalMulai">Tanggal Dan Jam Mulai</label>
-                                <input type="datetime-local"
-                                    class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggalMulai"
-                                    name="tanggal_mulai">
+                                <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror"
+                                    id="tanggalMulai" name="tanggal_mulai">
                                 @error('tanggal_mulai')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -102,10 +101,31 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tanggalSelesai">Tanggal Dan Jam Selesai</label>
-                                <input type="datetime-local"
-                                    class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggalSelesai"
-                                    name="tanggal_selesai">
+                                <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror"
+                                    id="tanggalSelesai" name="tanggal_selesai">
                                 @error('tanggal_selesai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="jamMulai">Jam Mulai</label>
+                                <input type="time" class="form-control @error('waktu_mulai') is-invalid @enderror"
+                                    id="jamMulai" name="waktu_mulai">
+                                @error('waktu_mulai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="waktuSelesai">Jam Selesai</label>
+                                <input type="time" class="form-control @error('waktu_selesai') is-invalid @enderror"
+                                    id="waktuSelesai" name="waktu_selesai">
+                                @error('waktu_selesai')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
