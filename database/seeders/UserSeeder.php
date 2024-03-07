@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'jenis_kelamin' => 'Pria',
             'level' => 'admin',
-            'hidden' => true,
+            'superadmin' => true,
             'email_verified_at' => now()
         ]);
 
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'jenis_kelamin' => fake()->randomElement(['Pria', 'Perempuan']),
                 'level' => 'admin',
-                'hidden' => false,
+                'superadmin' => false,
                 'email_verified_at' => now()
             ]);
         }

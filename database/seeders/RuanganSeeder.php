@@ -16,9 +16,9 @@ class RuanganSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             Ruangan::create([
                 'name' => fake()->sentence(),
-                'lokasi' => fake()->randomElement(['Samarinda', 'Balikpapan', 'Bontang']),
+                'lokasi' => fake()->randomElement(['Gedung Baru', 'Gedung Lama']),
                 'kapasitas' => 50,
-                'status_level' => fake()->randomElement(['Dosen', 'Mahasiswa']),
+                'status_level' => fake()->randomElement(['Dosen', 'Mahasiswa', 'Mahasiswa dan Dosen']),
                 'status' => fake()->randomElement(['Tersedia', 'Tidak Tersedia'])
             ]);
         }

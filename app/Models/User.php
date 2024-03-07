@@ -24,7 +24,7 @@ class User extends Authenticatable
         'level',
         'jenis_kelamin',
         'foto',
-        'hidden'
+        'superadmin'
     ];
 
     /**

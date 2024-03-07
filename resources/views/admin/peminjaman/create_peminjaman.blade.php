@@ -12,7 +12,6 @@
                 <div class="card-body">
                     <form action="{{ route('AdminCreatePeminjamanPost') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @dump($errors->all())
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nama Peminjam</label>

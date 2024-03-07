@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('foto')->nullable();
             $table->string('level');
-            $table->boolean('hidden')->default(false);
+            $table->boolean('superadmin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -247,7 +247,7 @@
                                 bawah ini dan harap membaca. </p>
                         </div>
                         <div class="card-footer d-flex justify-content-center">
-                            <a href="" class="btn btn-primary  ">Download</a>
+                            <a href="{{ route('donwloadGedungBaru') }}" class="btn btn-primary  ">Download</a>
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                                 bawah ini dan harap membaca. </p>
                         </div>
                         <div class="card-footer d-flex justify-content-center">
-                            <a href="" class="btn btn-primary  ">Download</a>
+                            <a href="{{ route('donwloadGedungLama') }}" class="btn btn-primary  ">Download</a>
                         </div>
                     </div>
                 </div>

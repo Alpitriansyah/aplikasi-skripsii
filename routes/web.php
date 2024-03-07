@@ -106,3 +106,13 @@ Route::group(['middleware' => ['auth:mahasiswa', 'checklevel:mhs']], function ()
     Route::get('/mahasiswa/profile/change/{id}', [MahasiswaController::class, 'ChangePassword'])->name('ChangePasswordMahasiswa');
     Route::put('/mahasiswa/profile/change/{id}', [MahasiswaController::class, 'ChangePasswordPUT'])->name('ChangePasswordMahasiswaPUT');
 });
+
+// Route Donwload
+Route::get('/donwload-file-gedung-baru', function() {
+    return response()->download(public_path('SPT INDRA.pdf'));
+})->name('donwloadGedungBaru');
+
+// Route Donwload
+Route::get('/donwload-file-gedung-lama', function() {
+    return response()->download(public_path('SPT INDRA.pdf'));
+})->name('donwloadGedungLama');
