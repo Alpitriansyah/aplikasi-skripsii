@@ -23,6 +23,21 @@
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
+    <style>
+        .fc-dayGridMonth-view .fc-dayGrid-day {
+            height: 80px;
+            /* Sesuaikan tinggi sel bulan sesuai kebutuhan Anda */
+        }
+
+        .fc-dayGridMonth-view .fc-event {
+            font-size: 12px;
+            /* Sesuaikan ukuran font sesuai kebutuhan Anda */
+            line-height: 1.2;
+            /* Sesuaikan nilai ini sesuai kebutuhan Anda */
+            height: 100%;
+            /* Memastikan acara tidak memperpanjang seluruh sel */
+        }
+    </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -46,23 +61,22 @@
                     minute: '2-digit',
                     meridiem: 'short'
                 },
-                allDay: false,
+                eventDurationEditable: false,
+                displayEventEnd: false, // Tidak menampilkan waktu akhir acara di tampilan bulan
                 themeSystem: 'bootstrap',
                 events: {!! json_encode($events) !!},
                 displayEventTime: true,
-                editable: true,
-                eventRender: function(info) {
-                    console.log(info.event); // Debugging: Tampilkan info event
-                    info.el.querySelector('.fc-title').innerHTML = info.event.title;
-                    info.el.querySelector('.fc-time').innerHTML =
-                        moment(info.event.start).format('HH:mm') +
-                        ' - ' +
-                        moment(info.event.end).format('HH:mm');
+                eventClick: function(info) {
+                    console.log('Event clicked:', info);
+                    $('#eventRoom').text(info.event.title);
+                    $('#eventStart').text(info.event.start.toLocaleString());
+                    $('#eventEnd').text(info.event.end.toLocaleString());
+                    $('#eventNeed').text(info.event.extendedProps.keperluan);
+                    $('#eventStatus').text(info.event.extendedProps.status);
+                    $('#eventModal').modal('show');
                 },
-                dateClick: function(info) {
-                    console.log(info);
-                    alert('Anda Click')
-                }
+                slotEventOverlap: false, // Menghindari event tumpang tindih di tampilan hari
+                splitDays: true, // Menampilkan setiap tanggal sebagai event yang berbeda
             });
             calendar.render();
 
@@ -189,27 +203,29 @@
                     </div>
                     <div class="card-body">
                         <div id="calendar"></div>
-                    </div>
-                    <div class="modal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Modal body text goes here.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="eventModal" tabindex="-1" role="dialog"
+                            aria-labelledby="eventModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="eventModalLabel">Detail Peminjaman</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Ruangan:</strong> <span id="eventRoom"></span></p>
+                                        <p><strong>Waktu Mulai:</strong> <span id="eventStart"></span></p>
+                                        <p><strong>Waktu Selesai:</strong> <span id="eventEnd"></span></p>
+                                        <p><strong>Keperluan:</strong> <span id="eventNeed"></span></p>
+                                        <p><strong>Status:</strong> <span id="eventStatus"></span></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button onclick="testing()">Test Api</button>
                 </div>
             </div>
         </div>

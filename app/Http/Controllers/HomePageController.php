@@ -45,12 +45,17 @@ class HomePageController extends Controller
                 'title' => $peminjaman->nama_peminjam,
                 'start' => $startDateTime->toIso8601String(),
                 'end' => $endDateTime->toIso8601String(),
+                'extendedProps' => [
+                    'status' => $peminjaman->status,
+                    'keperluan' => $peminjaman->keperluan,
+                ],
+                'status' => $peminjaman->status,
                 'allDay' => false,
                 'className' => $color,
                 // 'url' => '#login'
             ];
         }
 
-        return view('landingpage', compact('events', 'ruanganAll'));
+        return view('landingpage', compact('events', 'ruanganAll', 'peminjaman_events'));
     }
 }
