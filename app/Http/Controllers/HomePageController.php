@@ -43,9 +43,11 @@ class HomePageController extends Controller
             $events[] = [
                 'id' => $peminjaman->id,
                 'title' => $peminjaman->nama_peminjam,
-                'start' => $startDateTime->toIso8601String(),
-                'end' => $endDateTime->toIso8601String(),
+                'start' => $startDateTime,
+                'end' => $endDateTime,
                 'extendedProps' => [
+                    'jam_mulai' => $peminjaman->waktu_mulai,
+                    'jam_selesai' => $peminjaman->waktu_selesai,
                     'status' => $peminjaman->status,
                     'keperluan' => $peminjaman->keperluan,
                 ],

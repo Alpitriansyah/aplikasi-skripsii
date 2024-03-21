@@ -73,6 +73,8 @@
                     $('#eventEnd').text(info.event.end.toLocaleString());
                     $('#eventNeed').text(info.event.extendedProps.keperluan);
                     $('#eventStatus').text(info.event.extendedProps.status);
+                    $('#eventMulai').text(info.event.extendedProps.jam_mulai);
+                    $('#eventSelesai').text(info.event.extendedProps.jam_selesai);
                     $('#eventModal').modal('show');
                 },
                 slotEventOverlap: false, // Menghindari event tumpang tindih di tampilan hari
@@ -204,15 +206,14 @@
                     <div class="card-body">
                         <div id="calendar"></div>
                         <!-- Modal -->
-                        <div class="modal fade" id="eventModal" tabindex="-1" role="dialog"
-                            aria-labelledby="eventModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                        <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="eventModalLabel">Detail Peminjaman</h5>
-                                        <button type="button" class="close" data-dismiss="modal"
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
@@ -221,6 +222,12 @@
                                         <p><strong>Waktu Selesai:</strong> <span id="eventEnd"></span></p>
                                         <p><strong>Keperluan:</strong> <span id="eventNeed"></span></p>
                                         <p><strong>Status:</strong> <span id="eventStatus"></span></p>
+                                        <p><strong>Jam Mulai:</strong> <span id="eventMulai"></span></p>
+                                        <p><strong>Jam Selesai:</strong> <span id="eventSelesai"></span> WITA</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
